@@ -3,6 +3,8 @@
  */
 const colors = {
   v1: '#333',
+  v2: '#0ac76b',
+  v3: '#fff',
 };
 
 export default {

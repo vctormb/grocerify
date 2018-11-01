@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@rebass/grid": "^6.0.0-4",
     "husky": "^1.1.2",
     "lint-staged": "^8.0.4",
     "react": "^16.6.0",
