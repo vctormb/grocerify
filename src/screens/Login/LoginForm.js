@@ -15,7 +15,7 @@ const Card = styled(Box)`
   box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.2);
 
   ${media.sm`
-		padding: 60px;
+		padding: ${pxToRem(60)};
 	`};
 `;
 

@@ -11,11 +11,7 @@ import LoginForm from './LoginForm';
 // styles
 import { GlobalStyle, media } from '../../styles';
 
-const Wrapper = styled.div`
-  display: flex;
-  flex: 1;
-  align-items: center;
-
+const Wrapper = styled(Flex)`
   ${media.lg`
 		display: block;
 		align-items: initial;
@@ -26,7 +22,7 @@ class Login extends React.Component {
   state = {};
   render() {
     return (
-      <Wrapper>
+      <Wrapper flex="1" alignItems="center" mt={[0, 0, 0, 0, 5]}>
         <GlobalStyle isLogin />
         <Container as={Flex} justifyContent="center" width="100%">
           <LoginForm />
