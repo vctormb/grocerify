@@ -8,8 +8,7 @@ import { pxToRem, media } from '../../styles';
 // components
 import { Input, Button } from '../../components';
 
-const Card = styled.div`
-  flex: 0 1 ${pxToRem(400)};
+const Card = styled(Box)`
   padding: ${pxToRem(30)};
   border-radius: 5px;
   background-color: ${p => p.theme.colors.v3};
@@ -33,17 +32,17 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <Card>
+      <Card flex={`0 1 ${pxToRem(400)}`}>
         <TitleWrapper mb={5}>
           <h3>Login</h3>
         </TitleWrapper>
         <Form onSubmit={e => e.preventDefault()}>
           <Flex flexDirection="column">
             <Box mb={3}>
-              <Input placeholder="EMAIL" p="1rem" />
+              <Input placeholder="email" p="1rem" />
             </Box>
             <Box mb={4}>
-              <Input placeholder="PASSWORD" type="password" p="1rem" />
+              <Input placeholder="password" type="password" p="1rem" />
             </Box>
             <Button p="1rem">Login</Button>
           </Flex>
