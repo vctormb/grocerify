@@ -11,7 +11,7 @@ import { pxToRem } from '../../styles';
 const Wrapper = styled.div`
   padding: ${pxToRem(20)} 0;
   margin-bottom: ${pxToRem(60)};
-  border-bottom: 1px solid #ccc;
+  border-bottom: ${p => `1px solid ${p.theme.colors.v5}`};
 `;
 
 const Navbar = props => (
