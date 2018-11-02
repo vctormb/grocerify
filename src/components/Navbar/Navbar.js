@@ -6,12 +6,16 @@ import { Flex } from '@rebass/grid';
 import { Container } from '../../components';
 
 // styles
-import { pxToRem } from '../../styles';
+import { pxToRem, media } from '../../styles';
 
 const Wrapper = styled.div`
   padding: ${pxToRem(20)} 0;
-  margin-bottom: ${pxToRem(60)};
   border-bottom: ${p => `1px solid ${p.theme.colors.v5}`};
+  background-color: ${p => p.theme.colors.v3};
+
+  ${media.lg`
+  	margin-bottom: ${pxToRem(60)};
+	`};
 `;
 
 const Navbar = props => (

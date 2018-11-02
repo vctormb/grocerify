@@ -3,7 +3,6 @@
  */
 const colors = {
   v1: '#333',
-  v2: '#2eaa6d',
   v3: '#fff',
   v4: '#8e8e8e',
   v5: '#ccc',
@@ -28,7 +27,7 @@ export default {
 
   button: {
     primary: {
-      backgroundImg: `linear-gradient(${colors.v3}, ${colors.v6})`,
+      backgroundColor: colors.v3,
       color: colors.v4,
     },
   },
