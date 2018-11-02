@@ -7,6 +7,7 @@ const colors = {
   v3: '#fff',
   v4: '#8e8e8e',
   v5: '#ccc',
+  v6: '#f1f1f1',
 };
 
 export default {
@@ -27,12 +28,8 @@ export default {
 
   button: {
     primary: {
-      background: colors.v3,
-      color: colors.v1,
-    },
-    success: {
-      background: colors.v2,
-      color: colors.v3,
+      backgroundImg: `linear-gradient(${colors.v3}, ${colors.v6})`,
+      color: colors.v4,
     },
   },
 };

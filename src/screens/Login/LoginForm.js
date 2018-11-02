@@ -6,7 +6,7 @@ import { Box } from '@rebass/grid';
 import { pxToRem } from '../../styles';
 
 // components
-import { Input } from '../../components';
+import { Input, Button } from '../../components';
 
 const Card = styled.div`
   flex: 0 1 ${pxToRem(350)};
@@ -35,6 +35,7 @@ class LoginForm extends React.Component {
           <Box mb={3}>
             <Input placeholder="password" type="password" />
           </Box>
+          <Button>Login</Button>
         </Form>
       </Card>
     );
