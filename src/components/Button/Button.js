@@ -1,13 +1,19 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 // styles
 import { pxToRem } from '../../styles';
 
-const Button = styled.button`
+// components
+import Icon from '../Icon';
+
+const Wrapper = styled.button`
+  display: flex;
+  align-items: center;
   padding: ${({ p }) => p};
   background-color: ${p => p.theme.button[p.color].backgroundColor};
-  border: ${p => `1px solid ${p.theme.colors.v5}`};
+  border: ${p => `1px solid ${p.theme.button[p.color].border}`};
   border-radius: 10px;
   cursor: pointer;
   color: ${p => p.theme.button[p.color].color};
@@ -32,14 +38,36 @@ const Button = styled.button`
   }
 `;
 
+const CustomIcon = styled(Icon)`
+  margin-right: 8px;
+`;
+
+const Button = ({ children, icon, ...rest }) => {
+  let leftIcon;
+
+  if (icon) {
+    leftIcon = (
+      <CustomIcon width="16" height="16" icon={icon} fill="currentColor" />
+    );
+  }
+
+  return (
+    <Wrapper {...rest}>
+      {leftIcon}
+      {children}
+    </Wrapper>
+  );
+};
+
 Button.defaultProps = {
   color: 'primary',
   p: pxToRem(10),
 };
 
 Button.propTypes = {
-  color: PropTypes.oneOf(['primary']),
+  color: PropTypes.oneOf(['primary', 'ghost', 'ghostSuccess']),
   p: PropTypes.string,
+  icon: PropTypes.string,
 };
 
 export default Button;

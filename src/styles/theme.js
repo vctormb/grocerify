@@ -7,6 +7,7 @@ const colors = {
   v4: '#8e8e8e',
   v5: '#ccc',
   v6: '#f1f1f1',
+  v7: '#1dbc57',
 };
 
 export default {
@@ -29,6 +30,17 @@ export default {
     primary: {
       backgroundColor: colors.v3,
       color: colors.v4,
+      border: colors.v5,
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      color: colors.v4,
+      border: 'transparent',
+    },
+    ghostSuccess: {
+      backgroundColor: 'transparent',
+      color: colors.v7,
+      border: 'transparent',
     },
   },
 };

@@ -1,0 +1,67 @@
+{
+  "IcoMoonType": "selection",
+  "icons": [
+    {
+      "icon": {
+        "paths": [
+          "M665.6 870.4c0 56.525 45.773 102.4 102.4 102.4 56.525 0 102.4-45.875 102.4-102.4 0-56.627-45.875-102.4-102.4-102.4-56.627 0-102.4 45.773-102.4 102.4zM153.6 870.4c0 56.525 45.824 102.4 102.4 102.4 56.474 0 102.4-45.875 102.4-102.4 0-56.627-45.926-102.4-102.4-102.4-56.576 0-102.4 45.773-102.4 102.4zM335.206 623.206l566.682-161.894c10.803-3.123 19.712-14.797 19.712-26.112v-281.6h-716.8v-81.92c0-11.264-9.267-20.48-20.429-20.48h-163.942c-11.213 0-20.429 9.216-20.429 20.48v81.92h102.4l97.792 458.598 4.608 48.282v84.429c0 11.213 9.216 20.48 20.48 20.48h675.84c11.264 0 20.48-9.318 20.48-20.48v-79.309h-575.898c-58.88 0-60.109-28.211-10.496-42.394z"
+        ],
+        "attrs": [],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": ["shopping-cart"],
+        "grid": 20
+      },
+      "attrs": [],
+      "properties": {
+        "id": 276,
+        "order": 28,
+        "prevSize": 20,
+        "name": "shopping-cart",
+        "code": 59648
+      },
+      "setIdx": 1,
+      "setId": 2,
+      "iconIdx": 275
+    }
+  ],
+  "height": 1024,
+  "preferences": {
+    "showGlyphs": true,
+    "showQuickUse": true,
+    "showQuickUse2": true,
+    "showSVGs": true,
+    "fontPref": {
+      "prefix": "icon-",
+      "metadata": {
+        "fontFamily": "icomoon",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      "metrics": {
+        "emSize": 1024,
+        "baseline": 6.25,
+        "whitespace": 50
+      },
+      "embed": false,
+      "noie8": true,
+      "ie7": false
+    },
+    "imagePref": {
+      "prefix": "icon-",
+      "png": false,
+      "useClassSelector": true,
+      "color": 0,
+      "bgColor": 16777215,
+      "classSelector": ".icon",
+      "height": 32,
+      "columns": 16,
+      "margin": 16,
+      "addBgColor": false,
+      "name": "icomoon"
+    },
+    "historySize": 50,
+    "showCodes": true,
+    "gridSize": 16
+  }
+}

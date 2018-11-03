@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Box } from '@rebass/grid';
 
 const Container = styled(Box)`
-  max-width: 768px;
+  max-width: 992px;
 `;
 
 Container.defaultProps = {

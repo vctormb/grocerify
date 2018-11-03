@@ -16,8 +16,10 @@ const Wrapper = styled.div`
   padding: ${pxToRem(20)} 0;
   border-bottom: ${p => `1px solid ${p.theme.colors.v5}`};
   background-color: ${p => p.theme.colors.v3};
-  background-image: ${({ isLoginScreen }) =>
-    isLoginScreen ? 'none' : 'linear-gradient(to right, #1dbc57, #24ab56);'};
+  background-image: ${({ isLoginScreen, theme }) =>
+    isLoginScreen
+      ? 'none'
+      : `linear-gradient(to right, ${theme.colors.v7}, #24ab56)`};
   box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.2);
   color: ${({ isLoginScreen, theme }) =>
     isLoginScreen ? 'inherit' : theme.colors.v3};

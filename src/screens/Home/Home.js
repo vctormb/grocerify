@@ -1,4 +1,5 @@
 import React from 'react';
+import { Flex } from '@rebass/grid';
 
 // components
 import { ScreenBox, Container, Row, Col, ProductCard } from '../../components';
@@ -13,7 +14,11 @@ class Home extends React.Component {
         <Container>
           <Row flexWrap="wrap">
             {items.map((_, i) => (
-              <Col key={i} flex={['1 1 100%', '0 1 33.33%']}>
+              <Col
+                key={i}
+                as={Flex}
+                flex={['1 1 100%', '0 1 33.33%', '0 1 25%']}
+              >
                 <ProductCard>
                   <ProductCard.Image />
                   <ProductCard.Body />

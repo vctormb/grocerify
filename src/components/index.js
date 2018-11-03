@@ -6,5 +6,16 @@ import Input from './Input';
 import Button from './Button';
 import ScreenBox from './ScreenBox';
 import ProductCard from './ProductCard';
+import Icon from './Icon';
 
-export { Container, Navbar, Row, Col, Input, Button, ScreenBox, ProductCard };
+export {
+  Container,
+  Navbar,
+  Row,
+  Col,
+  Input,
+  Button,
+  ScreenBox,
+  ProductCard,
+  Icon,
+};
