@@ -1,25 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Flex } from '@rebass/grid';
+import { withRouter } from 'react-router-dom';
 
 // components
 import { Container } from '../../components';
 
 // styles
-import { pxToRem, media } from '../../styles';
+import { pxToRem } from '../../styles';
 
 const Wrapper = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 64px;
   padding: ${pxToRem(20)} 0;
   border-bottom: ${p => `1px solid ${p.theme.colors.v5}`};
   background-color: ${p => p.theme.colors.v3};
-
-  /* ${media.lg`
-  	margin-bottom: ${pxToRem(60)};
-	`}; */
+  background-image: ${({ isLoginScreen }) =>
+    isLoginScreen ? 'none' : 'linear-gradient(to right, #1dbc57, #24ab56);'};
+  box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.2);
+  color: ${({ isLoginScreen, theme }) =>
+    isLoginScreen ? 'inherit' : theme.colors.v3};
 `;
 
-const Navbar = props => (
-  <Wrapper>
+const Navbar = ({ isLoginScreen }) => (
+  <Wrapper isLoginScreen={isLoginScreen}>
     <Container as={Flex} justifyContent="space-between">
       <strong>Grocerify</strong>
       <span>Cart</span>
@@ -27,4 +32,4 @@ const Navbar = props => (
   </Wrapper>
 );
 
-export default Navbar;
+export default withRouter(Navbar);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 // styled-components
 import { GlobalStyle } from '../../styles';
@@ -8,16 +9,19 @@ import { Navbar } from '../../components';
 
 class Layout extends Component {
   render() {
-    const { children } = this.props;
+    const {
+      children,
+      location: { pathname },
+    } = this.props;
 
     return (
       <React.Fragment>
         <GlobalStyle />
-        <Navbar />
+        <Navbar isLoginScreen={pathname === '/login'} />
         {children}
       </React.Fragment>
     );
   }
 }
 
-export default Layout;
+export default withRouter(Layout);
