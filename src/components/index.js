@@ -7,6 +7,8 @@ import Button from './Button';
 import ScreenBox from './ScreenBox';
 import ProductCard from './ProductCard';
 import Icon from './Icon';
+import IconButton from './IconButton';
+import LinkButton from './LinkButton';
 
 export {
   Container,
@@ -18,4 +20,6 @@ export {
   ScreenBox,
   ProductCard,
   Icon,
+  IconButton,
+  LinkButton,
 };

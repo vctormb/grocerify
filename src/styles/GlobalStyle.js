@@ -8,7 +8,6 @@ const GlobalStyle = createGlobalStyle`
   body {
 		margin: 0;
 		padding: 0;
-		font-family: ${p => p.theme.fontFamily};
     font-size: ${p => p.theme.fontSize};
 		color: ${p => p.theme.colors.v1};
 		background-color: #fff;
@@ -19,6 +18,10 @@ const GlobalStyle = createGlobalStyle`
 		background-attachment: fixed;
 		background-repeat: no-repeat;
 		background-size: cover;
+	}
+
+	body, button, a {
+		font-family: ${p => p.theme.fontFamily};
 	}
 
 	*, *:before, *:after {

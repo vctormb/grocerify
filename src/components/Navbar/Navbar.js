@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Flex } from '@rebass/grid';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 // components
-import { Container, Button } from '../../components';
+import { Container, Button, LinkButton, IconButton } from '../../components';
 
 // styles
 import { pxToRem } from '../../styles';
@@ -27,23 +27,30 @@ const Wrapper = styled.div`
     isLoginScreen ? 'inherit' : theme.colors.v3};
 `;
 
+const Brand = styled.span`
+  flex: 1;
+  font-weight: 700;
+`;
+
 const Navbar = ({ isLoginScreen }) => (
   <Wrapper isLoginScreen={isLoginScreen}>
-    <Container
-      as={Flex}
-      justifyContent="space-between"
-      alignItems="center"
-      flex="1"
-    >
-      <strong>Grocerify</strong>
+    <Container as={Flex} alignItems="center" flex="1">
+      <Brand>Grocerify</Brand>
       <Button
-        as={Link}
+        as={LinkButton}
         to="/login"
         appearance="ghost"
         color={!isLoginScreen ? 'v3' : null}
       >
         Login
       </Button>
+      <IconButton
+        as={LinkButton}
+        to="/cart"
+        appearance="ghostSuccess"
+        icon="shopping-cart"
+        color={!isLoginScreen ? 'v3' : null}
+      />
     </Container>
   </Wrapper>
 );
