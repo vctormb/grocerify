@@ -1,16 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Flex } from '@rebass/grid';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 // components
-import { Container } from '../../components';
+import { Container, Button } from '../../components';
 
 // styles
 import { pxToRem } from '../../styles';
 
 const Wrapper = styled.div`
   position: fixed;
+  display: flex;
+  align-items: center;
   width: 100%;
   height: 64px;
   padding: ${pxToRem(20)} 0;
@@ -27,9 +29,21 @@ const Wrapper = styled.div`
 
 const Navbar = ({ isLoginScreen }) => (
   <Wrapper isLoginScreen={isLoginScreen}>
-    <Container as={Flex} justifyContent="space-between">
+    <Container
+      as={Flex}
+      justifyContent="space-between"
+      alignItems="center"
+      flex="1"
+    >
       <strong>Grocerify</strong>
-      <span>Cart</span>
+      <Button
+        as={Link}
+        to="/login"
+        appearance="ghost"
+        color={!isLoginScreen ? 'v3' : null}
+      >
+        Login
+      </Button>
     </Container>
   </Wrapper>
 );

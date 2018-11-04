@@ -10,13 +10,16 @@ import Icon from '../Icon';
 
 const Wrapper = styled.button`
   display: flex;
+  justify-content: center;
   align-items: center;
   padding: ${({ p }) => p};
-  background-color: ${p => p.theme.button[p.color].backgroundColor};
-  border: ${p => `1px solid ${p.theme.button[p.color].border}`};
+  background-color: ${p => p.theme.button[p.appearance].backgroundColor};
+  border: ${p => `1px solid ${p.theme.button[p.appearance].border}`};
   border-radius: 10px;
+  text-decoration: none;
   cursor: pointer;
-  color: ${p => p.theme.button[p.color].color};
+  color: ${p =>
+    p.color ? p.theme.colors[p.color] : p.theme.button[p.appearance].color};
   font-weight: 600;
   transition: all 0.1s ease;
 
@@ -60,12 +63,12 @@ const Button = ({ children, icon, ...rest }) => {
 };
 
 Button.defaultProps = {
-  color: 'primary',
+  appearance: 'primary',
   p: pxToRem(10),
 };
 
 Button.propTypes = {
-  color: PropTypes.oneOf(['primary', 'ghost', 'ghostSuccess']),
+  appearance: PropTypes.oneOf(['primary', 'ghost', 'ghostSuccess']),
   p: PropTypes.string,
   icon: PropTypes.string,
 };

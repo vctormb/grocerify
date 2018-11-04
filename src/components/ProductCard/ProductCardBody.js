@@ -26,7 +26,7 @@ class ProductCardBody extends React.Component {
         <Title>Cereal Fruity Pebbles 50% off! Buy it now</Title>
         <Box mt={2}>R$ 5,50</Box>
         <Flex mt="auto" pt={3} justifyContent="center">
-          <Button color="ghostSuccess" icon="shopping-cart">
+          <Button appearance="ghostSuccess" icon="shopping-cart">
             ADD TO CART
           </Button>
         </Flex>

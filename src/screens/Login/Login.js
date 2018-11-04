@@ -15,7 +15,7 @@ class Login extends React.Component {
   render() {
     return (
       <Flex flex="1" alignItems="center" mt={5}>
-        <GlobalStyle isLogin />
+        <GlobalStyle isLoginScreen />
         <Container as={Flex} justifyContent="center" width="100%">
           <LoginForm />
         </Container>

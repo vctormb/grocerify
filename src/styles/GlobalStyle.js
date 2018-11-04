@@ -12,8 +12,10 @@ const GlobalStyle = createGlobalStyle`
     font-size: ${p => p.theme.fontSize};
 		color: ${p => p.theme.colors.v1};
 		background-color: #fff;
-		background-image: ${({ isLogin }) =>
-      isLogin ? 'linear-gradient(to bottom right, #1dbc57, #057263);' : 'none'};
+		background-image: ${({ isLoginScreen }) =>
+      isLoginScreen
+        ? 'linear-gradient(to bottom right, #1dbc57, #057263);'
+        : 'none'};
 		background-attachment: fixed;
 		background-repeat: no-repeat;
 		background-size: cover;

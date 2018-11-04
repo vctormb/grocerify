@@ -34,7 +34,7 @@ class LoginForm extends React.Component {
     return (
       <Card flex={`0 1 ${pxToRem(400)}`}>
         <TitleWrapper mb={5}>
-          <h3>Login</h3>
+          <h3>Welcome Back!</h3>
         </TitleWrapper>
         <Form onSubmit={e => e.preventDefault()}>
           <Flex flexDirection="column">
