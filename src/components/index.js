@@ -9,6 +9,7 @@ import ProductCard from './ProductCard';
 import Icon from './Icon';
 import IconButton from './IconButton';
 import LinkButton from './LinkButton';
+import Badge from './Badge';
 
 export {
   Container,
@@ -22,4 +23,5 @@ export {
   Icon,
   IconButton,
   LinkButton,
+  Badge,
 };

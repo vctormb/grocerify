@@ -8,6 +8,7 @@ const colors = {
   v5: '#ccc',
   v6: '#f1f1f1',
   v7: '#1dbc57',
+  v8: '#cb4c58',
 };
 
 export default {

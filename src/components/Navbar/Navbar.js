@@ -4,7 +4,13 @@ import { Flex } from '@rebass/grid';
 import { withRouter } from 'react-router-dom';
 
 // components
-import { Container, Button, LinkButton, IconButton } from '../../components';
+import {
+  Container,
+  Button,
+  LinkButton,
+  IconButton,
+  Badge,
+} from '../../components';
 
 // styles
 import { pxToRem } from '../../styles';
@@ -44,13 +50,15 @@ const Navbar = ({ isLoginScreen }) => (
       >
         Login
       </Button>
-      <IconButton
-        as={LinkButton}
-        to="/cart"
-        appearance="ghostSuccess"
-        icon="shopping-cart"
-        color={!isLoginScreen ? 'v3' : null}
-      />
+      <Badge count={0}>
+        <IconButton
+          as={LinkButton}
+          to="/cart"
+          appearance="ghostSuccess"
+          icon="shopping-cart"
+          color={!isLoginScreen ? 'v3' : null}
+        />
+      </Badge>
     </Container>
   </Wrapper>
 );
