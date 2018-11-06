@@ -50,15 +50,16 @@ const Navbar = ({ isLoginScreen }) => (
       >
         Login
       </Button>
-      <Badge count={0}>
-        <IconButton
-          as={LinkButton}
-          to="/cart"
-          appearance="ghostSuccess"
-          icon="shopping-cart"
-          color={!isLoginScreen ? 'v3' : null}
-        />
-      </Badge>
+
+      <IconButton
+        as={LinkButton}
+        to="/cart"
+        appearance="ghostSuccess"
+        icon="shopping-cart"
+        color={!isLoginScreen ? 'v3' : null}
+      >
+        <Badge top="-5px" count={1} />
+      </IconButton>
     </Container>
   </Wrapper>
 );

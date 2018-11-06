@@ -1,5 +1,6 @@
 const buttonStyle = p => {
   return `
+		position: relative;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -13,7 +14,7 @@ const buttonStyle = p => {
       p.color ? p.theme.colors[p.color] : p.theme.button[p.appearance].color
     };
 		font-weight: 600;
-		transition: all 0.1s ease;
+		transition: all 0.3s ease;
 
 		&:disabled {
 			background-image: none;

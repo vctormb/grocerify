@@ -2,13 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Wrapper = styled.span`
-  position: relative;
-`;
-
 const BadgeNumber = styled.div`
   position: absolute;
-  top: -8px;
+  top: ${p => p.top};
   right: 0;
   display: flex;
   align-items: center;
@@ -24,23 +20,20 @@ const BadgeNumber = styled.div`
   padding: 1px 6px;
 `;
 
-const Badge = ({ children, count }) => {
+const Badge = ({ count, ...rest }) => {
   const treatedCount = count > 99 ? `99+` : count;
 
-  return (
-    <Wrapper>
-      {!!count && <BadgeNumber>{treatedCount}</BadgeNumber>}
-      {children}
-    </Wrapper>
-  );
+  return !!count ? <BadgeNumber {...rest}>{treatedCount}</BadgeNumber> : null;
 };
 
 Badge.defaultProps = {
   count: 0,
+  top: 'initial',
 };
 
 Badge.propTypes = {
   count: PropTypes.number,
+  top: PropTypes.string,
 };
 
 export default Badge;
