@@ -20,8 +20,12 @@ class Home extends React.Component {
                 flex={['1 1 100%', '0 1 33.33%', '0 1 25%']}
               >
                 <ProductCard>
-                  <ProductCard.Image />
-                  <ProductCard.Body />
+                  {pc => (
+                    <React.Fragment>
+                      <ProductCard.Image {...pc} />
+                      <ProductCard.Body />
+                    </React.Fragment>
+                  )}
                 </ProductCard>
               </Col>
             ))}

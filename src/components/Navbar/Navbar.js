@@ -58,7 +58,7 @@ const Navbar = ({ isLoginScreen }) => (
         icon="shopping-cart"
         color={!isLoginScreen ? 'v3' : null}
       >
-        <Badge top="-5px" count={1} />
+        <Badge top="-5px" count={0} />
       </IconButton>
     </Container>
   </Wrapper>

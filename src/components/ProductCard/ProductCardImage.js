@@ -12,7 +12,7 @@ const Wrapper = styled(Flex)`
   border-radius: 5px 5px 0 0;
 
   ${media.xs`
-		min-height: ${pxToRem(150)};
+		min-height: ${p => (p.horizontal ? 'initial' : pxToRem(150))};
 	`};
 `;
 
@@ -26,19 +26,16 @@ const ImageContainer = styled.div`
   background-size: cover;
 
   ${media.xs`
-		height: ${pxToRem(130)};
-		width: ${pxToRem(130)};
+		height: ${p => (p.horizontal ? pxToRem(80) : pxToRem(130))};
+		width: ${p => (p.horizontal ? pxToRem(80) : pxToRem(130))};
 	`};
 `;
 
 class ProductCardImage extends React.Component {
-  state = {};
   render() {
     return (
-      <Wrapper justifyContent="center" alignItems="center">
-        <ImageContainer>
-          <ImageContainer />
-        </ImageContainer>
+      <Wrapper {...this.props} justifyContent="center" alignItems="center">
+        <ImageContainer {...this.props} />
       </Wrapper>
     );
   }
