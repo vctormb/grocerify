@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Flex } from '@rebass/grid';
 
 // styles
 import { media } from '../../styles';
+// components
+import Card from '../Card';
 
-const Wrapper = styled(Flex)`
-  border-radius: 5px;
-  box-shadow: 0 3px 14px 0 rgba(0, 0, 0, 0.1);
+const Wrapper = styled(Card)`
+  display: flex;
   flex: 1;
 
   ${media.xs`
@@ -30,7 +30,7 @@ class ProductCard extends React.Component {
   }
 
   render() {
-    const { children, ...rest } = this.props;
+    const { children, appearance, ...rest } = this.props;
 
     return <Wrapper {...rest}>{children(this.state)}</Wrapper>;
   }

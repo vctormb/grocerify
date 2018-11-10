@@ -31,6 +31,7 @@ const Wrapper = styled.div`
   box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.2);
   color: ${({ isLoginScreen, theme }) =>
     isLoginScreen ? 'inherit' : theme.colors.v3};
+  z-index: 30;
 `;
 
 const Brand = styled.span`

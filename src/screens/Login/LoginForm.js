@@ -6,13 +6,12 @@ import { Flex, Box } from '@rebass/grid';
 import { pxToRem, media } from '../../styles';
 
 // components
-import { Input, Button } from '../../components';
+import { Input, Button, Card } from '../../components';
 
-const Card = styled(Box)`
+const Wrapper = styled(Box)`
   padding: ${pxToRem(30)};
   border-radius: 5px;
   background-color: ${p => p.theme.colors.v3};
-  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.2);
 
   ${media.sm`
 		padding: ${pxToRem(60)};
@@ -32,7 +31,7 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <Card flex={`0 1 ${pxToRem(400)}`}>
+      <Wrapper as={Card} flex={`0 1 ${pxToRem(400)}`}>
         <TitleWrapper mb={5}>
           <h3>Welcome Back!</h3>
         </TitleWrapper>
@@ -47,7 +46,7 @@ class LoginForm extends React.Component {
             <Button p="1rem">Login</Button>
           </Flex>
         </Form>
-      </Card>
+      </Wrapper>
     );
   }
 }

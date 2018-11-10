@@ -10,6 +10,7 @@ import Icon from './Icon';
 import IconButton from './IconButton';
 import LinkButton from './LinkButton';
 import Badge from './Badge';
+import Card from './Card';
 
 export {
   Container,
@@ -24,4 +25,5 @@ export {
   IconButton,
   LinkButton,
   Badge,
+  Card,
 };

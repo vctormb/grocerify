@@ -9,7 +9,6 @@ const Wrapper = styled(Flex)`
   background-color: ${p => p.theme.colors.v6};
   padding: ${pxToRem(10)};
   flex: 0 1 ${pxToRem(90)};
-  border-radius: 5px 5px 0 0;
 
   ${media.xs`
 		min-height: ${p => (p.horizontal ? 'initial' : pxToRem(150))};
