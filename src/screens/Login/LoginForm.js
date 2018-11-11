@@ -10,7 +10,6 @@ import { Input, Button, Card } from '../../components';
 
 const Wrapper = styled(Box)`
   padding: ${pxToRem(30)};
-  border-radius: 5px;
   background-color: ${p => p.theme.colors.v3};
 
   ${media.sm`

@@ -1,11 +1,10 @@
-import styled from 'styled-components';
+import React from 'react';
 import { Box } from '@rebass/grid';
 
-// styles
-import { pxToRem } from '../../styles';
+const CardBody = props => <Box {...props} />;
 
-const CardBody = styled(Box)`
-  padding: ${pxToRem(10)};
-`;
+CardBody.defaultProps = {
+  p: 10,
+};
 
 export default CardBody;

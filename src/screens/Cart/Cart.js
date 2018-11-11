@@ -48,25 +48,35 @@ class Cart extends React.Component {
             <Col as={Flex} flex={[1, '0 1 50%']} flexDirection="column">
               <Card>
                 <Card.Header>Your cart</Card.Header>
-                <ListItems>
-                  {items.map((_, i) => (
-                    <ProductCardCart horizontal key={i} mb={0}>
-                      {pc => (
-                        <React.Fragment>
-                          <ProductCardCart.Image {...pc} />
-                          <ProductCardCart.Body />
-                        </React.Fragment>
-                      )}
-                    </ProductCardCart>
-                  ))}
-                </ListItems>
+                <Card.Body p={0}>
+                  <ListItems>
+                    {items.map((_, i) => (
+                      <ProductCardCart
+                        rounded={false}
+                        p={0}
+                        horizontal
+                        key={i}
+                        mb={0}
+                      >
+                        {pc => (
+                          <React.Fragment>
+                            <ProductCardCart.Image {...pc} rounded={false} />
+                            <ProductCardCart.Body />
+                          </React.Fragment>
+                        )}
+                      </ProductCardCart>
+                    ))}
+                  </ListItems>
+                </Card.Body>
               </Card>
             </Col>
             <Col flex={[1, '0 1 50%']}>
               <Card mt={[4, 4, 0]} mb={[4, 4, 0]}>
                 <Card.Header>Details</Card.Header>
                 <Card.Body>
-                  <strong>Total:</strong> $45.90
+                  <Flex mt={3} justifyContent="space-between">
+                    <strong>Total</strong> $45.90
+                  </Flex>
                   <Flex flexDirection="column" mt={4}>
                     <Button size="lg" appearance="danger">
                       Checkout

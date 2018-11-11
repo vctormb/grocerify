@@ -30,7 +30,7 @@ class ProductCard extends React.Component {
   }
 
   render() {
-    const { children, appearance, ...rest } = this.props;
+    const { children, ...rest } = this.props;
 
     return <Wrapper {...rest}>{children(this.state)}</Wrapper>;
   }
