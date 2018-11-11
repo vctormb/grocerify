@@ -61,7 +61,14 @@ class Cart extends React.Component {
                         {pc => (
                           <React.Fragment>
                             <ProductCardCart.Image {...pc} rounded={false} />
-                            <ProductCardCart.Body />
+                            <ProductCardCart.Content>
+                              <ProductCardCart.Body />
+                              <ProductCardCart.Footer>
+                                <Button appearance="ghostSuccess">
+                                  REMOVE
+                                </Button>
+                              </ProductCardCart.Footer>
+                            </ProductCardCart.Content>
                           </React.Fragment>
                         )}
                       </ProductCardCart>

@@ -2,7 +2,14 @@ import React from 'react';
 import { Flex } from '@rebass/grid';
 
 // components
-import { ScreenBox, Container, Row, Col, ProductCard } from '../../components';
+import {
+  ScreenBox,
+  Container,
+  Row,
+  Col,
+  ProductCard,
+  Button,
+} from '../../components';
 
 const items = [1, 1, 1, 1, 1, 1, 1, 1];
 
@@ -23,7 +30,17 @@ class Home extends React.Component {
                   {pc => (
                     <React.Fragment>
                       <ProductCard.Image {...pc} />
-                      <ProductCard.Body />
+                      <ProductCard.Content>
+                        <ProductCard.Body />
+                        <ProductCard.Footer justifyContent="center">
+                          <Button
+                            appearance="ghostSuccess"
+                            icon="shopping-cart"
+                          >
+                            ADD TO CART
+                          </Button>
+                        </ProductCard.Footer>
+                      </ProductCard.Content>
                     </React.Fragment>
                   )}
                 </ProductCard>
