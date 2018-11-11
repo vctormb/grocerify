@@ -1,10 +1,8 @@
-import React from 'react';
+import styled from 'styled-components';
 import { Box } from '@rebass/grid';
 
-const ScreenBox = ({ children, ...rest }) => (
-  <Box {...rest} mt={[6, 6, 6, 6, 6]}>
-    {children}
-  </Box>
-);
+const ScreenBox = styled(Box)`
+  margin-top: 110px;
+`;
 
 export default ScreenBox;

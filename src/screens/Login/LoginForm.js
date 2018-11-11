@@ -43,7 +43,7 @@ class LoginForm extends React.Component {
             <Box mb={4}>
               <Input placeholder="password" type="password" p="1rem" />
             </Box>
-            <Button p="1rem">Login</Button>
+            <Button size="lg">Login</Button>
           </Flex>
         </Form>
       </Wrapper>

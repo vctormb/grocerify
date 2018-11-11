@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Flex } from '@rebass/grid';
+import { Box, Flex } from '@rebass/grid';
 
 // components
 import {
@@ -10,6 +10,7 @@ import {
   Row,
   Col,
   Card,
+  Button,
 } from '../../components';
 // styles
 import { media } from '../../styles';
@@ -62,7 +63,18 @@ class Cart extends React.Component {
               </Card>
             </Col>
             <Col flex={[1, '0 1 50%']}>
-              <div style={{ height: '200px', width: '200px' }}>foo</div>
+              <Card mt={[4, 4, 0]} mb={[4, 4, 0]}>
+                <Card.Header>Details</Card.Header>
+                <Card.Body>
+                  <strong>Total:</strong> $45.90
+                  <Flex flexDirection="column" mt={4}>
+                    <Button size="lg" appearance="danger">
+                      Checkout
+                    </Button>
+                  </Flex>
+                </Card.Body>
+              </Card>
+              <Flex flexDirection="column" />
             </Col>
           </Row>
         </Container>

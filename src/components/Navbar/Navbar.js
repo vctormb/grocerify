@@ -27,7 +27,7 @@ const Wrapper = styled.div`
   background-image: ${({ isLoginScreen, theme }) =>
     isLoginScreen
       ? 'none'
-      : `linear-gradient(to right, ${theme.colors.v7}, #24ab56)`};
+      : `linear-gradient(to right, ${theme.colors.v7}, #1b9649)`};
   box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.2);
   color: ${({ isLoginScreen, theme }) =>
     isLoginScreen ? 'inherit' : theme.colors.v3};

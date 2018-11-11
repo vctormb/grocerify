@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-// styles
-import { pxToRem } from '../../styles';
-
 // components
 import Icon from '../Icon';
 import buttonStyle from './buttonStyle';
@@ -40,11 +37,12 @@ const Button = ({ children, icon, ...rest }) => {
 
 Button.defaultProps = {
   appearance: 'primary',
-  p: pxToRem(10),
+  size: 'default',
 };
 
 Button.propTypes = {
-  appearance: PropTypes.oneOf(['primary', 'ghost', 'ghostSuccess']),
+  appearance: PropTypes.oneOf(['primary', 'danger', 'ghost', 'ghostSuccess']),
+  size: PropTypes.oneOf(['default', 'lg']),
   p: PropTypes.string,
   icon: PropTypes.string,
 };

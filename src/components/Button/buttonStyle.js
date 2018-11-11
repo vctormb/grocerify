@@ -4,14 +4,17 @@ const buttonStyle = p => {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		padding: ${p.p}
-		background-color: ${p.theme.button[p.appearance].backgroundColor};
-		border: ${`1px solid ${p.theme.button[p.appearance].border}`};
+		padding: ${p.theme.button.size[p.size]};
+		background-image: ${p.theme.button.appearance[p.appearance].backgroundImage};
+		background-color: ${p.theme.button.appearance[p.appearance].backgroundColor};
+		border: ${`1px solid ${p.theme.button.appearance[p.appearance].border}`};
 		border-radius: 10px;
 		text-decoration: none;
 		cursor: pointer;
 		color: ${
-      p.color ? p.theme.colors[p.color] : p.theme.button[p.appearance].color
+      p.color
+        ? p.theme.colors[p.color]
+        : p.theme.button.appearance[p.appearance].color
     };
 		font-weight: 600;
 		transition: all 0.3s ease;
@@ -29,7 +32,7 @@ const buttonStyle = p => {
 
 		&:active {
 			transform: translateY(2px);
-			background-color: transparent;
+			background-color: ${p.theme.button.appearance[p.appearance].active};
 		}
 	`;
 };
