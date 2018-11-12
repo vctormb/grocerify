@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Box, Flex } from '@rebass/grid';
+import { Flex } from '@rebass/grid';
 
 // components
 import {
@@ -11,6 +11,7 @@ import {
   Col,
   Card,
   Button,
+  QuantityField,
 } from '../../components';
 // styles
 import { media } from '../../styles';
@@ -63,10 +64,11 @@ class Cart extends React.Component {
                             <ProductCardCart.Image {...pc} rounded={false} />
                             <ProductCardCart.Content>
                               <ProductCardCart.Body />
-                              <ProductCardCart.Footer>
-                                <Button appearance="ghostSuccess">
+                              <ProductCardCart.Footer justifyContent="space-between">
+                                <Button size="xs" appearance="textSuccess">
                                   REMOVE
                                 </Button>
+                                <QuantityField />
                               </ProductCardCart.Footer>
                             </ProductCardCart.Content>
                           </React.Fragment>

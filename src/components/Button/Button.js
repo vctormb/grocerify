@@ -41,8 +41,14 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
-  appearance: PropTypes.oneOf(['primary', 'danger', 'ghost', 'ghostSuccess']),
-  size: PropTypes.oneOf(['default', 'lg']),
+  appearance: PropTypes.oneOf([
+    'primary',
+    'danger',
+    'ghost',
+    'ghostSuccess',
+    'textSuccess',
+  ]),
+  size: PropTypes.oneOf(['xs', 'default', 'lg']),
   p: PropTypes.string,
   icon: PropTypes.string,
 };

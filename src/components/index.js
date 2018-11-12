@@ -11,6 +11,7 @@ import IconButton from './IconButton';
 import LinkButton from './LinkButton';
 import Badge from './Badge';
 import Card from './Card';
+import QuantityField from './QuantityField';
 
 export {
   Container,
@@ -26,4 +27,5 @@ export {
   LinkButton,
   Badge,
   Card,
+  QuantityField,
 };

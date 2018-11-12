@@ -8,7 +8,7 @@ const buttonStyle = p => {
 		background-image: ${p.theme.button.appearance[p.appearance].backgroundImage};
 		background-color: ${p.theme.button.appearance[p.appearance].backgroundColor};
 		border: ${`1px solid ${p.theme.button.appearance[p.appearance].border}`};
-		border-radius: 10px;
+		border-radius: ${p.theme.button.appearance[p.appearance].borderRadius};
 		text-decoration: none;
 		cursor: pointer;
 		color: ${
@@ -17,6 +17,7 @@ const buttonStyle = p => {
         : p.theme.button.appearance[p.appearance].color
     };
 		font-weight: 600;
+		user-select: none;
 		transition: all 0.3s ease;
 
 		&:disabled {
