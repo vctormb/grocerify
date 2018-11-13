@@ -1,12 +1,27 @@
 import React from 'react';
-import { render, cleanup } from 'test-utils';
+import { render, cleanup, getByTestId, getByText } from 'test-utils';
 
 import Button from '../Button';
 
 afterEach(cleanup);
 
-test('Renders button with children', () => {
-  const { getByText } = render(<Button>Foo btn</Button>);
+describe('<Button />', () => {
+  test('Renders button with children', () => {
+    const btnText = 'Foo btn';
 
-  expect(getByText(/foo btn/i)).toBeInTheDocument();
+    const { getByText } = render(<Button>{btnText}</Button>);
+
+    expect(getByText(btnText)).toBeInTheDocument();
+  });
+
+  test('Renders button with icon and children', () => {
+    const btnText = 'Foo btn';
+
+    const { container } = render(
+      <Button icon="shopping-cart">{btnText}</Button>
+    );
+
+    expect(getByText(container, btnText)).toBeInTheDocument();
+    expect(getByTestId(container, 'svg-icon')).toBeInTheDocument();
+  });
 });

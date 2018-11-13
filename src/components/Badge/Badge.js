@@ -23,7 +23,11 @@ const BadgeNumber = styled.div`
 const Badge = ({ count, ...rest }) => {
   const treatedCount = count > 99 ? `99+` : count;
 
-  return !!count ? <BadgeNumber {...rest}>{treatedCount}</BadgeNumber> : null;
+  return !!count ? (
+    <BadgeNumber {...rest} data-testid="badge">
+      {treatedCount}
+    </BadgeNumber>
+  ) : null;
 };
 
 Badge.defaultProps = {

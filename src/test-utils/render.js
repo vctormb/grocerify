@@ -15,13 +15,18 @@ function render(
     ...renderOptions
   } = {}
 ) {
+  const rendered = rtlRender(
+    <ThemeProvider theme={theme}>
+      <Router history={history}>{ui}</Router>
+    </ThemeProvider>,
+    renderOptions
+  );
+
   return {
-    ...rtlRender(
-      <ThemeProvider theme={theme}>
-        <Router history={history}>{ui}</Router>
-      </ThemeProvider>,
-      renderOptions
-    ),
+    ...rendered,
+    rerender: (ui, options) => {
+      return render(ui, { container: rendered.container, ...options });
+    },
     history,
   };
 }
