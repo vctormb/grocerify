@@ -4,13 +4,13 @@
   "private": true,
   "dependencies": {
     "@rebass/grid": "^6.0.0-4",
-    "husky": "^1.1.2",
+    "husky": "^1.1.4",
     "lint-staged": "^8.0.4",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.0",
-    "styled-components": "^4.0.3"
+    "react-scripts": "2.1.1",
+    "styled-components": "^4.1.1"
   },
   "husky": {
     "hooks": {
@@ -42,10 +42,10 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "eslint-config-prettier": "^3.1.0",
+    "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-prettier": "^3.0.0",
     "jest-dom": "^2.1.1",
-    "prettier": "1.14.3",
+    "prettier": "^1.15.2",
     "react-testing-library": "^5.2.3"
   }
 }
