@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Flex } from '@rebass/grid';
 import styled from 'styled-components';
 
@@ -17,6 +18,14 @@ class QuantityField extends React.Component {
   state = {
     count: 1,
   };
+
+  componentDidMount() {
+    if (this.props.count) {
+      this.setState({
+        count: this.props.count,
+      });
+    }
+  }
 
   plusValue = () => {
     this.setState({ count: this.state.count + 1 }, () => {
@@ -47,16 +56,23 @@ class QuantityField extends React.Component {
           size="xs"
           appearance="textSuccess"
           onClick={this.plusValue}
+          data-testid="quantity-increment"
         >
           +
         </Button>
-        <StyledInput p={`0 ${pxToRem(5)}`} value={this.state.count} readOnly />
+        <StyledInput
+          p={`0 ${pxToRem(5)}`}
+          value={this.state.count}
+          readOnly={true}
+          data-testid="quantity-input"
+        />
         <Button
           as="a"
           role="button"
           size="xs"
           appearance="textSuccess"
           onClick={this.minusValue}
+          data-testid="quantity-decrement"
         >
           -
         </Button>
@@ -64,5 +80,9 @@ class QuantityField extends React.Component {
     );
   }
 }
+
+QuantityField.propTypes = {
+  count: PropTypes.number,
+};
 
 export default QuantityField;

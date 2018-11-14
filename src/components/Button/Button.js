@@ -23,13 +23,7 @@ const Button = ({ children, icon, ...rest }) => {
 
   if (icon) {
     leftIcon = (
-      <CustomIcon
-        data-testid="svg-icon"
-        width="16"
-        height="16"
-        icon={icon}
-        fill="currentColor"
-      />
+      <CustomIcon width="16" height="16" icon={icon} fill="currentColor" />
     );
   }
 
