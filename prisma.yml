@@ -1,0 +1,13 @@
+endpoint: https://us1.prisma.sh/developer-3c4888/grocerify/dev
+datamodel: ./prisma/datamodel.prisma
+secret: secret99
+
+generate:
+  - generator: javascript-client
+    output: ./prisma/generated/prisma-client/
+  - generator: graphql-schema
+    output: ./prisma/generated/prisma-client/
+
+hooks:
+  post-deploy:
+    - prisma generate
