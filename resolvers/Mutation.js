@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -19,8 +18,20 @@ const jwt = require("jsonwebtoken");
 //   });
 // };
 
-const login = (parent, { email, password }, context) => {
-  return context.prisma.createUser({ name, email, password });
+const login = async (parent, { email, password }, context) => {
+  const user = await context.prisma.user({ email });
+  if (!user) {
+    throw new Error(`No such user found for email: ${email}`);
+  }
+  const valid = await bcrypt.compare(password, user.password);
+  if (!valid) {
+    throw new Error("Invalid password");
+  }
+
+  return {
+    token: jwt.sign({ userId: user.id }, process.env.JWT_SECRET),
+    user
+  };
 };
 
 const signup = async (parent, args, context) => {
@@ -34,7 +45,6 @@ const signup = async (parent, args, context) => {
 };
 
 module.exports = {
+  login,
   signup
-  // createDraft,
-  // publish
 };
