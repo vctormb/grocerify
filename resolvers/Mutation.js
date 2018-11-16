@@ -44,7 +44,12 @@ const signup = async (parent, args, context) => {
   };
 };
 
+const createProduct = async (parent, { data }, context) => {
+  return await context.prisma.createProduct(data);
+};
+
 module.exports = {
   login,
-  signup
+  signup,
+  createProduct
 };

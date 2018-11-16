@@ -3,7 +3,13 @@ type User {
   name: String!
   email: String @unique
   password: String!
-  # posts: [Post!]!
+}
+
+type Product {
+  id: ID! @unique
+  imageUrl: String!
+  title: String!
+  price: Float!
 }
 
 # type Post {
