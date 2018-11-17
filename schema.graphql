@@ -1,4 +1,4 @@
-# import Product, ProductCreateInput from "./prisma/generated/prisma-client/prisma.graphql"
+# import Product, ProductCreateInput, Order from "./prisma/generated/prisma-client/prisma.graphql"
 
 type Query {
   products: [Product!]!
@@ -8,13 +8,13 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload
   signup(name: String!, email: String!, password: String!): AuthPayload
   createProduct(data: ProductCreateInput): Product!
+  createOrderedProduct(productId: ID!, quantity: Int!): Order!
 }
 
 type User {
   id: ID!
   email: String
   name: String!
-  # posts: [Post!]!
 }
 
 type AuthPayload {

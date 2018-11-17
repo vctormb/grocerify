@@ -3,6 +3,7 @@ type User {
   name: String!
   email: String @unique
   password: String!
+  order: Order
 }
 
 type Product {
@@ -12,9 +13,16 @@ type Product {
   price: Float!
 }
 
-# type Post {
-#   id: ID! @unique
-#   title: String!
-#   published: Boolean! @default(value: "false")
-#   author: User
-# }
+type Order {
+  id: ID! @unique
+  totalPrice: Float! @default(value: 0)
+  orderedProducts: [OrderedProduct!]!
+  whoOrdered: User!
+}
+
+type OrderedProduct {
+  id: ID! @unique
+  product: Product!
+  quantity: Int!
+  order: Order!
+}

@@ -1,13 +1,13 @@
 const Query = require("./Query");
 const Mutation = require("./Mutation");
-const User = require("./User");
-const Post = require("./Post");
+const Order = require("./Order");
+const OrderedProduct = require("./OrderedProduct");
 const AuthPayload = require("./AuthPayload");
 
 module.exports = {
   Query,
   Mutation,
-  AuthPayload
-  // User
-  // Post
+  AuthPayload,
+  Order,
+  OrderedProduct
 };

@@ -1,22 +1,7 @@
 require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
-// const createDraft = (parent, args, context) => {
-//   return context.prisma.createPost({
-//     title: args.title,
-//     author: {
-//       connect: { id: args.userId }
-//     }
-//   });
-// };
-
-// const publish = (parent, args, context) => {
-//   return context.prisma.updatePost({
-//     where: { id: args.postId },
-//     data: { published: true }
-//   });
-// };
+const { getUserId } = require("../utils");
 
 const login = async (parent, { email, password }, context) => {
   const user = await context.prisma.user({ email });
@@ -48,8 +33,50 @@ const createProduct = async (parent, { data }, context) => {
   return await context.prisma.createProduct(data);
 };
 
+const createOrderedProduct = async (parent, args, context) => {
+  const userId = getUserId(context);
+
+  const product = await context.prisma.product({ id: args.productId });
+  if (!product) {
+    throw new Error(`Product not found`);
+  }
+
+  const order = await context.prisma.user({ id: userId }).order();
+
+  const orderedProductCreateRelation = {
+    quantity: args.quantity,
+    product: {
+      connect: { id: product.id }
+    }
+  };
+
+  if (!order) {
+    return await context.prisma.createOrder({
+      totalPrice: product.price * args.quantity,
+      whoOrdered: { connect: { id: userId } },
+      orderedProducts: {
+        create: orderedProductCreateRelation
+      }
+    });
+  }
+
+  // prettier-ignore
+  const totalPrice = (product.price * args.quantity) + order.totalPrice;
+
+  return await context.prisma.updateOrder({
+    data: {
+      totalPrice,
+      orderedProducts: {
+        create: orderedProductCreateRelation
+      }
+    },
+    where: { id: order.id }
+  });
+};
+
 module.exports = {
   login,
   signup,
-  createProduct
+  createProduct,
+  createOrderedProduct
 };

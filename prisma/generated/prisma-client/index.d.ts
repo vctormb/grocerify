@@ -10,6 +10,8 @@ type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
   U[keyof U];
 
 export interface Exists {
+  order: (where?: OrderWhereInput) => Promise<boolean>;
+  orderedProduct: (where?: OrderedProductWhereInput) => Promise<boolean>;
   product: (where?: ProductWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
@@ -33,6 +35,54 @@ export interface Prisma {
    * Queries
    */
 
+  order: (where: OrderWhereUniqueInput) => OrderPromise;
+  orders: (
+    args?: {
+      where?: OrderWhereInput;
+      orderBy?: OrderOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FragmentableArray<Order>;
+  ordersConnection: (
+    args?: {
+      where?: OrderWhereInput;
+      orderBy?: OrderOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => OrderConnectionPromise;
+  orderedProduct: (
+    where: OrderedProductWhereUniqueInput
+  ) => OrderedProductPromise;
+  orderedProducts: (
+    args?: {
+      where?: OrderedProductWhereInput;
+      orderBy?: OrderedProductOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FragmentableArray<OrderedProduct>;
+  orderedProductsConnection: (
+    args?: {
+      where?: OrderedProductWhereInput;
+      orderBy?: OrderedProductOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => OrderedProductConnectionPromise;
   product: (where: ProductWhereUniqueInput) => ProductPromise;
   products: (
     args?: {
@@ -85,6 +135,50 @@ export interface Prisma {
    * Mutations
    */
 
+  createOrder: (data: OrderCreateInput) => OrderPromise;
+  updateOrder: (
+    args: { data: OrderUpdateInput; where: OrderWhereUniqueInput }
+  ) => OrderPromise;
+  updateManyOrders: (
+    args: { data: OrderUpdateManyMutationInput; where?: OrderWhereInput }
+  ) => BatchPayloadPromise;
+  upsertOrder: (
+    args: {
+      where: OrderWhereUniqueInput;
+      create: OrderCreateInput;
+      update: OrderUpdateInput;
+    }
+  ) => OrderPromise;
+  deleteOrder: (where: OrderWhereUniqueInput) => OrderPromise;
+  deleteManyOrders: (where?: OrderWhereInput) => BatchPayloadPromise;
+  createOrderedProduct: (
+    data: OrderedProductCreateInput
+  ) => OrderedProductPromise;
+  updateOrderedProduct: (
+    args: {
+      data: OrderedProductUpdateInput;
+      where: OrderedProductWhereUniqueInput;
+    }
+  ) => OrderedProductPromise;
+  updateManyOrderedProducts: (
+    args: {
+      data: OrderedProductUpdateManyMutationInput;
+      where?: OrderedProductWhereInput;
+    }
+  ) => BatchPayloadPromise;
+  upsertOrderedProduct: (
+    args: {
+      where: OrderedProductWhereUniqueInput;
+      create: OrderedProductCreateInput;
+      update: OrderedProductUpdateInput;
+    }
+  ) => OrderedProductPromise;
+  deleteOrderedProduct: (
+    where: OrderedProductWhereUniqueInput
+  ) => OrderedProductPromise;
+  deleteManyOrderedProducts: (
+    where?: OrderedProductWhereInput
+  ) => BatchPayloadPromise;
   createProduct: (data: ProductCreateInput) => ProductPromise;
   updateProduct: (
     args: { data: ProductUpdateInput; where: ProductWhereUniqueInput }
@@ -126,6 +220,12 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  order: (
+    where?: OrderSubscriptionWhereInput
+  ) => OrderSubscriptionPayloadSubscription;
+  orderedProduct: (
+    where?: OrderedProductSubscriptionWhereInput
+  ) => OrderedProductSubscriptionPayloadSubscription;
   product: (
     where?: ProductSubscriptionWhereInput
   ) => ProductSubscriptionPayloadSubscription;
@@ -142,6 +242,26 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type OrderedProductOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "quantity_ASC"
+  | "quantity_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type OrderOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "totalPrice_ASC"
+  | "totalPrice_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
 export type ProductOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -155,8 +275,6 @@ export type ProductOrderByInput =
   | "createdAt_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC";
-
-export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -172,21 +290,87 @@ export type UserOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export interface UserCreateInput {
-  name: String;
-  email?: String;
-  password: String;
+export type MutationType = "CREATED" | "UPDATED" | "DELETED";
+
+export interface OrderedProductUpdateManyWithoutOrderInput {
+  create?:
+    | OrderedProductCreateWithoutOrderInput[]
+    | OrderedProductCreateWithoutOrderInput;
+  delete?: OrderedProductWhereUniqueInput[] | OrderedProductWhereUniqueInput;
+  connect?: OrderedProductWhereUniqueInput[] | OrderedProductWhereUniqueInput;
+  disconnect?:
+    | OrderedProductWhereUniqueInput[]
+    | OrderedProductWhereUniqueInput;
+  update?:
+    | OrderedProductUpdateWithWhereUniqueWithoutOrderInput[]
+    | OrderedProductUpdateWithWhereUniqueWithoutOrderInput;
+  upsert?:
+    | OrderedProductUpsertWithWhereUniqueWithoutOrderInput[]
+    | OrderedProductUpsertWithWhereUniqueWithoutOrderInput;
 }
 
-export interface ProductUpdateInput {
+export type OrderWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface OrderUpdateOneRequiredWithoutOrderedProductsInput {
+  create?: OrderCreateWithoutOrderedProductsInput;
+  update?: OrderUpdateWithoutOrderedProductsDataInput;
+  upsert?: OrderUpsertWithoutOrderedProductsInput;
+  connect?: OrderWhereUniqueInput;
+}
+
+export interface OrderedProductCreateInput {
+  product: ProductCreateOneInput;
+  quantity: Int;
+  order: OrderCreateOneWithoutOrderedProductsInput;
+}
+
+export interface OrderedProductUpdateInput {
+  product?: ProductUpdateOneRequiredInput;
+  quantity?: Int;
+  order?: OrderUpdateOneRequiredWithoutOrderedProductsInput;
+}
+
+export interface ProductUpdateDataInput {
   imageUrl?: String;
   title?: String;
   price?: Float;
 }
 
-export type ProductWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
+export interface UserSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: UserWhereInput;
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+}
+
+export interface OrderedProductSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: OrderedProductWhereInput;
+  AND?:
+    | OrderedProductSubscriptionWhereInput[]
+    | OrderedProductSubscriptionWhereInput;
+  OR?:
+    | OrderedProductSubscriptionWhereInput[]
+    | OrderedProductSubscriptionWhereInput;
+  NOT?:
+    | OrderedProductSubscriptionWhereInput[]
+    | OrderedProductSubscriptionWhereInput;
+}
+
+export interface OrderCreateInput {
+  totalPrice?: Float;
+  orderedProducts?: OrderedProductCreateManyWithoutOrderInput;
+  whoOrdered: UserCreateOneWithoutOrderInput;
+}
 
 export interface ProductWhereInput {
   id?: ID_Input;
@@ -242,6 +426,98 @@ export interface ProductWhereInput {
   AND?: ProductWhereInput[] | ProductWhereInput;
   OR?: ProductWhereInput[] | ProductWhereInput;
   NOT?: ProductWhereInput[] | ProductWhereInput;
+}
+
+export interface OrderedProductCreateManyWithoutOrderInput {
+  create?:
+    | OrderedProductCreateWithoutOrderInput[]
+    | OrderedProductCreateWithoutOrderInput;
+  connect?: OrderedProductWhereUniqueInput[] | OrderedProductWhereUniqueInput;
+}
+
+export interface OrderUpsertWithoutWhoOrderedInput {
+  update: OrderUpdateWithoutWhoOrderedDataInput;
+  create: OrderCreateWithoutWhoOrderedInput;
+}
+
+export interface OrderedProductCreateWithoutOrderInput {
+  product: ProductCreateOneInput;
+  quantity: Int;
+}
+
+export interface OrderUpdateOneWithoutWhoOrderedInput {
+  create?: OrderCreateWithoutWhoOrderedInput;
+  update?: OrderUpdateWithoutWhoOrderedDataInput;
+  upsert?: OrderUpsertWithoutWhoOrderedInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: OrderWhereUniqueInput;
+}
+
+export interface ProductCreateOneInput {
+  create?: ProductCreateInput;
+  connect?: ProductWhereUniqueInput;
+}
+
+export type OrderedProductWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface ProductCreateInput {
+  imageUrl: String;
+  title: String;
+  price: Float;
+}
+
+export interface OrderCreateOneWithoutWhoOrderedInput {
+  create?: OrderCreateWithoutWhoOrderedInput;
+  connect?: OrderWhereUniqueInput;
+}
+
+export interface UserCreateOneWithoutOrderInput {
+  create?: UserCreateWithoutOrderInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export type ProductWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface UserCreateWithoutOrderInput {
+  name: String;
+  email?: String;
+  password: String;
+}
+
+export interface ProductUpdateManyMutationInput {
+  imageUrl?: String;
+  title?: String;
+  price?: Float;
+}
+
+export interface OrderUpdateInput {
+  totalPrice?: Float;
+  orderedProducts?: OrderedProductUpdateManyWithoutOrderInput;
+  whoOrdered?: UserUpdateOneRequiredWithoutOrderInput;
+}
+
+export interface OrderedProductUpdateManyMutationInput {
+  quantity?: Int;
+}
+
+export interface OrderCreateWithoutOrderedProductsInput {
+  totalPrice?: Float;
+  whoOrdered: UserCreateOneWithoutOrderInput;
+}
+
+export interface OrderUpsertWithoutOrderedProductsInput {
+  update: OrderUpdateWithoutOrderedProductsDataInput;
+  create: OrderCreateWithoutOrderedProductsInput;
+}
+
+export interface OrderedProductUpdateWithWhereUniqueWithoutOrderInput {
+  where: OrderedProductWhereUniqueInput;
+  data: OrderedProductUpdateWithoutOrderDataInput;
 }
 
 export interface UserWhereInput {
@@ -301,9 +577,116 @@ export interface UserWhereInput {
   password_not_starts_with?: String;
   password_ends_with?: String;
   password_not_ends_with?: String;
+  order?: OrderWhereInput;
   AND?: UserWhereInput[] | UserWhereInput;
   OR?: UserWhereInput[] | UserWhereInput;
   NOT?: UserWhereInput[] | UserWhereInput;
+}
+
+export interface OrderedProductUpdateWithoutOrderDataInput {
+  product?: ProductUpdateOneRequiredInput;
+  quantity?: Int;
+}
+
+export interface OrderSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: OrderWhereInput;
+  AND?: OrderSubscriptionWhereInput[] | OrderSubscriptionWhereInput;
+  OR?: OrderSubscriptionWhereInput[] | OrderSubscriptionWhereInput;
+  NOT?: OrderSubscriptionWhereInput[] | OrderSubscriptionWhereInput;
+}
+
+export interface ProductUpdateOneRequiredInput {
+  create?: ProductCreateInput;
+  update?: ProductUpdateDataInput;
+  upsert?: ProductUpsertNestedInput;
+  connect?: ProductWhereUniqueInput;
+}
+
+export interface OrderUpdateWithoutWhoOrderedDataInput {
+  totalPrice?: Float;
+  orderedProducts?: OrderedProductUpdateManyWithoutOrderInput;
+}
+
+export interface OrderWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  totalPrice?: Float;
+  totalPrice_not?: Float;
+  totalPrice_in?: Float[] | Float;
+  totalPrice_not_in?: Float[] | Float;
+  totalPrice_lt?: Float;
+  totalPrice_lte?: Float;
+  totalPrice_gt?: Float;
+  totalPrice_gte?: Float;
+  orderedProducts_every?: OrderedProductWhereInput;
+  orderedProducts_some?: OrderedProductWhereInput;
+  orderedProducts_none?: OrderedProductWhereInput;
+  whoOrdered?: UserWhereInput;
+  AND?: OrderWhereInput[] | OrderWhereInput;
+  OR?: OrderWhereInput[] | OrderWhereInput;
+  NOT?: OrderWhereInput[] | OrderWhereInput;
+}
+
+export interface OrderCreateWithoutWhoOrderedInput {
+  totalPrice?: Float;
+  orderedProducts?: OrderedProductCreateManyWithoutOrderInput;
+}
+
+export interface ProductUpsertNestedInput {
+  update: ProductUpdateDataInput;
+  create: ProductCreateInput;
+}
+
+export interface OrderedProductWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  product?: ProductWhereInput;
+  quantity?: Int;
+  quantity_not?: Int;
+  quantity_in?: Int[] | Int;
+  quantity_not_in?: Int[] | Int;
+  quantity_lt?: Int;
+  quantity_lte?: Int;
+  quantity_gt?: Int;
+  quantity_gte?: Int;
+  order?: OrderWhereInput;
+  AND?: OrderedProductWhereInput[] | OrderedProductWhereInput;
+  OR?: OrderedProductWhereInput[] | OrderedProductWhereInput;
+  NOT?: OrderedProductWhereInput[] | OrderedProductWhereInput;
+}
+
+export interface OrderedProductUpsertWithWhereUniqueWithoutOrderInput {
+  where: OrderedProductWhereUniqueInput;
+  update: OrderedProductUpdateWithoutOrderDataInput;
+  create: OrderedProductCreateWithoutOrderInput;
 }
 
 export type UserWhereUniqueInput = AtLeastOne<{
@@ -311,10 +694,11 @@ export type UserWhereUniqueInput = AtLeastOne<{
   email?: String;
 }>;
 
-export interface ProductCreateInput {
-  imageUrl: String;
-  title: String;
-  price: Float;
+export interface UserUpdateOneRequiredWithoutOrderInput {
+  create?: UserCreateWithoutOrderInput;
+  update?: UserUpdateWithoutOrderDataInput;
+  upsert?: UserUpsertWithoutOrderInput;
+  connect?: UserWhereUniqueInput;
 }
 
 export interface ProductSubscriptionWhereInput {
@@ -328,24 +712,21 @@ export interface ProductSubscriptionWhereInput {
   NOT?: ProductSubscriptionWhereInput[] | ProductSubscriptionWhereInput;
 }
 
-export interface ProductUpdateManyMutationInput {
-  imageUrl?: String;
-  title?: String;
-  price?: Float;
+export interface OrderCreateOneWithoutOrderedProductsInput {
+  create?: OrderCreateWithoutOrderedProductsInput;
+  connect?: OrderWhereUniqueInput;
 }
 
-export interface UserSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: UserWhereInput;
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+export interface OrderUpdateManyMutationInput {
+  totalPrice?: Float;
 }
 
-export interface UserUpdateInput {
+export interface UserUpsertWithoutOrderInput {
+  update: UserUpdateWithoutOrderDataInput;
+  create: UserCreateWithoutOrderInput;
+}
+
+export interface UserUpdateWithoutOrderDataInput {
   name?: String;
   email?: String;
   password?: String;
@@ -357,47 +738,33 @@ export interface UserUpdateManyMutationInput {
   password?: String;
 }
 
+export interface OrderUpdateWithoutOrderedProductsDataInput {
+  totalPrice?: Float;
+  whoOrdered?: UserUpdateOneRequiredWithoutOrderInput;
+}
+
+export interface ProductUpdateInput {
+  imageUrl?: String;
+  title?: String;
+  price?: Float;
+}
+
+export interface UserCreateInput {
+  name: String;
+  email?: String;
+  password: String;
+  order?: OrderCreateOneWithoutWhoOrderedInput;
+}
+
+export interface UserUpdateInput {
+  name?: String;
+  email?: String;
+  password?: String;
+  order?: OrderUpdateOneWithoutWhoOrderedInput;
+}
+
 export interface NodeNode {
   id: ID_Output;
-}
-
-export interface UserEdge {
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserPreviousValues {
@@ -425,72 +792,20 @@ export interface UserPreviousValuesSubscription
   password: () => Promise<AsyncIterator<String>>;
 }
 
-export interface ProductConnection {}
+export interface OrderEdge {
+  cursor: String;
+}
 
-export interface ProductConnectionPromise
-  extends Promise<ProductConnection>,
+export interface OrderEdgePromise extends Promise<OrderEdge>, Fragmentable {
+  node: <T = OrderPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface OrderEdgeSubscription
+  extends Promise<AsyncIterator<OrderEdge>>,
     Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ProductEdge>>() => T;
-  aggregate: <T = AggregateProductPromise>() => T;
-}
-
-export interface ProductConnectionSubscription
-  extends Promise<AsyncIterator<ProductConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ProductEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateProductSubscription>() => T;
-}
-
-export interface UserConnection {}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface AggregateProduct {
-  count: Int;
-}
-
-export interface AggregateProductPromise
-  extends Promise<AggregateProduct>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateProductSubscription
-  extends Promise<AsyncIterator<AggregateProduct>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  node: <T = OrderSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface ProductSubscriptionPayload {
@@ -516,31 +831,6 @@ export interface ProductSubscriptionPayloadSubscription
   previousValues: <T = ProductPreviousValuesSubscription>() => T;
 }
 
-export interface ProductPreviousValues {
-  id: ID_Output;
-  imageUrl: String;
-  title: String;
-  price: Float;
-}
-
-export interface ProductPreviousValuesPromise
-  extends Promise<ProductPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  imageUrl: () => Promise<String>;
-  title: () => Promise<String>;
-  price: () => Promise<Float>;
-}
-
-export interface ProductPreviousValuesSubscription
-  extends Promise<AsyncIterator<ProductPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  imageUrl: () => Promise<AsyncIterator<String>>;
-  title: () => Promise<AsyncIterator<String>>;
-  price: () => Promise<AsyncIterator<Float>>;
-}
-
 export interface BatchPayload {
   count: Long;
 }
@@ -557,20 +847,95 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface ProductEdge {
-  cursor: String;
+export interface AggregateUser {
+  count: Int;
 }
 
-export interface ProductEdgePromise extends Promise<ProductEdge>, Fragmentable {
-  node: <T = ProductPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ProductEdgeSubscription
-  extends Promise<AsyncIterator<ProductEdge>>,
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
     Fragmentable {
-  node: <T = ProductSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UserConnection {}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
+}
+
+export interface OrderConnection {}
+
+export interface OrderConnectionPromise
+  extends Promise<OrderConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<OrderEdge>>() => T;
+  aggregate: <T = AggregateOrderPromise>() => T;
+}
+
+export interface OrderConnectionSubscription
+  extends Promise<AsyncIterator<OrderConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<OrderEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateOrderSubscription>() => T;
+}
+
+export interface AggregateProduct {
+  count: Int;
+}
+
+export interface AggregateProductPromise
+  extends Promise<AggregateProduct>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateProductSubscription
+  extends Promise<AsyncIterator<AggregateProduct>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface User {
@@ -585,6 +950,7 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   name: () => Promise<String>;
   email: () => Promise<String>;
   password: () => Promise<String>;
+  order: <T = OrderPromise>() => T;
 }
 
 export interface UserSubscription
@@ -594,6 +960,223 @@ export interface UserSubscription
   name: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
+  order: <T = OrderSubscription>() => T;
+}
+
+export interface ProductConnection {}
+
+export interface ProductConnectionPromise
+  extends Promise<ProductConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ProductEdge>>() => T;
+  aggregate: <T = AggregateProductPromise>() => T;
+}
+
+export interface ProductConnectionSubscription
+  extends Promise<AsyncIterator<ProductConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ProductEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateProductSubscription>() => T;
+}
+
+export interface Order {
+  id: ID_Output;
+  totalPrice: Float;
+}
+
+export interface OrderPromise extends Promise<Order>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  totalPrice: () => Promise<Float>;
+  orderedProducts: <T = FragmentableArray<OrderedProduct>>(
+    args?: {
+      where?: OrderedProductWhereInput;
+      orderBy?: OrderedProductOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  whoOrdered: <T = UserPromise>() => T;
+}
+
+export interface OrderSubscription
+  extends Promise<AsyncIterator<Order>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  totalPrice: () => Promise<AsyncIterator<Float>>;
+  orderedProducts: <T = Promise<AsyncIterator<OrderedProductSubscription>>>(
+    args?: {
+      where?: OrderedProductWhereInput;
+      orderBy?: OrderedProductOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  whoOrdered: <T = UserSubscription>() => T;
+}
+
+export interface OrderedProductEdge {
+  cursor: String;
+}
+
+export interface OrderedProductEdgePromise
+  extends Promise<OrderedProductEdge>,
+    Fragmentable {
+  node: <T = OrderedProductPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface OrderedProductEdgeSubscription
+  extends Promise<AsyncIterator<OrderedProductEdge>>,
+    Fragmentable {
+  node: <T = OrderedProductSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface OrderSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface OrderSubscriptionPayloadPromise
+  extends Promise<OrderSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = OrderPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = OrderPreviousValuesPromise>() => T;
+}
+
+export interface OrderSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<OrderSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = OrderSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = OrderPreviousValuesSubscription>() => T;
+}
+
+export interface AggregateOrder {
+  count: Int;
+}
+
+export interface AggregateOrderPromise
+  extends Promise<AggregateOrder>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateOrderSubscription
+  extends Promise<AsyncIterator<AggregateOrder>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface OrderPreviousValues {
+  id: ID_Output;
+  totalPrice: Float;
+}
+
+export interface OrderPreviousValuesPromise
+  extends Promise<OrderPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  totalPrice: () => Promise<Float>;
+}
+
+export interface OrderPreviousValuesSubscription
+  extends Promise<AsyncIterator<OrderPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  totalPrice: () => Promise<AsyncIterator<Float>>;
+}
+
+export interface UserEdge {
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface OrderedProduct {
+  id: ID_Output;
+  quantity: Int;
+}
+
+export interface OrderedProductPromise
+  extends Promise<OrderedProduct>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  product: <T = ProductPromise>() => T;
+  quantity: () => Promise<Int>;
+  order: <T = OrderPromise>() => T;
+}
+
+export interface OrderedProductSubscription
+  extends Promise<AsyncIterator<OrderedProduct>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  product: <T = ProductSubscription>() => T;
+  quantity: () => Promise<AsyncIterator<Int>>;
+  order: <T = OrderSubscription>() => T;
+}
+
+export interface OrderedProductPreviousValues {
+  id: ID_Output;
+  quantity: Int;
+}
+
+export interface OrderedProductPreviousValuesPromise
+  extends Promise<OrderedProductPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  quantity: () => Promise<Int>;
+}
+
+export interface OrderedProductPreviousValuesSubscription
+  extends Promise<AsyncIterator<OrderedProductPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  quantity: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface OrderedProductSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface OrderedProductSubscriptionPayloadPromise
+  extends Promise<OrderedProductSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = OrderedProductPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = OrderedProductPreviousValuesPromise>() => T;
+}
+
+export interface OrderedProductSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<OrderedProductSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = OrderedProductSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = OrderedProductPreviousValuesSubscription>() => T;
 }
 
 export interface Product {
@@ -612,6 +1195,31 @@ export interface ProductPromise extends Promise<Product>, Fragmentable {
 
 export interface ProductSubscription
   extends Promise<AsyncIterator<Product>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  imageUrl: () => Promise<AsyncIterator<String>>;
+  title: () => Promise<AsyncIterator<String>>;
+  price: () => Promise<AsyncIterator<Float>>;
+}
+
+export interface ProductPreviousValues {
+  id: ID_Output;
+  imageUrl: String;
+  title: String;
+  price: Float;
+}
+
+export interface ProductPreviousValuesPromise
+  extends Promise<ProductPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  imageUrl: () => Promise<String>;
+  title: () => Promise<String>;
+  price: () => Promise<Float>;
+}
+
+export interface ProductPreviousValuesSubscription
+  extends Promise<AsyncIterator<ProductPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   imageUrl: () => Promise<AsyncIterator<String>>;
@@ -642,20 +1250,65 @@ export interface UserSubscriptionPayloadSubscription
   previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
-/*
-The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). 
-*/
-export type Float = number;
+export interface OrderedProductConnection {}
 
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number;
+export interface OrderedProductConnectionPromise
+  extends Promise<OrderedProductConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<OrderedProductEdge>>() => T;
+  aggregate: <T = AggregateOrderedProductPromise>() => T;
+}
+
+export interface OrderedProductConnectionSubscription
+  extends Promise<AsyncIterator<OrderedProductConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<OrderedProductEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateOrderedProductSubscription>() => T;
+}
+
+export interface AggregateOrderedProduct {
+  count: Int;
+}
+
+export interface AggregateOrderedProductPromise
+  extends Promise<AggregateOrderedProduct>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateOrderedProductSubscription
+  extends Promise<AsyncIterator<AggregateOrderedProduct>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ProductEdge {
+  cursor: String;
+}
+
+export interface ProductEdgePromise extends Promise<ProductEdge>, Fragmentable {
+  node: <T = ProductPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ProductEdgeSubscription
+  extends Promise<AsyncIterator<ProductEdge>>,
+    Fragmentable {
+  node: <T = ProductSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
 
 /*
 The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean;
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+*/
+export type Int = number;
 
 export type Long = string;
 
@@ -670,11 +1323,24 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 */
 export type String = string;
 
+/*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). 
+*/
+export type Float = number;
+
 /**
  * Model Metadata
  */
 
 export const models = [
+  {
+    name: "Order",
+    embedded: false
+  },
+  {
+    name: "OrderedProduct",
+    embedded: false
+  },
   {
     name: "Product",
     embedded: false
