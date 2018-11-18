@@ -134,10 +134,68 @@ const updateOrderedProduct = async (parent, args, context) => {
   });
 };
 
+const deleteOrderedProduct = async (parent, args, context) => {
+  const userId = getUserId(context);
+  const orderedProductFragment = `
+  	{
+  		order {
+  			whoOrdered {
+					id
+				}
+  		}
+  	}
+  `;
+
+  const orderedProduct = await context.prisma
+    .orderedProduct({
+      id: args.orderedProductId
+    })
+    .$fragment(orderedProductFragment);
+
+  if (!orderedProduct) {
+    throw new Error(`OrderedProduct not found`);
+  }
+
+  if (orderedProduct.order.whoOrdered.id !== userId) {
+    throw new Error(`Order not found`);
+  }
+
+  await context.prisma.deleteOrderedProduct({
+    id: args.orderedProductId
+  });
+
+  const orderFragment = `
+		{
+			id
+			orderedProducts {
+				quantity
+				product { price }
+			}
+		}
+	`;
+
+  const order = await context.prisma
+    .user({ id: userId })
+    .order()
+    .$fragment(orderFragment);
+
+  const totalPrice = order.orderedProducts.reduce((acc, curr) => {
+    // prettier-ignore
+    acc = acc + (curr.quantity * curr.product.price)
+    return acc;
+  }, 0);
+
+  return await context.prisma.updateOrder({
+    data: { totalPrice },
+    where: { id: order.id }
+  });
+};
+
 module.exports = {
   login,
   signup,
   createProduct,
   createOrderedProduct,
-  updateOrderedProduct
+  updateOrderedProduct,
+  deleteOrderedProduct
 };

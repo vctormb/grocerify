@@ -10,6 +10,7 @@ type Mutation {
   createProduct(data: ProductCreateInput): Product!
   createOrderedProduct(productId: ID!, quantity: Int!): Order!
   updateOrderedProduct(orderedProductId: ID!, quantity: Int!): Order!
+  deleteOrderedProduct(orderedProductId: ID!): Order!
 }
 
 type User {
