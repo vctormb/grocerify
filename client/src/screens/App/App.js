@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+// components
+import { PrivateRoute } from '../../components';
+
 // screens
 import Layout from './Layout';
 import Login from '../Login';
@@ -16,6 +19,7 @@ class App extends React.Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/cart" component={Cart} />
+            <PrivateRoute exact path="/success" component={() => 'SUCCESS'} />
             <Route component={() => 'Oops! 404!'} />
           </Switch>
         </Layout>

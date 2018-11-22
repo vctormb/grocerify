@@ -12,6 +12,7 @@ import LinkButton from './LinkButton';
 import Badge from './Badge';
 import Card from './Card';
 import QuantityField from './QuantityField';
+import PrivateRoute from './PrivateRoute';
 
 export {
   Container,
@@ -28,4 +29,5 @@ export {
   Badge,
   Card,
   QuantityField,
+  PrivateRoute,
 };
