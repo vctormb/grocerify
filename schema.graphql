@@ -1,7 +1,7 @@
 # import Product, ProductCreateInput, Order from "./prisma/generated/prisma-client/prisma.graphql"
 
 type Query {
-  products: [Product!]!
+  products(skip: Int, first: Int): [Product!]!
 }
 
 type Mutation {
