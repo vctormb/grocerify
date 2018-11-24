@@ -3,6 +3,7 @@ import { Flex } from '@rebass/grid';
 
 // graphql
 import { Query } from 'react-apollo';
+import { queries } from '../../graphql';
 
 // components
 import {
@@ -15,8 +16,8 @@ import {
   Icon,
 } from '../../components';
 
-// utils
-import { query } from '../../graphql';
+// styles
+import { colors } from '../../styles';
 
 class Home extends React.Component {
   render() {
@@ -24,12 +25,18 @@ class Home extends React.Component {
       <ScreenBox>
         <Container>
           <Row flexWrap="wrap">
-            <Query query={query.PRODUCTS}>
+            <Query query={queries.PRODUCTS}>
               {({ loading, error, data }) => {
                 if (loading)
                   return (
                     <Flex justifyContent="center" flex="1">
-                      <Icon spin icon="spinner2" width="16" height="16" />
+                      <Icon
+                        spin
+                        icon="spinner2"
+                        width="16"
+                        height="16"
+                        fill={colors.v4}
+                      />
                     </Flex>
                   );
                 if (error) return `Error! ${error.message}`;
