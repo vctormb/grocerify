@@ -7,7 +7,7 @@ import { Flex } from '@rebass/grid';
 import { pxToRem, media } from '../../styles';
 
 const Wrapper = styled(Flex)`
-  background-color: ${p => p.theme.colors.v6};
+  /* background-color: ${p => p.theme.colors.v6}; */
   padding: ${pxToRem(10)};
   flex: 0 1 ${pxToRem(90)};
   border-radius: ${p => (p.rounded ? '5px 0 0 5px' : 0)};
@@ -22,7 +22,7 @@ const ImageContainer = styled.div`
   height: ${pxToRem(80)};
   width: ${pxToRem(80)};
   background-color: ${p => p.theme.colors.v3};
-  background-image: url(https://static1.squarespace.com/static/57c99e749de4bb3184279ffc/t/5a9d6ce2ec212d5494fc7947/1520265396167/?format=300w);
+  background-image: ${p => `url(${p.imageUrl})`};
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -56,6 +56,7 @@ ProductCardImage.defaultProps = {
 
 ProductCardImage.propTypes = {
   rounded: PropTypes.bool,
+  imageUrl: PropTypes.string,
 };
 
 export default ProductCardImage;
