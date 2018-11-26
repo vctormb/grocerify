@@ -54,7 +54,9 @@ class ProductCardImage extends React.Component {
   }
 
   componentDidMount() {
-    this.loadImage();
+    if (this.props.imageUrl) {
+      this.loadImage();
+    }
   }
 
   loadImage() {
@@ -84,6 +86,7 @@ class ProductCardImage extends React.Component {
       >
         <ImageContainer
           {...this.props}
+          data-testid="image-container"
           ref={el => (this.imageContainer = el)}
         />
 
