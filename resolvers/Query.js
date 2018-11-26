@@ -1,9 +1,9 @@
 const products = async (parent, args, context) => {
   return await context.prisma.products({
-    ...args
+    ...args,
   });
 };
 
 module.exports = {
-  products
+  products,
 };

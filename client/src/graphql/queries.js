@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 const PRODUCTS = gql`
-  {
-    products {
+  query Products($first: Int, $skip: Int) {
+    products(first: $first, skip: $skip) {
       id
       title
       imageUrl

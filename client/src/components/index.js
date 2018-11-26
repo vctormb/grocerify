@@ -13,6 +13,7 @@ import Badge from './Badge';
 import Card from './Card';
 import QuantityField from './QuantityField';
 import PrivateRoute from './PrivateRoute';
+import InfiniteScroll from './InfiniteScroll';
 
 export {
   Container,
@@ -30,4 +31,5 @@ export {
   Card,
   QuantityField,
   PrivateRoute,
+  InfiniteScroll,
 };
