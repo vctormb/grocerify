@@ -48,80 +48,80 @@ class Home extends React.Component {
               notifyOnNetworkStatusChange
             >
               {({ loading, error, data, fetchMore }) => {
-                {
-                  /* if (error) return `Error! ${error.message}`; */
-                }
+                if (error) return `Error! ${error.message}`;
 
                 const hasData = data && Object.keys(data).length;
 
                 return (
-                  <InfiniteScroll
-                    isLoading={loading}
-                    onFetchData={() =>
-                      this.fetchMoreData(fetchMore, data.products.length)
-                    }
-                  >
-                    <React.Fragment>
-                      <Modal.Manager>
-                        {modal => (
-                          <React.Fragment>
-                            <Flex>
-                              <Modal {...modal} />
-                              <button onClick={() => modal.activeModal(true)}>
-                                click
-                              </button>
-                            </Flex>
-                          </React.Fragment>
-                        )}
-                      </Modal.Manager>
-
-                      {!!hasData &&
-                        data.products.map((product, i) => (
-                          <Col
-                            key={i}
-                            as={Flex}
-                            flex={['1 1 100%', '0 1 33.33%', '0 1 25%']}
-                          >
-                            <ProductCard>
-                              {pc => (
-                                <React.Fragment>
-                                  <ProductCard.Image
-                                    {...pc}
-                                    imageUrl={product.imageUrl}
-                                  />
-                                  <ProductCard.Content>
-                                    <ProductCard.Body
-                                      title={product.title}
-                                      price={product.price}
-                                    />
-                                    <ProductCard.Footer justifyContent="center">
-                                      <Button
-                                        appearance="ghostSuccess"
-                                        icon="shopping-cart"
-                                      >
-                                        ADD TO CART
-                                      </Button>
-                                    </ProductCard.Footer>
-                                  </ProductCard.Content>
-                                </React.Fragment>
-                              )}
-                            </ProductCard>
-                          </Col>
-                        ))}
-
-                      {loading && (
-                        <Flex justifyContent="center" flex="1" mb={6}>
-                          <Icon
-                            spin
-                            icon="spinner2"
-                            width="16"
-                            height="16"
-                            fill={colors.v4}
-                          />
-                        </Flex>
+                  <React.Fragment>
+                    {/* <Modal.Manager>
+                      {modal => (
+                        <React.Fragment>
+                          <Flex>
+                            <Modal {...modal} />
+                            <button onClick={() => modal.showModal(true)}>
+                              click
+                            </button>
+                          </Flex>
+                        </React.Fragment>
                       )}
-                    </React.Fragment>
-                  </InfiniteScroll>
+                    </Modal.Manager> */}
+
+                    <InfiniteScroll
+                      isLoading={loading}
+                      onFetchData={() =>
+                        this.fetchMoreData(fetchMore, data.products.length)
+                      }
+                    >
+                      <React.Fragment>
+                        {!!hasData &&
+                          data.products.map((product, i) => (
+                            <Col
+                              key={i}
+                              as={Flex}
+                              flex={['1 1 100%', '0 1 33.33%', '0 1 25%']}
+                            >
+                              <ProductCard>
+                                {pc => (
+                                  <React.Fragment>
+                                    <ProductCard.Image
+                                      {...pc}
+                                      imageUrl={product.imageUrl}
+                                    />
+                                    <ProductCard.Content>
+                                      <ProductCard.Body
+                                        title={product.title}
+                                        price={product.price}
+                                      />
+                                      <ProductCard.Footer justifyContent="center">
+                                        <Button
+                                          appearance="ghostSuccess"
+                                          icon="shopping-cart"
+                                        >
+                                          ADD TO CART
+                                        </Button>
+                                      </ProductCard.Footer>
+                                    </ProductCard.Content>
+                                  </React.Fragment>
+                                )}
+                              </ProductCard>
+                            </Col>
+                          ))}
+
+                        {loading && (
+                          <Flex justifyContent="center" flex="1" mb={6}>
+                            <Icon
+                              spin
+                              icon="spinner2"
+                              width="16"
+                              height="16"
+                              fill={colors.v4}
+                            />
+                          </Flex>
+                        )}
+                      </React.Fragment>
+                    </InfiniteScroll>
+                  </React.Fragment>
                 );
               }}
             </Query>

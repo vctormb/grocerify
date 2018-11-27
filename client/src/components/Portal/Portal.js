@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const modalRootId = 'modal-root';
-const modalRoot = document.getElementById(modalRootId);
-
-let createdModalRoot;
+let modalRoot;
 
 class Portal extends React.Component {
   constructor(props) {
@@ -12,18 +10,16 @@ class Portal extends React.Component {
     this.el = document.createElement('div');
 
     if (!modalRoot) {
-      createdModalRoot = document.createElement('div');
-      createdModalRoot.setAttribute('id', modalRootId);
-      document.body.appendChild(createdModalRoot);
+      modalRoot = document.createElement('div');
+      modalRoot.setAttribute('id', modalRootId);
+      document.body.appendChild(modalRoot);
     }
 
-    createdModalRoot.appendChild(this.el);
+    modalRoot.appendChild(this.el);
   }
 
   componentWillUnmount() {
-    if (modalRoot) {
-      modalRoot.removeChild(this.el);
-    }
+    modalRoot.removeChild(this.el);
   }
 
   render() {
