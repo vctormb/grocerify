@@ -15,6 +15,7 @@ import {
   Button,
   Icon,
   InfiniteScroll,
+  Modal,
 } from '../../components';
 
 // styles
@@ -47,9 +48,11 @@ class Home extends React.Component {
               notifyOnNetworkStatusChange
             >
               {({ loading, error, data, fetchMore }) => {
-                if (error) return `Error! ${error.message}`;
+                {
+                  /* if (error) return `Error! ${error.message}`; */
+                }
 
-                const hasData = Object.keys(data).length;
+                const hasData = data && Object.keys(data).length;
 
                 return (
                   <InfiniteScroll
@@ -59,6 +62,19 @@ class Home extends React.Component {
                     }
                   >
                     <React.Fragment>
+                      <Modal.Manager>
+                        {modal => (
+                          <React.Fragment>
+                            <Flex>
+                              <Modal {...modal} />
+                              <button onClick={() => modal.activeModal(true)}>
+                                click
+                              </button>
+                            </Flex>
+                          </React.Fragment>
+                        )}
+                      </Modal.Manager>
+
                       {!!hasData &&
                         data.products.map((product, i) => (
                           <Col

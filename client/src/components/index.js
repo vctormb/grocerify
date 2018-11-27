@@ -14,6 +14,8 @@ import Card from './Card';
 import QuantityField from './QuantityField';
 import PrivateRoute from './PrivateRoute';
 import InfiniteScroll from './InfiniteScroll';
+import Portal from './Portal';
+import Modal from './Modal';
 
 export {
   Container,
@@ -32,4 +34,6 @@ export {
   QuantityField,
   PrivateRoute,
   InfiniteScroll,
+  Portal,
+  Modal,
 };

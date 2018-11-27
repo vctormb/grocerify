@@ -22,7 +22,6 @@ const Wrapper = styled.div`
   width: 100%;
   height: 64px;
   padding: ${pxToRem(20)} 0;
-  border-bottom: ${p => `1px solid ${p.theme.colors.v5}`};
   background-color: ${p => p.theme.colors.v3};
   background-image: ${({ isLoginScreen, theme }) =>
     isLoginScreen

@@ -27,12 +27,12 @@ const GlobalStyle = createGlobalStyle`
 	*, *:before, *:after {
 		box-sizing: inherit;
 	}
-	
+
 	html, body, #root {
 		min-height: 100vh;
 		width: 100%;
 	}
-	
+
 	#root {
 		display: flex;
 		flex-direction: column;
