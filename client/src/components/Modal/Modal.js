@@ -63,13 +63,18 @@ const StyledIconBtn = styled(IconButton)`
 class Modal extends React.Component {
   render() {
     return (
-      <Portal>
-        <Backdrop
-          show={this.props.isOpen}
-          onClick={() => this.props.showModal(false)}
-        >
-          <Transition in={this.props.isOpen} timeout={duration} appear={true}>
-            {transitionState => (
+      <Transition
+        in={this.props.isOpen}
+        timeout={duration}
+        appear={true}
+        unmountOnExit
+      >
+        {transitionState => (
+          <Portal>
+            <Backdrop
+              show={this.props.isOpen}
+              onClick={() => this.props.showModal(false)}
+            >
               <Container>
                 <Wrapper
                   transitionState={transitionState}
@@ -87,10 +92,10 @@ class Modal extends React.Component {
                   </React.Fragment>
                 </Wrapper>
               </Container>
-            )}
-          </Transition>
-        </Backdrop>
-      </Portal>
+            </Backdrop>
+          </Portal>
+        )}
+      </Transition>
     );
   }
 }

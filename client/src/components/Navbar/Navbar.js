@@ -4,13 +4,14 @@ import { Flex } from '@rebass/grid';
 import { withRouter } from 'react-router-dom';
 
 // components
-import {
-  Container,
-  Button,
-  LinkButton,
-  IconButton,
-  Badge,
-} from '../../components';
+import Container from '../Container';
+import Button from '../Button';
+import LinkButton from '../LinkButton';
+import IconButton from '../IconButton';
+import Badge from '../Badge';
+import { withLoginModal } from '../LoginModal';
+// utils
+import { getToken } from '../../utils';
 
 // styles
 import { pxToRem } from '../../styles';
@@ -38,30 +39,43 @@ const Brand = styled.span`
   font-weight: 700;
 `;
 
-const Navbar = ({ isLoginScreen }) => (
-  <Wrapper isLoginScreen={isLoginScreen}>
-    <Container as={Flex} alignItems="center" flex="1">
-      <Brand>Grocerify</Brand>
-      <Button
-        as={LinkButton}
-        to="/login"
-        appearance="ghost"
-        color={!isLoginScreen ? 'v3' : null}
-      >
-        Login
-      </Button>
+class Navbar extends React.Component {
+  goToCartScreen = () => {
+    if (!getToken()) {
+      this.props.withLoginModal.showModal(true);
+    } else {
+      this.props.history.push('/cart');
+    }
+  };
 
-      <IconButton
-        as={LinkButton}
-        to="/cart"
-        appearance="ghostSuccess"
-        icon="shopping-cart"
-        color={!isLoginScreen ? 'v3' : null}
-      >
-        <Badge top="-5px" count={0} />
-      </IconButton>
-    </Container>
-  </Wrapper>
-);
+  render() {
+    const { isLoginScreen } = this.props;
 
-export default withRouter(Navbar);
+    return (
+      <Wrapper isLoginScreen={isLoginScreen}>
+        <Container as={Flex} alignItems="center" flex="1">
+          <Brand>Grocerify</Brand>
+          <Button
+            as={LinkButton}
+            to="/login"
+            appearance="ghost"
+            color={!isLoginScreen ? 'v3' : null}
+          >
+            Login
+          </Button>
+
+          <IconButton
+            appearance="ghostSuccess"
+            icon="shopping-cart"
+            color={!isLoginScreen ? 'v3' : null}
+            onClick={this.goToCartScreen}
+          >
+            <Badge top="-5px" count={0} />
+          </IconButton>
+        </Container>
+      </Wrapper>
+    );
+  }
+}
+
+export default withRouter(withLoginModal(Navbar));

@@ -42,7 +42,7 @@ const Backdrop = styled.div`
 `;
 
 const Component = ({ children, style, show, ...rest }) => (
-  <Transition in={show} timeout={duration} unmountOnExit>
+  <Transition in={show} timeout={duration} appear={true} unmountOnExit>
     {transitionState => (
       <Backdrop {...rest} transitionState={transitionState}>
         {children}

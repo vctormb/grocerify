@@ -12,11 +12,9 @@ import {
   Row,
   Col,
   ProductCard,
-  Button,
   Icon,
   InfiniteScroll,
-  Modal,
-  LoginModal,
+  ProductCardAddToCart,
 } from '../../components';
 
 // styles
@@ -48,28 +46,13 @@ class Home extends React.Component {
             notifyOnNetworkStatusChange
           >
             {({ loading, error, data, fetchMore }) => {
-              {
-                /* if (error) return `Error! ${error.message}`; */
-              }
+              if (error) return `Error! ${error.message}`;
 
               const hasData = data && Object.keys(data).length;
 
               return (
                 <React.Fragment>
                   <Row flexWrap="wrap">
-                    <Modal.Manager>
-                      {modal => (
-                        <React.Fragment>
-                          <Flex>
-                            <LoginModal {...modal} />
-                            <button onClick={() => modal.showModal(true)}>
-                              click
-                            </button>
-                          </Flex>
-                        </React.Fragment>
-                      )}
-                    </Modal.Manager>
-
                     <InfiniteScroll
                       isLoading={loading}
                       onFetchData={() =>
@@ -97,12 +80,7 @@ class Home extends React.Component {
                                         price={product.price}
                                       />
                                       <ProductCard.Footer justifyContent="center">
-                                        <Button
-                                          appearance="ghostSuccess"
-                                          icon="shopping-cart"
-                                        >
-                                          ADD TO CART
-                                        </Button>
+                                        <ProductCardAddToCart />
                                       </ProductCard.Footer>
                                     </ProductCard.Content>
                                   </React.Fragment>

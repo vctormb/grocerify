@@ -5,7 +5,7 @@ import Col from './Col';
 import Input from './Input';
 import Button from './Button';
 import ScreenBox from './ScreenBox';
-import ProductCard from './ProductCard';
+import ProductCard, { ProductCardAddToCart } from './ProductCard';
 import Icon from './Icon';
 import IconButton from './IconButton';
 import LinkButton from './LinkButton';
@@ -16,7 +16,7 @@ import PrivateRoute from './PrivateRoute';
 import InfiniteScroll from './InfiniteScroll';
 import Portal from './Portal';
 import Modal from './Modal';
-import LoginModal from './LoginModal';
+import LoginModal, { withLoginModal } from './LoginModal';
 import Backdrop from './Backdrop';
 
 export {
@@ -28,6 +28,7 @@ export {
   Button,
   ScreenBox,
   ProductCard,
+  ProductCardAddToCart,
   Icon,
   IconButton,
   LinkButton,
@@ -40,4 +41,5 @@ export {
   Modal,
   LoginModal,
   Backdrop,
+  withLoginModal,
 };
