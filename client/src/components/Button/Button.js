@@ -43,6 +43,7 @@ Button.defaultProps = {
 Button.propTypes = {
   appearance: PropTypes.oneOf([
     'primary',
+    'info',
     'danger',
     'ghost',
     'ghostSuccess',

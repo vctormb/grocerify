@@ -16,6 +16,7 @@ import {
   Icon,
   InfiniteScroll,
   Modal,
+  LoginModal,
 } from '../../components';
 
 // styles
@@ -41,91 +42,87 @@ class Home extends React.Component {
     return (
       <ScreenBox>
         <Container>
-          <Row flexWrap="wrap">
-            <Query
-              query={queries.PRODUCTS}
-              variables={{ skip: 0, first: 12 }}
-              notifyOnNetworkStatusChange
-            >
-              {({ loading, error, data, fetchMore }) => {
-                if (error) return `Error! ${error.message}`;
+          <Query
+            query={queries.PRODUCTS}
+            variables={{ skip: 0, first: 12 }}
+            notifyOnNetworkStatusChange
+          >
+            {({ loading, error, data, fetchMore }) => {
+              if (error) return `Error! ${error.message}`;
 
-                const hasData = data && Object.keys(data).length;
+              const hasData = data && Object.keys(data).length;
 
-                return (
-                  <React.Fragment>
-                    {/* <Modal.Manager>
-                      {modal => (
-                        <React.Fragment>
-                          <Flex>
-                            <Modal {...modal} />
-                            <button onClick={() => modal.showModal(true)}>
-                              click
-                            </button>
-                          </Flex>
-                        </React.Fragment>
-                      )}
-                    </Modal.Manager> */}
-
-                    <InfiniteScroll
-                      isLoading={loading}
-                      onFetchData={() =>
-                        this.fetchMoreData(fetchMore, data.products.length)
-                      }
-                    >
+              return (
+                <Row flexWrap="wrap">
+                  <Modal.Manager>
+                    {modal => (
                       <React.Fragment>
-                        {!!hasData &&
-                          data.products.map((product, i) => (
-                            <Col
-                              key={i}
-                              as={Flex}
-                              flex={['1 1 100%', '0 1 33.33%', '0 1 25%']}
-                            >
-                              <ProductCard>
-                                {pc => (
-                                  <React.Fragment>
-                                    <ProductCard.Image
-                                      {...pc}
-                                      imageUrl={product.imageUrl}
-                                    />
-                                    <ProductCard.Content>
-                                      <ProductCard.Body
-                                        title={product.title}
-                                        price={product.price}
-                                      />
-                                      <ProductCard.Footer justifyContent="center">
-                                        <Button
-                                          appearance="ghostSuccess"
-                                          icon="shopping-cart"
-                                        >
-                                          ADD TO CART
-                                        </Button>
-                                      </ProductCard.Footer>
-                                    </ProductCard.Content>
-                                  </React.Fragment>
-                                )}
-                              </ProductCard>
-                            </Col>
-                          ))}
-
-                        {loading && (
-                          <Flex justifyContent="center" flex="1" mb={6}>
-                            <Icon
-                              spin
-                              icon="spinner2"
-                              width="16"
-                              height="16"
-                              fill={colors.v4}
-                            />
-                          </Flex>
-                        )}
+                        <Flex>
+                          <LoginModal {...modal} />
+                          <button onClick={() => modal.showModal(true)}>
+                            click
+                          </button>
+                        </Flex>
                       </React.Fragment>
-                    </InfiniteScroll>
-                  </React.Fragment>
-                );
-              }}
-            </Query>
-          </Row>
+                    )}
+                  </Modal.Manager>
+
+                  <InfiniteScroll
+                    isLoading={loading}
+                    onFetchData={() =>
+                      this.fetchMoreData(fetchMore, data.products.length)
+                    }
+                  >
+                    <React.Fragment>
+                      {!!hasData &&
+                        data.products.map((product, i) => (
+                          <Col
+                            key={i}
+                            as={Flex}
+                            flex={['1 1 100%', '0 1 33.33%', '0 1 25%']}
+                          >
+                            <ProductCard>
+                              {pc => (
+                                <React.Fragment>
+                                  <ProductCard.Image
+                                    {...pc}
+                                    imageUrl={product.imageUrl}
+                                  />
+                                  <ProductCard.Content>
+                                    <ProductCard.Body
+                                      title={product.title}
+                                      price={product.price}
+                                    />
+                                    <ProductCard.Footer justifyContent="center">
+                                      <Button
+                                        appearance="ghostSuccess"
+                                        icon="shopping-cart"
+                                      >
+                                        ADD TO CART
+                                      </Button>
+                                    </ProductCard.Footer>
+                                  </ProductCard.Content>
+                                </React.Fragment>
+                              )}
+                            </ProductCard>
+                          </Col>
+                        ))}
+                    </React.Fragment>
+                  </InfiniteScroll>
+                </Row>
+              );
+            }}
+          </Query>
+
+          <Flex justifyContent="center" flex="1" mb={6}>
+            <Icon
+              spin
+              icon="spinner2"
+              width="16"
+              height="16"
+              fill={colors.v4}
+            />
+          </Flex>
         </Container>
       </ScreenBox>
     );

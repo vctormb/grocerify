@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Box } from '@rebass/grid';
 
 // components
 import Card from '../Card';
@@ -17,7 +16,7 @@ const Backdrop = styled.div`
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 9998;
 `;
 

@@ -16,6 +16,7 @@ import PrivateRoute from './PrivateRoute';
 import InfiniteScroll from './InfiniteScroll';
 import Portal from './Portal';
 import Modal from './Modal';
+import LoginModal from './LoginModal';
 
 export {
   Container,
@@ -36,4 +37,5 @@ export {
   InfiniteScroll,
   Portal,
   Modal,
+  LoginModal,
 };

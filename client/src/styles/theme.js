@@ -39,6 +39,15 @@ export default {
         active: 'transparent',
         size: buttonSizes,
       },
+      info: {
+        backgroundImage: `linear-gradient(to right,#486ccc,#4c96cb)`,
+        backgroundColor: 'transparent',
+        color: colors.v3,
+        border: 'transparent',
+        borderRadius: buttonBorderRadius.rounded,
+        active: 'transparent',
+        size: buttonSizes,
+      },
       danger: {
         backgroundImage: `linear-gradient(to right,#cc4872,${colors.v8})`,
         backgroundColor: 'transparent',
