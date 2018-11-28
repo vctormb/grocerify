@@ -7,6 +7,7 @@ import Card from '../Card';
 import Portal from '../Portal';
 import Container from '../Container';
 import Backdrop from '../Backdrop';
+import IconButton from '../IconButton';
 
 // styles
 import { pxToRem, media } from '../../styles';
@@ -38,6 +39,7 @@ const applyTransition = state => {
 };
 
 const Wrapper = styled.div`
+  position: relative;
   padding: ${pxToRem(30)};
   background-color: ${p => p.theme.colors.v3};
   max-width: 400px;
@@ -50,6 +52,12 @@ const Wrapper = styled.div`
   ${media.sm`
 		padding: ${pxToRem(60)};
 	`};
+`;
+
+const StyledIconBtn = styled(IconButton)`
+  position: absolute;
+  top: 10px;
+  right: 16px;
 `;
 
 class Modal extends React.Component {
@@ -68,7 +76,15 @@ class Modal extends React.Component {
                   as={Card}
                   onClick={e => e.stopPropagation()}
                 >
-                  {this.props.children}
+                  <React.Fragment>
+                    <StyledIconBtn
+                      appearance="ghost"
+                      icon="error"
+                      color="v5"
+                      onClick={() => this.props.showModal(false)}
+                    />
+                    {this.props.children}
+                  </React.Fragment>
                 </Wrapper>
               </Container>
             )}
