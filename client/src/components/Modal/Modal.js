@@ -1,24 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Transition } from 'react-transition-group';
 
 // components
 import Card from '../Card';
 import Portal from '../Portal';
+import Container from '../Container';
+import Backdrop from '../Backdrop';
 
 // styles
 import { pxToRem, media } from '../../styles';
 
-const Backdrop = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  padding-top: 100px;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 9998;
-`;
+const duration = 220;
+const applyTransition = state => {
+  switch (state) {
+    case 'entering':
+      return `
+        transform: scale(0.6);
+        opacity: 0 ;
+      `;
+
+    case 'entered':
+      return `
+        transform: scale(1);
+        opacity: 1;
+      `;
+
+    case 'exiting':
+      return `
+        transform: scale(0.6);
+        opacity: 0 ;
+      `;
+
+    default:
+      return null;
+  }
+};
 
 const Wrapper = styled.div`
   padding: ${pxToRem(30)};
@@ -27,6 +44,9 @@ const Wrapper = styled.div`
   margin: 0 auto;
   z-index: 9999;
 
+  ${({ transitionState }) => applyTransition(transitionState)};
+  transition: ${`all ${duration}ms ease-in-out`};
+
   ${media.sm`
 		padding: ${pxToRem(60)};
 	`};
@@ -34,14 +54,25 @@ const Wrapper = styled.div`
 
 class Modal extends React.Component {
   render() {
-    if (!this.props.isOpen) return null;
-
     return (
       <Portal>
-        <Backdrop onClick={() => this.props.showModal(false)}>
-          <Wrapper as={Card} onClick={e => e.stopPropagation()}>
-            {this.props.children}
-          </Wrapper>
+        <Backdrop
+          show={this.props.isOpen}
+          onClick={() => this.props.showModal(false)}
+        >
+          <Transition in={this.props.isOpen} timeout={duration} appear={true}>
+            {transitionState => (
+              <Container>
+                <Wrapper
+                  transitionState={transitionState}
+                  as={Card}
+                  onClick={e => e.stopPropagation()}
+                >
+                  {this.props.children}
+                </Wrapper>
+              </Container>
+            )}
+          </Transition>
         </Backdrop>
       </Portal>
     );

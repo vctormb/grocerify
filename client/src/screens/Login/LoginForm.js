@@ -26,8 +26,6 @@ const TitleWrapper = styled(Box)`
 `;
 
 class LoginForm extends React.Component {
-  state = {};
-
   render() {
     return (
       <Wrapper as={Card} flex={`0 1 ${pxToRem(400)}`}>

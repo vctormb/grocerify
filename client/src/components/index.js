@@ -17,6 +17,7 @@ import InfiniteScroll from './InfiniteScroll';
 import Portal from './Portal';
 import Modal from './Modal';
 import LoginModal from './LoginModal';
+import Backdrop from './Backdrop';
 
 export {
   Container,
@@ -38,4 +39,5 @@ export {
   Portal,
   Modal,
   LoginModal,
+  Backdrop,
 };
