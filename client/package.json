@@ -6,8 +6,6 @@
     "@rebass/grid": "^6.0.0-4",
     "apollo-boost": "^0.1.22",
     "graphql": "^14.0.2",
-    "husky": "^1.1.4",
-    "lint-staged": "^8.0.4",
     "lodash.throttle": "^4.1.1",
     "react": "^16.6.3",
     "react-apollo": "^2.3.2",
@@ -15,8 +13,8 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
     "react-transition-group": "^2.5.0",
-    "styled-components": "^4.1.1",
-    "universal-cookie": "^3.0.6"
+    "styled-components": "^4.1.2",
+    "universal-cookie": "^3.0.7"
   },
   "husky": {
     "hooks": {
@@ -50,9 +48,11 @@
   "devDependencies": {
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-prettier": "^3.0.0",
+    "husky": "^1.2.0",
     "jest-dom": "^2.1.1",
     "jest-styled-components": "^6.3.1",
+    "lint-staged": "^8.1.0",
     "prettier": "^1.15.2",
-    "react-testing-library": "^5.2.3"
+    "react-testing-library": "^5.3.1"
   }
 }

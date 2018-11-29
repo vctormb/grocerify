@@ -87,6 +87,7 @@ class Modal extends React.Component {
                       icon="error"
                       color="v5"
                       onClick={() => this.props.showModal(false)}
+                      data-testid="modal-close-btn"
                     />
                     {this.props.children}
                   </React.Fragment>

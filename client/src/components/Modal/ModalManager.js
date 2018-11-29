@@ -6,6 +6,22 @@ class ModalManager extends React.Component {
     isOpen: false,
   };
 
+  componentDidMount() {
+    if (this.props.isOpen) {
+      this.setState({
+        isOpen: this.props.isOpen,
+      });
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.isOpen !== this.state.isOpen) {
+      this.setState({
+        isOpen: this.props.isOpen,
+      });
+    }
+  }
+
   showModal = isOpen => {
     this.setState({
       isOpen,
