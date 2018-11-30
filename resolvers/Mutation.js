@@ -6,11 +6,11 @@ const { getUserId } = require("../utils");
 const login = async (parent, { email, password }, context) => {
   const user = await context.prisma.user({ email });
   if (!user) {
-    throw new Error(`No such user found for email: ${email}`);
+    throw new Error(`Wrong email or password`);
   }
   const valid = await bcrypt.compare(password, user.password);
   if (!valid) {
-    throw new Error("Invalid password");
+    throw new Error(`Wrong email or password`);
   }
 
   return {

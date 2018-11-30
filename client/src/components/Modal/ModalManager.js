@@ -14,8 +14,8 @@ class ModalManager extends React.Component {
     }
   }
 
-  componentDidMount() {
-    if (this.props.isOpen !== this.state.isOpen) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.isOpen !== this.props.isOpen) {
       this.setState({
         isOpen: this.props.isOpen,
       });

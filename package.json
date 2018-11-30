@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/vctormb/grocerify#readme",
   "dependencies": {
-    "apollo-server": "^2.2.4",
+    "apollo-server": "^2.2.5",
     "bcryptjs": "^2.4.3",
     "dotenv": "^6.1.0",
     "graphql": "^14.0.2",

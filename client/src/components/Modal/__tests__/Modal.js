@@ -33,7 +33,7 @@ describe('<Modal />', () => {
   test('Closes the modal when clicked on modal`s close button', async () => {
     const modalText = 'This is a modal';
 
-    const { queryByText, getByTestId } = render(
+    const { queryByText, getByTestId, debug } = render(
       <Modal.Manager isOpen={true}>
         {modal => (
           <Modal {...modal}>

@@ -6,13 +6,24 @@ import * as serviceWorker from './serviceWorker';
 // graphql
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-
+// utils
+import { getToken } from './utils';
 // styled-components
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
+  request: operation => {
+    const token = getToken();
+    if (token) {
+      operation.setContext({
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+  },
 });
 
 ReactDOM.render(
