@@ -6,25 +6,60 @@ import { withLoginModal } from '../LoginModal';
 // utils
 import { getToken } from '../../utils';
 
+/**
+ * these two components were separated to avoid the blank svg bug
+ */
+const AddToCartBtn = props => (
+  <Button {...props} icon="shopping-cart" appearance="ghostSuccess">
+    ADD TO CART
+  </Button>
+);
+
+const RemoveBtn = props => (
+  <Button {...props} icon="trash-2" appearance="ghost">
+    REMOVE
+  </Button>
+);
+
 class ProductCardAddToCart extends React.Component {
+  state = {
+    currentButton: 'add',
+  };
+
   addToCart = () => {
     if (!getToken()) {
-      this.props.withLoginModal.showModal(true);
+      this.setState(
+        {
+          currentButton: 'remove',
+        },
+        () => this.props.withLoginModal.showModal(true)
+      );
     } else {
       // todo
     }
   };
 
+  removeFromCart = () => {
+    this.setState({
+      currentButton: 'add',
+    });
+  };
+
+  renderButton() {
+    if (this.state.currentButton === 'remove') {
+      return (
+        <RemoveBtn
+          onClick={this.removeFromCart}
+          isLoading={this.state.isLoading}
+        />
+      );
+    }
+
+    return <AddToCartBtn onClick={this.addToCart} />;
+  }
+
   render() {
-    return (
-      <Button
-        appearance="ghostSuccess"
-        icon="shopping-cart"
-        onClick={this.addToCart}
-      >
-        ADD TO CART
-      </Button>
-    );
+    return this.renderButton();
   }
 }
 
