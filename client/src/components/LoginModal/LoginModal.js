@@ -5,7 +5,6 @@ import { Flex, Box } from '@rebass/grid';
 // graphql
 import { Mutation } from 'react-apollo';
 import { mutations } from '../../graphql';
-import { setToken } from '../../utils';
 // components
 import Modal from '../Modal';
 import Input from '../Input';

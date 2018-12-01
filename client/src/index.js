@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 // utils
-import { getToken } from './utils';
+import { auth } from './utils';
 // styled-components
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles';
@@ -17,7 +17,7 @@ import { AuthProvider } from './components';
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
   request: operation => {
-    const token = getToken();
+    const token = auth.getToken();
     if (token) {
       operation.setContext({
         headers: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { AuthContext } from './AuthContext';
 // utils
-import { getToken, setToken, removeToken, decodeToken } from '../../utils';
+import { auth } from '../../utils';
 
 const INITIAL_STATE = {
   isLoggedIn: false,
@@ -12,15 +12,15 @@ class AuthProvider extends React.Component {
   state = INITIAL_STATE;
 
   componentDidMount() {
-    if (getToken()) {
-      this.login(getToken());
+    if (auth.getToken()) {
+      this.login(auth.getToken());
     }
   }
 
   login = token => {
-    setToken(token);
+    auth.setToken(token);
 
-    const decoded = decodeToken(token);
+    const decoded = auth.decodeToken(token);
 
     this.setState({
       isLoggedIn: true,
@@ -29,7 +29,7 @@ class AuthProvider extends React.Component {
   };
 
   logout = () => {
-    removeToken();
+    auth.removeToken();
     this.setState(INITIAL_STATE);
   };
 

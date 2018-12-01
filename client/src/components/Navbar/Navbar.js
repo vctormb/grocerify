@@ -11,9 +11,6 @@ import IconButton from '../IconButton';
 import Badge from '../Badge';
 import { withLoginModal } from '../LoginModal';
 import withAuth from '../withAuth';
-// utils
-import { getToken } from '../../utils';
-
 // styles
 import { pxToRem } from '../../styles';
 
@@ -42,7 +39,9 @@ const Brand = styled.span`
 
 class Navbar extends React.Component {
   goToCartScreen = () => {
-    if (!getToken()) {
+    const { withAuth } = this.props;
+
+    if (withAuth.isLoggedIn) {
       this.props.withLoginModal.showModal(true);
     } else {
       this.props.history.push('/cart');

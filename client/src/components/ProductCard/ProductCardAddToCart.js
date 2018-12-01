@@ -1,9 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // components
 import Button from '../Button';
 import { withLoginModal } from '../LoginModal';
 import withAuth from '../withAuth';
+// graphql
+import { Mutation } from 'react-apollo';
+import { mutations } from '../../graphql';
 
 /**
  * these two components were separated to avoid the blank svg bug
@@ -25,17 +29,22 @@ class ProductCardAddToCart extends React.Component {
     currentButton: 'add',
   };
 
-  addToCart = () => {
+  addToCart = createOrderedProduct => {
     if (!this.props.withAuth.isLoggedIn) {
-      this.setState(
-        {
-          currentButton: 'remove',
-        },
-        () => this.props.withLoginModal.showModal(true)
-      );
+      this.props.withLoginModal.showModal(true);
     } else {
-      // todo
+      createOrderedProduct({
+        variables: {
+          productId: this.props.productId,
+        },
+      });
     }
+  };
+
+  onCompletedAddToCart = data => {
+    this.setState({
+      currentButton: 'remove',
+    });
   };
 
   removeFromCart = () => {
@@ -54,12 +63,29 @@ class ProductCardAddToCart extends React.Component {
       );
     }
 
-    return <AddToCartBtn onClick={this.addToCart} />;
+    return (
+      <Mutation
+        mutation={mutations.CREATE_ORDERED_PRODUCT}
+        onCompleted={this.onCompletedAddToCart}
+      >
+        {(createOrderedProduct, { loading }) => (
+          <AddToCartBtn
+            onClick={() => this.addToCart(createOrderedProduct)}
+            isLoading={loading}
+            disabled={loading}
+          />
+        )}
+      </Mutation>
+    );
   }
 
   render() {
     return this.renderButton();
   }
 }
+
+ProductCardAddToCart.propTypes = {
+  productId: PropTypes.string.isRequired,
+};
 
 export default withAuth(withLoginModal(ProductCardAddToCart));
