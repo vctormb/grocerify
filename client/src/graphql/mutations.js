@@ -30,7 +30,16 @@ const CREATE_ORDERED_PRODUCT = gql`
   }
 `;
 
+const DELETE_ORDERED_PRODUCT = gql`
+  mutation DeleteOrderedProduct($productId: ID!) {
+    deleteOrderedProduct(productId: $productId) {
+      id
+    }
+  }
+`;
+
 export default {
   LOGIN,
   CREATE_ORDERED_PRODUCT,
+  DELETE_ORDERED_PRODUCT,
 };

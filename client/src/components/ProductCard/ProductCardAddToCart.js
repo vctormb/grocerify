@@ -7,7 +7,7 @@ import { withLoginModal } from '../LoginModal';
 import withAuth from '../withAuth';
 // graphql
 import { Mutation } from 'react-apollo';
-import { mutations } from '../../graphql';
+import { mutations, queries } from '../../graphql';
 
 /**
  * these two components were separated to avoid the blank svg bug
@@ -47,7 +47,15 @@ class ProductCardAddToCart extends React.Component {
     });
   };
 
-  removeFromCart = () => {
+  removeFromCart = deleteOrderedProduct => {
+    deleteOrderedProduct({
+      variables: {
+        productId: this.props.productId,
+      },
+    });
+  };
+
+  onCompletedremoveFromCart = data => {
     this.setState({
       currentButton: 'add',
     });
@@ -56,10 +64,18 @@ class ProductCardAddToCart extends React.Component {
   renderButton() {
     if (this.state.currentButton === 'remove') {
       return (
-        <RemoveBtn
-          onClick={this.removeFromCart}
-          isLoading={this.state.isLoading}
-        />
+        <Mutation
+          mutation={mutations.DELETE_ORDERED_PRODUCT}
+          onCompleted={this.onCompletedremoveFromCart}
+        >
+          {(deleteOrderedProduct, { loading }) => (
+            <RemoveBtn
+              onClick={() => this.removeFromCart(deleteOrderedProduct)}
+              isLoading={loading}
+              disabled={loading}
+            />
+          )}
+        </Mutation>
       );
     }
 

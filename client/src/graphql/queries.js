@@ -11,6 +11,26 @@ const PRODUCTS = gql`
   }
 `;
 
+const ORDER = gql`
+  query Order {
+    order {
+      id
+      totalPrice
+      orderedProducts {
+        id
+        quantity
+        product {
+          id
+          title
+          imageUrl
+          price
+        }
+      }
+    }
+  }
+`;
+
 export default {
   PRODUCTS,
+  ORDER,
 };

@@ -139,43 +139,43 @@ const updateOrderedProduct = async (parent, args, context) => {
 
 const deleteOrderedProduct = async (parent, args, context) => {
   const userId = getUserId(context);
-  const orderedProductFragment = `
-  	{
-  		order {
-  			whoOrdered {
-					id
-				}
-  		}
-  	}
-  `;
 
-  const orderedProduct = await context.prisma
-    .orderedProduct({
-      id: args.orderedProductId,
-    })
-    .$fragment(orderedProductFragment);
+  const orderedProduct = await context.prisma.orderedProducts({
+    where: {
+      AND: [
+        {
+          order: {
+            whoOrdered: {
+              id: userId,
+            },
+          },
+        },
+        {
+          product: {
+            id: args.productId,
+          },
+        },
+      ],
+    },
+  });
 
-  if (!orderedProduct) {
+  if (!orderedProduct[0]) {
     throw new Error(`OrderedProduct not found`);
   }
 
-  if (orderedProduct.order.whoOrdered.id !== userId) {
-    throw new Error(`Order not found`);
-  }
-
   await context.prisma.deleteOrderedProduct({
-    id: args.orderedProductId,
+    id: orderedProduct[0].id,
   });
 
   const orderFragment = `
-		{
-			id
-			orderedProducts {
-				quantity
-				product { price }
-			}
-		}
-	`;
+  	{
+  		id
+  		orderedProducts {
+  			quantity
+  			product { price }
+  		}
+  	}
+  `;
 
   const order = await context.prisma
     .user({ id: userId })
