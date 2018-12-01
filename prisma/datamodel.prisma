@@ -11,6 +11,7 @@ type Product {
   imageUrl: String!
   title: String!
   price: Float!
+  orderedProducts: [OrderedProduct]!
 }
 
 type Order {

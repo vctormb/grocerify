@@ -81,7 +81,7 @@ class Home extends React.Component {
                                       />
                                       <ProductCard.Footer justifyContent="center">
                                         <ProductCardAddToCart
-                                          productId={product.id}
+                                          product={product}
                                         />
                                       </ProductCard.Footer>
                                     </ProductCard.Content>

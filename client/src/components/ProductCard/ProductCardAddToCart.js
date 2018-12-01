@@ -29,13 +29,21 @@ class ProductCardAddToCart extends React.Component {
     currentButton: 'add',
   };
 
+  componentDidMount() {
+    if (this.props.product.userOrderedProduct) {
+      this.setState({
+        currentButton: 'remove',
+      });
+    }
+  }
+
   addToCart = createOrderedProduct => {
     if (!this.props.withAuth.isLoggedIn) {
       this.props.withLoginModal.showModal(true);
     } else {
       createOrderedProduct({
         variables: {
-          productId: this.props.productId,
+          productId: this.props.product.id,
         },
       });
     }
@@ -50,7 +58,7 @@ class ProductCardAddToCart extends React.Component {
   removeFromCart = deleteOrderedProduct => {
     deleteOrderedProduct({
       variables: {
-        productId: this.props.productId,
+        productId: this.props.product.id,
       },
     });
   };
@@ -101,7 +109,7 @@ class ProductCardAddToCart extends React.Component {
 }
 
 ProductCardAddToCart.propTypes = {
-  productId: PropTypes.string.isRequired,
+  product: PropTypes.object.isRequired,
 };
 
 export default withAuth(withLoginModal(ProductCardAddToCart));

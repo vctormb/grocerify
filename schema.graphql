@@ -1,4 +1,4 @@
-# import Product, ProductCreateInput, Order from "./prisma/generated/prisma-client/prisma.graphql"
+# import Product, ProductCreateInput, Order, OrderedProduct from "./prisma/generated/prisma-client/prisma.graphql"
 
 type Query {
   products(skip: Int, first: Int): [Product!]!
@@ -23,4 +23,12 @@ type User {
 type AuthPayload {
   token: String!
   user: User!
+}
+
+type Product {
+  id: ID!
+  imageUrl: String!
+  title: String!
+  price: Float!
+  userOrderedProduct: OrderedProduct
 }

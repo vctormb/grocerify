@@ -1,3 +1,4 @@
-const getUserId = require("./getUserId");
+const getUserId = require('./getUserId');
+const isLoggedIn = require('./isLoggedIn');
 
-module.exports = { getUserId };
+module.exports = { getUserId, isLoggedIn };

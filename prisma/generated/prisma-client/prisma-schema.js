@@ -116,7 +116,7 @@ type OrderedProductConnection {
 }
 
 input OrderedProductCreateInput {
-  product: ProductCreateOneInput!
+  product: ProductCreateOneWithoutOrderedProductsInput!
   quantity: Int!
   order: OrderCreateOneWithoutOrderedProductsInput!
 }
@@ -126,9 +126,19 @@ input OrderedProductCreateManyWithoutOrderInput {
   connect: [OrderedProductWhereUniqueInput!]
 }
 
+input OrderedProductCreateManyWithoutProductInput {
+  create: [OrderedProductCreateWithoutProductInput!]
+  connect: [OrderedProductWhereUniqueInput!]
+}
+
 input OrderedProductCreateWithoutOrderInput {
-  product: ProductCreateOneInput!
+  product: ProductCreateOneWithoutOrderedProductsInput!
   quantity: Int!
+}
+
+input OrderedProductCreateWithoutProductInput {
+  quantity: Int!
+  order: OrderCreateOneWithoutOrderedProductsInput!
 }
 
 type OrderedProductEdge {
@@ -171,7 +181,7 @@ input OrderedProductSubscriptionWhereInput {
 }
 
 input OrderedProductUpdateInput {
-  product: ProductUpdateOneRequiredInput
+  product: ProductUpdateOneRequiredWithoutOrderedProductsInput
   quantity: Int
   order: OrderUpdateOneRequiredWithoutOrderedProductsInput
 }
@@ -189,9 +199,23 @@ input OrderedProductUpdateManyWithoutOrderInput {
   upsert: [OrderedProductUpsertWithWhereUniqueWithoutOrderInput!]
 }
 
+input OrderedProductUpdateManyWithoutProductInput {
+  create: [OrderedProductCreateWithoutProductInput!]
+  delete: [OrderedProductWhereUniqueInput!]
+  connect: [OrderedProductWhereUniqueInput!]
+  disconnect: [OrderedProductWhereUniqueInput!]
+  update: [OrderedProductUpdateWithWhereUniqueWithoutProductInput!]
+  upsert: [OrderedProductUpsertWithWhereUniqueWithoutProductInput!]
+}
+
 input OrderedProductUpdateWithoutOrderDataInput {
-  product: ProductUpdateOneRequiredInput
+  product: ProductUpdateOneRequiredWithoutOrderedProductsInput
   quantity: Int
+}
+
+input OrderedProductUpdateWithoutProductDataInput {
+  quantity: Int
+  order: OrderUpdateOneRequiredWithoutOrderedProductsInput
 }
 
 input OrderedProductUpdateWithWhereUniqueWithoutOrderInput {
@@ -199,10 +223,21 @@ input OrderedProductUpdateWithWhereUniqueWithoutOrderInput {
   data: OrderedProductUpdateWithoutOrderDataInput!
 }
 
+input OrderedProductUpdateWithWhereUniqueWithoutProductInput {
+  where: OrderedProductWhereUniqueInput!
+  data: OrderedProductUpdateWithoutProductDataInput!
+}
+
 input OrderedProductUpsertWithWhereUniqueWithoutOrderInput {
   where: OrderedProductWhereUniqueInput!
   update: OrderedProductUpdateWithoutOrderDataInput!
   create: OrderedProductCreateWithoutOrderInput!
+}
+
+input OrderedProductUpsertWithWhereUniqueWithoutProductInput {
+  where: OrderedProductWhereUniqueInput!
+  update: OrderedProductUpdateWithoutProductDataInput!
+  create: OrderedProductCreateWithoutProductInput!
 }
 
 input OrderedProductWhereInput {
@@ -367,6 +402,7 @@ type Product {
   imageUrl: String!
   title: String!
   price: Float!
+  orderedProducts(where: OrderedProductWhereInput, orderBy: OrderedProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderedProduct!]
 }
 
 type ProductConnection {
@@ -379,11 +415,18 @@ input ProductCreateInput {
   imageUrl: String!
   title: String!
   price: Float!
+  orderedProducts: OrderedProductCreateManyWithoutProductInput
 }
 
-input ProductCreateOneInput {
-  create: ProductCreateInput
+input ProductCreateOneWithoutOrderedProductsInput {
+  create: ProductCreateWithoutOrderedProductsInput
   connect: ProductWhereUniqueInput
+}
+
+input ProductCreateWithoutOrderedProductsInput {
+  imageUrl: String!
+  title: String!
+  price: Float!
 }
 
 type ProductEdge {
@@ -431,16 +474,11 @@ input ProductSubscriptionWhereInput {
   NOT: [ProductSubscriptionWhereInput!]
 }
 
-input ProductUpdateDataInput {
-  imageUrl: String
-  title: String
-  price: Float
-}
-
 input ProductUpdateInput {
   imageUrl: String
   title: String
   price: Float
+  orderedProducts: OrderedProductUpdateManyWithoutProductInput
 }
 
 input ProductUpdateManyMutationInput {
@@ -449,16 +487,22 @@ input ProductUpdateManyMutationInput {
   price: Float
 }
 
-input ProductUpdateOneRequiredInput {
-  create: ProductCreateInput
-  update: ProductUpdateDataInput
-  upsert: ProductUpsertNestedInput
+input ProductUpdateOneRequiredWithoutOrderedProductsInput {
+  create: ProductCreateWithoutOrderedProductsInput
+  update: ProductUpdateWithoutOrderedProductsDataInput
+  upsert: ProductUpsertWithoutOrderedProductsInput
   connect: ProductWhereUniqueInput
 }
 
-input ProductUpsertNestedInput {
-  update: ProductUpdateDataInput!
-  create: ProductCreateInput!
+input ProductUpdateWithoutOrderedProductsDataInput {
+  imageUrl: String
+  title: String
+  price: Float
+}
+
+input ProductUpsertWithoutOrderedProductsInput {
+  update: ProductUpdateWithoutOrderedProductsDataInput!
+  create: ProductCreateWithoutOrderedProductsInput!
 }
 
 input ProductWhereInput {
@@ -512,6 +556,9 @@ input ProductWhereInput {
   price_lte: Float
   price_gt: Float
   price_gte: Float
+  orderedProducts_every: OrderedProductWhereInput
+  orderedProducts_some: OrderedProductWhereInput
+  orderedProducts_none: OrderedProductWhereInput
   AND: [ProductWhereInput!]
   OR: [ProductWhereInput!]
   NOT: [ProductWhereInput!]

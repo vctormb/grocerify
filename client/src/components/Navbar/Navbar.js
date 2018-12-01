@@ -41,7 +41,7 @@ class Navbar extends React.Component {
   goToCartScreen = () => {
     const { withAuth } = this.props;
 
-    if (withAuth.isLoggedIn) {
+    if (!withAuth.isLoggedIn) {
       this.props.withLoginModal.showModal(true);
     } else {
       this.props.history.push('/cart');

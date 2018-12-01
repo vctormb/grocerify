@@ -7,6 +7,9 @@ const PRODUCTS = gql`
       title
       imageUrl
       price
+      userOrderedProduct {
+        id
+      }
     }
   }
 `;
