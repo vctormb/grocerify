@@ -2,6 +2,7 @@
 
 type Query {
   products(skip: Int, first: Int): [Product!]!
+  order: Order!
 }
 
 type Mutation {
