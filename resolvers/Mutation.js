@@ -1,7 +1,7 @@
-require("dotenv").config();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { getUserId } = require("../utils");
+require('dotenv').config();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { getUserId } = require('../utils');
 
 const login = async (parent, { email, password }, context) => {
   const user = await context.prisma.user({ email });
@@ -14,8 +14,11 @@ const login = async (parent, { email, password }, context) => {
   }
 
   return {
-    token: jwt.sign({ userId: user.id }, process.env.JWT_SECRET),
-    user
+    token: jwt.sign(
+      { userId: user.id, name: user.name },
+      process.env.JWT_SECRET
+    ),
+    user,
   };
 };
 
@@ -25,7 +28,7 @@ const signup = async (parent, args, context) => {
 
   return {
     token: jwt.sign({ userId: user.id }, process.env.JWT_SECRET),
-    user
+    user,
   };
 };
 
@@ -46,8 +49,8 @@ const createOrderedProduct = async (parent, args, context) => {
   const orderedProductCreateRelation = {
     quantity: args.quantity,
     product: {
-      connect: { id: product.id }
-    }
+      connect: { id: product.id },
+    },
   };
 
   if (!order) {
@@ -55,8 +58,8 @@ const createOrderedProduct = async (parent, args, context) => {
       totalPrice: product.price * args.quantity,
       whoOrdered: { connect: { id: userId } },
       orderedProducts: {
-        create: orderedProductCreateRelation
-      }
+        create: orderedProductCreateRelation,
+      },
     });
   }
 
@@ -67,10 +70,10 @@ const createOrderedProduct = async (parent, args, context) => {
     data: {
       totalPrice,
       orderedProducts: {
-        create: orderedProductCreateRelation
-      }
+        create: orderedProductCreateRelation,
+      },
     },
-    where: { id: order.id }
+    where: { id: order.id },
   });
 };
 
@@ -88,7 +91,7 @@ const updateOrderedProduct = async (parent, args, context) => {
 
   const orderedProduct = await context.prisma
     .orderedProduct({
-      id: args.orderedProductId
+      id: args.orderedProductId,
     })
     .$fragment(orderedProductFragment);
 
@@ -102,9 +105,9 @@ const updateOrderedProduct = async (parent, args, context) => {
 
   await context.prisma.updateOrderedProduct({
     data: {
-      quantity: args.quantity
+      quantity: args.quantity,
     },
-    where: { id: args.orderedProductId }
+    where: { id: args.orderedProductId },
   });
 
   const orderFragment = `
@@ -130,7 +133,7 @@ const updateOrderedProduct = async (parent, args, context) => {
 
   return await context.prisma.updateOrder({
     data: { totalPrice },
-    where: { id: order.id }
+    where: { id: order.id },
   });
 };
 
@@ -148,7 +151,7 @@ const deleteOrderedProduct = async (parent, args, context) => {
 
   const orderedProduct = await context.prisma
     .orderedProduct({
-      id: args.orderedProductId
+      id: args.orderedProductId,
     })
     .$fragment(orderedProductFragment);
 
@@ -161,7 +164,7 @@ const deleteOrderedProduct = async (parent, args, context) => {
   }
 
   await context.prisma.deleteOrderedProduct({
-    id: args.orderedProductId
+    id: args.orderedProductId,
   });
 
   const orderFragment = `
@@ -187,7 +190,7 @@ const deleteOrderedProduct = async (parent, args, context) => {
 
   return await context.prisma.updateOrder({
     data: { totalPrice },
-    where: { id: order.id }
+    where: { id: order.id },
   });
 };
 
@@ -197,5 +200,5 @@ module.exports = {
   createProduct,
   createOrderedProduct,
   updateOrderedProduct,
-  deleteOrderedProduct
+  deleteOrderedProduct,
 };

@@ -1,3 +1,3 @@
-import { getToken, setToken } from './auth';
+import { getToken, setToken, removeToken, decodeToken } from './auth';
 
-export { getToken, setToken };
+export { getToken, setToken, removeToken, decodeToken };

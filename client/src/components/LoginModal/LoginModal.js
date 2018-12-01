@@ -10,6 +10,7 @@ import { setToken } from '../../utils';
 import Modal from '../Modal';
 import Input from '../Input';
 import Button from '../Button';
+import withAuth from '../withAuth';
 
 const Form = styled.form`
   flex: 0 1 200px;
@@ -45,7 +46,8 @@ class LoginModal extends React.Component {
   };
 
   onCompleted = data => {
-    setToken(data.login.token);
+    this.props.withAuth.login(data.login.token);
+
     this.props.showModal(false);
   };
 
@@ -103,4 +105,4 @@ class LoginModal extends React.Component {
   }
 }
 
-export default LoginModal;
+export default withAuth(LoginModal);

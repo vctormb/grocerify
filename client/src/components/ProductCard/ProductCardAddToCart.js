@@ -3,8 +3,7 @@ import React from 'react';
 // components
 import Button from '../Button';
 import { withLoginModal } from '../LoginModal';
-// utils
-import { getToken } from '../../utils';
+import withAuth from '../withAuth';
 
 /**
  * these two components were separated to avoid the blank svg bug
@@ -27,7 +26,7 @@ class ProductCardAddToCart extends React.Component {
   };
 
   addToCart = () => {
-    if (!getToken()) {
+    if (!this.props.withAuth.isLoggedIn) {
       this.setState(
         {
           currentButton: 'remove',
@@ -63,4 +62,4 @@ class ProductCardAddToCart extends React.Component {
   }
 }
 
-export default withLoginModal(ProductCardAddToCart);
+export default withAuth(withLoginModal(ProductCardAddToCart));

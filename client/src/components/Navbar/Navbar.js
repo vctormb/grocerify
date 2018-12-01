@@ -10,6 +10,7 @@ import LinkButton from '../LinkButton';
 import IconButton from '../IconButton';
 import Badge from '../Badge';
 import { withLoginModal } from '../LoginModal';
+import withAuth from '../withAuth';
 // utils
 import { getToken } from '../../utils';
 
@@ -48,6 +49,29 @@ class Navbar extends React.Component {
     }
   };
 
+  renderLoginOrUser() {
+    const { isLoginScreen, withAuth } = this.props;
+
+    if (withAuth.isLoggedIn) {
+      return (
+        <Button appearance="ghostSuccess" color={!isLoginScreen ? 'v3' : null}>
+          {withAuth.user.name}
+        </Button>
+      );
+    }
+
+    return (
+      <Button
+        as={LinkButton}
+        to="/login"
+        appearance="ghost"
+        color={!isLoginScreen ? 'v3' : null}
+      >
+        Login
+      </Button>
+    );
+  }
+
   render() {
     const { isLoginScreen } = this.props;
 
@@ -55,14 +79,8 @@ class Navbar extends React.Component {
       <Wrapper isLoginScreen={isLoginScreen}>
         <Container as={Flex} alignItems="center" flex="1">
           <Brand>Grocerify</Brand>
-          <Button
-            as={LinkButton}
-            to="/login"
-            appearance="ghost"
-            color={!isLoginScreen ? 'v3' : null}
-          >
-            Login
-          </Button>
+
+          {this.renderLoginOrUser()}
 
           <IconButton
             appearance="ghostSuccess"
@@ -78,4 +96,4 @@ class Navbar extends React.Component {
   }
 }
 
-export default withRouter(withLoginModal(Navbar));
+export default withRouter(withAuth(withLoginModal(Navbar)));

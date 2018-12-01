@@ -18,6 +18,7 @@ import Portal from './Portal';
 import Modal from './Modal';
 import LoginModal, { withLoginModal } from './LoginModal';
 import Backdrop from './Backdrop';
+import withAuth, { AuthProvider } from './withAuth';
 
 export {
   Container,
@@ -42,4 +43,6 @@ export {
   LoginModal,
   Backdrop,
   withLoginModal,
+  withAuth,
+  AuthProvider,
 };
