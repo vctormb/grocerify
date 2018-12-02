@@ -24,7 +24,6 @@ scalar Long
 type Mutation {
   createOrder(data: OrderCreateInput!): Order!
   updateOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
-  updateManyOrders(data: OrderUpdateManyMutationInput!, where: OrderWhereInput): BatchPayload!
   upsertOrder(where: OrderWhereUniqueInput!, create: OrderCreateInput!, update: OrderUpdateInput!): Order!
   deleteOrder(where: OrderWhereUniqueInput!): Order
   deleteManyOrders(where: OrderWhereInput): BatchPayload!
@@ -60,7 +59,6 @@ interface Node {
 
 type Order {
   id: ID!
-  totalPrice: Float!
   orderedProducts(where: OrderedProductWhereInput, orderBy: OrderedProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderedProduct!]
   whoOrdered: User!
 }
@@ -72,7 +70,6 @@ type OrderConnection {
 }
 
 input OrderCreateInput {
-  totalPrice: Float
   orderedProducts: OrderedProductCreateManyWithoutOrderInput
   whoOrdered: UserCreateOneWithoutOrderInput!
 }
@@ -88,12 +85,10 @@ input OrderCreateOneWithoutWhoOrderedInput {
 }
 
 input OrderCreateWithoutOrderedProductsInput {
-  totalPrice: Float
   whoOrdered: UserCreateOneWithoutOrderInput!
 }
 
 input OrderCreateWithoutWhoOrderedInput {
-  totalPrice: Float
   orderedProducts: OrderedProductCreateManyWithoutOrderInput
 }
 
@@ -277,8 +272,6 @@ input OrderedProductWhereUniqueInput {
 enum OrderOrderByInput {
   id_ASC
   id_DESC
-  totalPrice_ASC
-  totalPrice_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -287,7 +280,6 @@ enum OrderOrderByInput {
 
 type OrderPreviousValues {
   id: ID!
-  totalPrice: Float!
 }
 
 type OrderSubscriptionPayload {
@@ -309,13 +301,8 @@ input OrderSubscriptionWhereInput {
 }
 
 input OrderUpdateInput {
-  totalPrice: Float
   orderedProducts: OrderedProductUpdateManyWithoutOrderInput
   whoOrdered: UserUpdateOneRequiredWithoutOrderInput
-}
-
-input OrderUpdateManyMutationInput {
-  totalPrice: Float
 }
 
 input OrderUpdateOneRequiredWithoutOrderedProductsInput {
@@ -335,12 +322,10 @@ input OrderUpdateOneWithoutWhoOrderedInput {
 }
 
 input OrderUpdateWithoutOrderedProductsDataInput {
-  totalPrice: Float
   whoOrdered: UserUpdateOneRequiredWithoutOrderInput
 }
 
 input OrderUpdateWithoutWhoOrderedDataInput {
-  totalPrice: Float
   orderedProducts: OrderedProductUpdateManyWithoutOrderInput
 }
 
@@ -369,14 +354,6 @@ input OrderWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  totalPrice: Float
-  totalPrice_not: Float
-  totalPrice_in: [Float!]
-  totalPrice_not_in: [Float!]
-  totalPrice_lt: Float
-  totalPrice_lte: Float
-  totalPrice_gt: Float
-  totalPrice_gte: Float
   orderedProducts_every: OrderedProductWhereInput
   orderedProducts_some: OrderedProductWhereInput
   orderedProducts_none: OrderedProductWhereInput

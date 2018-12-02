@@ -2,21 +2,21 @@
 
 type Query {
   products(skip: Int, first: Int): [Product!]!
-  order: Order!
+  userOrder: OrderPayload
 }
 
 type Mutation {
   login(email: String!, password: String!): AuthPayload
   signup(name: String!, email: String!, password: String!): AuthPayload
   createProduct(data: ProductCreateInput): Product!
-  createOrderedProduct(productId: ID!, quantity: Int!): Order!
-  updateOrderedProduct(orderedProductId: ID!, quantity: Int!): Order!
-  deleteOrderedProduct(productId: ID!): Order!
+  createOrderedProduct(productId: ID!, quantity: Int!): OrderedProduct!
+  updateOrderedProduct(orderedProductId: ID!, quantity: Int!): OrderedProduct!
+  deleteOrderedProduct(productId: ID!): OrderedProduct!
 }
 
 type User {
   id: ID!
-  email: String
+  email: String!
   name: String!
 }
 
@@ -31,4 +31,9 @@ type Product {
   title: String!
   price: Float!
   userOrderedProduct: OrderedProduct
+}
+
+type OrderPayload {
+  order: Order!
+  totalPrice: Float
 }

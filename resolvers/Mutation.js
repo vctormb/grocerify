@@ -26,6 +26,14 @@ const signup = async (parent, args, context) => {
   const password = await bcrypt.hash(args.password, 10);
   const user = await context.prisma.createUser({ ...args, password });
 
+  await context.prisma.createOrder({
+    whoOrdered: {
+      connect: {
+        id: user.id,
+      },
+    },
+  });
+
   return {
     token: jwt.sign({ userId: user.id }, process.env.JWT_SECRET),
     user,
@@ -46,34 +54,14 @@ const createOrderedProduct = async (parent, args, context) => {
 
   const order = await context.prisma.user({ id: userId }).order();
 
-  const orderedProductCreateRelation = {
+  return await context.prisma.createOrderedProduct({
     quantity: args.quantity,
     product: {
       connect: { id: product.id },
     },
-  };
-
-  if (!order) {
-    return await context.prisma.createOrder({
-      totalPrice: product.price * args.quantity,
-      whoOrdered: { connect: { id: userId } },
-      orderedProducts: {
-        create: orderedProductCreateRelation,
-      },
-    });
-  }
-
-  // prettier-ignore
-  const totalPrice = (product.price * args.quantity) + order.totalPrice;
-
-  return await context.prisma.updateOrder({
-    data: {
-      totalPrice,
-      orderedProducts: {
-        create: orderedProductCreateRelation,
-      },
+    order: {
+      connect: { id: order.id },
     },
-    where: { id: order.id },
   });
 };
 
@@ -103,37 +91,11 @@ const updateOrderedProduct = async (parent, args, context) => {
     throw new Error(`Order not found`);
   }
 
-  await context.prisma.updateOrderedProduct({
+  return await context.prisma.updateOrderedProduct({
     data: {
       quantity: args.quantity,
     },
     where: { id: args.orderedProductId },
-  });
-
-  const orderFragment = `
-		{
-			id
-			orderedProducts {
-				quantity
-				product { price }
-			}
-		}
-	`;
-
-  const order = await context.prisma
-    .user({ id: userId })
-    .order()
-    .$fragment(orderFragment);
-
-  const totalPrice = order.orderedProducts.reduce((acc, curr) => {
-    // prettier-ignore
-    acc = acc + (curr.quantity * curr.product.price)
-    return acc;
-  }, 0);
-
-  return await context.prisma.updateOrder({
-    data: { totalPrice },
-    where: { id: order.id },
   });
 };
 
@@ -163,34 +125,8 @@ const deleteOrderedProduct = async (parent, args, context) => {
     throw new Error(`OrderedProduct not found`);
   }
 
-  await context.prisma.deleteOrderedProduct({
+  return await context.prisma.deleteOrderedProduct({
     id: orderedProduct[0].id,
-  });
-
-  const orderFragment = `
-  	{
-  		id
-  		orderedProducts {
-  			quantity
-  			product { price }
-  		}
-  	}
-  `;
-
-  const order = await context.prisma
-    .user({ id: userId })
-    .order()
-    .$fragment(orderFragment);
-
-  const totalPrice = order.orderedProducts.reduce((acc, curr) => {
-    // prettier-ignore
-    acc = acc + (curr.quantity * curr.product.price)
-    return acc;
-  }, 0);
-
-  return await context.prisma.updateOrder({
-    data: { totalPrice },
-    where: { id: order.id },
   });
 };
 

@@ -16,7 +16,6 @@ type Product {
 
 type Order {
   id: ID! @unique
-  totalPrice: Float! @default(value: 0)
   orderedProducts: [OrderedProduct!]!
   whoOrdered: User!
 }
