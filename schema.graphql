@@ -11,7 +11,7 @@ type Mutation {
   createProduct(data: ProductCreateInput): Product!
   createOrderedProduct(productId: ID!, quantity: Int!): OrderedProduct!
   updateOrderedProduct(orderedProductId: ID!, quantity: Int!): OrderedProduct!
-  deleteOrderedProduct(productId: ID!): OrderedProduct!
+  deleteOrderedProduct(productId: ID!): OrderedProductPayload
 }
 
 type User {
@@ -35,5 +35,10 @@ type Product {
 
 type OrderPayload {
   order: Order!
+  totalPrice: Float
+}
+
+type OrderedProductPayload {
+  orderedProduct: OrderedProduct!
   totalPrice: Float
 }

@@ -22,7 +22,10 @@ const CREATE_ORDERED_PRODUCT = gql`
 const DELETE_ORDERED_PRODUCT = gql`
   mutation DeleteOrderedProduct($productId: ID!) {
     deleteOrderedProduct(productId: $productId) {
-      id
+      orderedProduct {
+        id
+      }
+      totalPrice
     }
   }
 `;

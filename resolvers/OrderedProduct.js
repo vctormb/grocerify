@@ -1,11 +1,11 @@
-const product = (parent, args, context) => {
-  return context.prisma
+const product = async (parent, args, context) => {
+  return await context.prisma
     .orderedProduct({
-      id: parent.id
+      id: parent.id,
     })
     .product();
 };
 
 module.exports = {
-  product
+  product,
 };

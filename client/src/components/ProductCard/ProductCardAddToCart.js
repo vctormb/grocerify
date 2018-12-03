@@ -7,7 +7,7 @@ import { withLoginModal } from '../LoginModal';
 import withAuth from '../withAuth';
 // graphql
 import { Mutation } from 'react-apollo';
-import { mutations, queries } from '../../graphql';
+import { mutations } from '../../graphql';
 
 /**
  * these two components were separated to avoid the blank svg bug

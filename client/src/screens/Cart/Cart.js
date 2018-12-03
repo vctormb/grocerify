@@ -42,6 +42,36 @@ const ProductCardCart = styled(ProductCard)`
 `;
 
 class Cart extends React.Component {
+  deleteOrderedProduct = (deleteOrderedProduct, productId) => {
+    deleteOrderedProduct({
+      variables: {
+        productId,
+      },
+    });
+  };
+
+  onCompletedDeletedProduct = (cache, { data: { deleteOrderedProduct } }) => {
+    const { userOrder } = cache.readQuery({
+      query: queries.USER_ORDER,
+    });
+
+    cache.writeQuery({
+      query: queries.USER_ORDER,
+      data: {
+        userOrder: {
+          ...userOrder,
+          order: {
+            ...userOrder.order,
+            orderedProducts: userOrder.order.orderedProducts.filter(
+              x => x.id !== deleteOrderedProduct.orderedProduct.id
+            ),
+          },
+          totalPrice: deleteOrderedProduct.totalPrice,
+        },
+      },
+    });
+  };
+
   render() {
     return (
       <ScreenBox>
@@ -93,12 +123,33 @@ class Cart extends React.Component {
                                           price={item.product.price}
                                         />
                                         <ProductCardCart.Footer justifyContent="space-between">
-                                          <Button
-                                            size="xs"
-                                            appearance="textSuccess"
+                                          <Mutation
+                                            mutation={
+                                              mutations.DELETE_ORDERED_PRODUCT
+                                            }
+                                            update={
+                                              this.onCompletedDeletedProduct
+                                            }
                                           >
-                                            REMOVE
-                                          </Button>
+                                            {(
+                                              deleteOrderedProduct,
+                                              { loading }
+                                            ) => (
+                                              <Button
+                                                size="xs"
+                                                appearance="textSuccess"
+                                                disabled={loading}
+                                                onClick={() =>
+                                                  this.deleteOrderedProduct(
+                                                    deleteOrderedProduct,
+                                                    item.product.id
+                                                  )
+                                                }
+                                              >
+                                                REMOVE
+                                              </Button>
+                                            )}
+                                          </Mutation>
                                           <QuantityField
                                             count={item.quantity}
                                           />

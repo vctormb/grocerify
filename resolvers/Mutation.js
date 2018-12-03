@@ -1,7 +1,7 @@
 require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { getUserId } = require('../utils');
+const { getUserId, calcTotalPrice } = require('../utils');
 
 const login = async (parent, { email, password }, context) => {
   const user = await context.prisma.user({ email });
@@ -125,9 +125,16 @@ const deleteOrderedProduct = async (parent, args, context) => {
     throw new Error(`OrderedProduct not found`);
   }
 
-  return await context.prisma.deleteOrderedProduct({
+  const deletedOrderedProduct = await context.prisma.deleteOrderedProduct({
     id: orderedProduct[0].id,
   });
+
+  const totalPrice = calcTotalPrice(context);
+
+  return {
+    orderedProduct: deletedOrderedProduct,
+    totalPrice,
+  };
 };
 
 module.exports = {
