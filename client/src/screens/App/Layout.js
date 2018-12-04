@@ -17,7 +17,9 @@ class Layout extends Component {
     return (
       <React.Fragment>
         <GlobalStyle />
-        <Navbar isLoginScreen={pathname === '/login'} />
+        <Navbar
+          isGreenTheme={pathname === '/login' || pathname === '/success'}
+        />
         {children}
       </React.Fragment>
     );

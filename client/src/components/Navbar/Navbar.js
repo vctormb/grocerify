@@ -22,13 +22,13 @@ const Wrapper = styled.div`
   height: 64px;
   padding: ${pxToRem(20)} 0;
   background-color: ${p => p.theme.colors.v3};
-  background-image: ${({ isLoginScreen, theme }) =>
-    isLoginScreen
+  background-image: ${({ isGreenTheme, theme }) =>
+    isGreenTheme
       ? 'none'
       : `linear-gradient(to right, ${theme.colors.v7}, #1b9649)`};
   box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.2);
-  color: ${({ isLoginScreen, theme }) =>
-    isLoginScreen ? 'inherit' : theme.colors.v3};
+  color: ${({ isGreenTheme, theme }) =>
+    isGreenTheme ? 'inherit' : theme.colors.v3};
   z-index: 30;
 `;
 
@@ -49,11 +49,11 @@ class Navbar extends React.Component {
   };
 
   renderLoginOrUser() {
-    const { isLoginScreen, withAuth } = this.props;
+    const { isGreenTheme, withAuth } = this.props;
 
     if (withAuth.isLoggedIn) {
       return (
-        <Button appearance="ghostSuccess" color={!isLoginScreen ? 'v3' : null}>
+        <Button appearance="ghostSuccess" color={!isGreenTheme ? 'v3' : null}>
           {withAuth.user.name}
         </Button>
       );
@@ -64,7 +64,7 @@ class Navbar extends React.Component {
         as={LinkButton}
         to="/login"
         appearance="ghost"
-        color={!isLoginScreen ? 'v3' : null}
+        color={!isGreenTheme ? 'v3' : null}
       >
         Login
       </Button>
@@ -72,10 +72,10 @@ class Navbar extends React.Component {
   }
 
   render() {
-    const { isLoginScreen } = this.props;
+    const { isGreenTheme } = this.props;
 
     return (
-      <Wrapper isLoginScreen={isLoginScreen}>
+      <Wrapper isGreenTheme={isGreenTheme}>
         <Container as={Flex} alignItems="center" flex="1">
           <Brand>Grocerify</Brand>
 
@@ -84,7 +84,7 @@ class Navbar extends React.Component {
           <IconButton
             appearance="ghostSuccess"
             icon="shopping-cart"
-            color={!isLoginScreen ? 'v3' : null}
+            color={!isGreenTheme ? 'v3' : null}
             onClick={this.goToCartScreen}
           >
             <Badge top="-5px" count={0} />

@@ -9,6 +9,7 @@ import Layout from './Layout';
 import Login from '../Login';
 import Home from '../Home';
 import Cart from '../Cart';
+import Success from '../Success';
 
 class App extends React.Component {
   render() {
@@ -19,7 +20,7 @@ class App extends React.Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <PrivateRoute exact path="/cart" component={Cart} />
-            <PrivateRoute exact path="/success" component={() => 'SUCCESS'} />
+            <Route exact path="/success" component={Success} />
             <Route component={() => 'Oops! 404!'} />
           </Switch>
         </Layout>
