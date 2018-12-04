@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { Flex } from '@rebass/grid';
 
 // graphql
-import { Query, Mutation } from 'react-apollo';
-import { queries, mutations } from '../../graphql';
+import { Query } from 'react-apollo';
+import { queries } from '../../graphql';
 // components
 import {
   ScreenBox,
@@ -42,36 +42,6 @@ const ProductCardCart = styled(ProductCard)`
 `;
 
 class Cart extends React.Component {
-  deleteOrderedProduct = (deleteOrderedProduct, productId) => {
-    deleteOrderedProduct({
-      variables: {
-        productId,
-      },
-    });
-  };
-
-  // onCompletedDeletedProduct = (cache, { data: { deleteOrderedProduct } }) => {
-  //   const { userOrder } = cache.readQuery({
-  //     query: queries.USER_ORDER,
-  //   });
-
-  //   cache.writeQuery({
-  //     query: queries.USER_ORDER,
-  //     data: {
-  //       userOrder: {
-  //         ...userOrder,
-  //         order: {
-  //           ...userOrder.order,
-  //           orderedProducts: userOrder.order.orderedProducts.filter(
-  //             x => x.id !== deleteOrderedProduct.orderedProduct.id
-  //           ),
-  //         },
-  //         totalPrice: deleteOrderedProduct.totalPrice,
-  //       },
-  //     },
-  //   });
-  // };
-
   render() {
     return (
       <ScreenBox>
@@ -124,8 +94,9 @@ class Cart extends React.Component {
                                         />
                                         <ProductCardCart.Footer justifyContent="space-between">
                                           <ProductCardCartFooter
+                                            orderedProductId={item.id}
                                             productId={item.product.id}
-                                            quantity={item.product.quantity}
+                                            quantity={item.quantity}
                                           />
                                         </ProductCardCart.Footer>
                                       </ProductCardCart.Content>

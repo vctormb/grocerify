@@ -10,7 +10,7 @@ type Mutation {
   signup(name: String!, email: String!, password: String!): AuthPayload
   createProduct(data: ProductCreateInput): Product!
   createOrderedProduct(productId: ID!, quantity: Int!): OrderedProduct!
-  updateOrderedProduct(orderedProductId: ID!, quantity: Int!): OrderedProduct!
+  updateOrderedProduct(orderedProductId: ID!, quantity: Int!): OrderedProductPayload
   deleteOrderedProduct(productId: ID!): OrderedProductPayload
 }
 

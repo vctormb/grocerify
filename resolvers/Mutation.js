@@ -91,12 +91,19 @@ const updateOrderedProduct = async (parent, args, context) => {
     throw new Error(`Order not found`);
   }
 
-  return await context.prisma.updateOrderedProduct({
+  const updatedOrderedProduct = await context.prisma.updateOrderedProduct({
     data: {
       quantity: args.quantity,
     },
     where: { id: args.orderedProductId },
   });
+
+  const totalPrice = calcTotalPrice(context);
+
+  return {
+    orderedProduct: updatedOrderedProduct,
+    totalPrice,
+  };
 };
 
 const deleteOrderedProduct = async (parent, args, context) => {

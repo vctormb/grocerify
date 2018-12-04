@@ -48,15 +48,15 @@ class QuantityField extends React.Component {
   }
 
   render() {
+    const { disabled } = this.props;
     return (
       <Flex>
         <Button
-          as="a"
-          role="button"
           size="xs"
           appearance="textSuccess"
           onClick={this.plusValue}
           data-testid="quantity-increment"
+          disabled={disabled}
         >
           +
         </Button>
@@ -67,12 +67,11 @@ class QuantityField extends React.Component {
           data-testid="quantity-input"
         />
         <Button
-          as="a"
-          role="button"
           size="xs"
           appearance="textSuccess"
           onClick={this.minusValue}
           data-testid="quantity-decrement"
+          disabled={disabled}
         >
           -
         </Button>
@@ -83,6 +82,7 @@ class QuantityField extends React.Component {
 
 QuantityField.propTypes = {
   count: PropTypes.number,
+  disabled: PropTypes.bool,
 };
 
 export default QuantityField;

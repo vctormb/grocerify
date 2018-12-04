@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // graphql
-import { Query, Mutation } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 import { queries, mutations } from '../../graphql';
 // components
 import { Button, QuantityField } from '../../components';
@@ -38,6 +38,31 @@ class ProductCardCartFooter extends React.Component {
     });
   };
 
+  updateOrderedProduct = (updateOrderedProduct, quantity) => {
+    updateOrderedProduct({
+      variables: {
+        orderedProductId: this.props.orderedProductId,
+        quantity,
+      },
+    });
+  };
+
+  onCompleteUpdateProduct = (cache, { data: { updateOrderedProduct } }) => {
+    const { userOrder } = cache.readQuery({
+      query: queries.USER_ORDER,
+    });
+
+    cache.writeQuery({
+      query: queries.USER_ORDER,
+      data: {
+        userOrder: {
+          ...userOrder,
+          totalPrice: updateOrderedProduct.totalPrice,
+        },
+      },
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -61,15 +86,28 @@ class ProductCardCartFooter extends React.Component {
             </Button>
           )}
         </Mutation>
-        <QuantityField count={this.props.quantity} />
+
+        <Mutation
+          mutation={mutations.UPDATE_ORDERED_PRODUCT}
+          update={this.onCompleteUpdateProduct}
+        >
+          {(updateOrderedProduct, { loading }) => (
+            <QuantityField
+              onChange={e => this.updateOrderedProduct(updateOrderedProduct, e)}
+              count={this.props.quantity}
+              disabled={loading}
+            />
+          )}
+        </Mutation>
       </React.Fragment>
     );
   }
 }
 
 ProductCardCartFooter.propTypes = {
-  productId: PropTypes.string,
-  quantity: PropTypes.string,
+  orderedProductId: PropTypes.string.isRequired,
+  productId: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
 };
 
 export default ProductCardCartFooter;
