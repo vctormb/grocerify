@@ -5,7 +5,7 @@ import { Box, Flex } from '@rebass/grid';
 // components
 import { ScreenBox, Container, Icon, Card } from '../../components';
 // styles
-import { pxToRem, GlobalStyle, media } from '../../styles';
+import { pxToRem, GlobalStyle } from '../../styles';
 
 const StyledCard = styled(Box)`
   display: flex;

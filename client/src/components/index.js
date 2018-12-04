@@ -5,7 +5,10 @@ import Col from './Col';
 import Input from './Input';
 import Button from './Button';
 import ScreenBox from './ScreenBox';
-import ProductCard, { ProductCardAddToCart } from './ProductCard';
+import ProductCard, {
+  ProductCardAddToCart,
+  ProductCardCartFooter,
+} from './ProductCard';
 import Icon from './Icon';
 import IconButton from './IconButton';
 import LinkButton from './LinkButton';
@@ -45,4 +48,5 @@ export {
   withLoginModal,
   withAuth,
   AuthProvider,
+  ProductCardCartFooter,
 };

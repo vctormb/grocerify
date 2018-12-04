@@ -14,7 +14,7 @@ import {
   Col,
   Card,
   Button,
-  QuantityField,
+  ProductCardCartFooter,
   Icon,
 } from '../../components';
 // styles
@@ -50,27 +50,27 @@ class Cart extends React.Component {
     });
   };
 
-  onCompletedDeletedProduct = (cache, { data: { deleteOrderedProduct } }) => {
-    const { userOrder } = cache.readQuery({
-      query: queries.USER_ORDER,
-    });
+  // onCompletedDeletedProduct = (cache, { data: { deleteOrderedProduct } }) => {
+  //   const { userOrder } = cache.readQuery({
+  //     query: queries.USER_ORDER,
+  //   });
 
-    cache.writeQuery({
-      query: queries.USER_ORDER,
-      data: {
-        userOrder: {
-          ...userOrder,
-          order: {
-            ...userOrder.order,
-            orderedProducts: userOrder.order.orderedProducts.filter(
-              x => x.id !== deleteOrderedProduct.orderedProduct.id
-            ),
-          },
-          totalPrice: deleteOrderedProduct.totalPrice,
-        },
-      },
-    });
-  };
+  //   cache.writeQuery({
+  //     query: queries.USER_ORDER,
+  //     data: {
+  //       userOrder: {
+  //         ...userOrder,
+  //         order: {
+  //           ...userOrder.order,
+  //           orderedProducts: userOrder.order.orderedProducts.filter(
+  //             x => x.id !== deleteOrderedProduct.orderedProduct.id
+  //           ),
+  //         },
+  //         totalPrice: deleteOrderedProduct.totalPrice,
+  //       },
+  //     },
+  //   });
+  // };
 
   render() {
     return (
@@ -123,35 +123,9 @@ class Cart extends React.Component {
                                           price={item.product.price}
                                         />
                                         <ProductCardCart.Footer justifyContent="space-between">
-                                          <Mutation
-                                            mutation={
-                                              mutations.DELETE_ORDERED_PRODUCT
-                                            }
-                                            update={
-                                              this.onCompletedDeletedProduct
-                                            }
-                                          >
-                                            {(
-                                              deleteOrderedProduct,
-                                              { loading }
-                                            ) => (
-                                              <Button
-                                                size="xs"
-                                                appearance="textSuccess"
-                                                disabled={loading}
-                                                onClick={() =>
-                                                  this.deleteOrderedProduct(
-                                                    deleteOrderedProduct,
-                                                    item.product.id
-                                                  )
-                                                }
-                                              >
-                                                REMOVE
-                                              </Button>
-                                            )}
-                                          </Mutation>
-                                          <QuantityField
-                                            count={item.quantity}
+                                          <ProductCardCartFooter
+                                            productId={item.product.id}
+                                            quantity={item.product.quantity}
                                           />
                                         </ProductCardCart.Footer>
                                       </ProductCardCart.Content>
@@ -170,7 +144,8 @@ class Cart extends React.Component {
                         <Card.Header>Details</Card.Header>
                         <Card.Body>
                           <Flex mt={3} justifyContent="space-between">
-                            <strong>Total</strong> ${data.userOrder.totalPrice}
+                            <strong>Total</strong> $
+                            {data.userOrder.totalPrice.toFixed(2)}
                           </Flex>
                           <Flex flexDirection="column" mt={4}>
                             <Button size="lg" appearance="danger">
