@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Prompt } from 'react-router-dom';
+import { compose } from 'recompose';
 
 // styled-components
 import { GlobalStyle } from '../../styles';
 
 // components
-import { Navbar } from '../../components';
+import { Navbar, withApp } from '../../components';
 
 class Layout extends Component {
   render() {
@@ -17,6 +18,10 @@ class Layout extends Component {
     return (
       <React.Fragment>
         <GlobalStyle />
+        <Prompt
+          when={this.props.withApp.isBlocking}
+          message={location => `Are you sure you want to leave this page?`}
+        />
         <Navbar
           isGreenTheme={pathname === '/login' || pathname === '/success'}
         />
@@ -26,4 +31,9 @@ class Layout extends Component {
   }
 }
 
-export default withRouter(Layout);
+const enhance = compose(
+  withRouter,
+  withApp
+);
+
+export default enhance(Layout);

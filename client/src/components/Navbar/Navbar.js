@@ -14,7 +14,7 @@ import LinkButton from '../LinkButton';
 import IconButton from '../IconButton';
 import Badge from '../Badge';
 import { withLoginModal } from '../LoginModal';
-import withAuth from '../withAuth';
+import withApp from '../withApp';
 // styles
 import { pxToRem } from '../../styles';
 
@@ -44,9 +44,9 @@ const Brand = styled.span`
 
 class Navbar extends React.Component {
   goToCartScreen = () => {
-    const { withAuth } = this.props;
+    const { withApp } = this.props;
 
-    if (!withAuth.isLoggedIn) {
+    if (!withApp.isLoggedIn) {
       this.props.withLoginModal.showModal(true);
     } else {
       this.props.history.push('/cart');
@@ -54,12 +54,12 @@ class Navbar extends React.Component {
   };
 
   renderLoginOrUser() {
-    const { isGreenTheme, withAuth } = this.props;
+    const { isGreenTheme, withApp } = this.props;
 
-    if (withAuth.isLoggedIn) {
+    if (withApp.isLoggedIn) {
       return (
         <Button appearance="ghostSuccess" color={!isGreenTheme ? 'v3' : null}>
-          {withAuth.user.name}
+          {withApp.user.name}
         </Button>
       );
     }
@@ -77,9 +77,9 @@ class Navbar extends React.Component {
   }
 
   renderBadge() {
-    const { withAuth } = this.props;
+    const { withApp } = this.props;
 
-    if (!withAuth.isLoggedIn) return null;
+    if (!withApp.isLoggedIn) return null;
 
     return (
       <Query query={queries.COUNT_USER_ORDERED_PRODUCTS}>
@@ -123,7 +123,7 @@ class Navbar extends React.Component {
 
 const enhance = compose(
   withRouter,
-  withAuth,
+  withApp,
   withLoginModal
 );
 

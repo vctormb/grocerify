@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 // components
 import Button from '../Button';
 import { withLoginModal } from '../LoginModal';
-import withAuth from '../withAuth';
+import withApp from '../withApp';
 // graphql
 import { Mutation } from 'react-apollo';
 import { queries, mutations } from '../../graphql';
@@ -56,9 +56,11 @@ class ProductCardAddToCart extends React.Component {
   }
 
   addToCart = createOrderedProduct => {
-    if (!this.props.withAuth.isLoggedIn) {
+    if (!this.props.withApp.isLoggedIn) {
       this.props.withLoginModal.showModal(true);
     } else {
+      this.props.withApp.setIsBlocking(true);
+
       createOrderedProduct({
         variables: {
           productId: this.props.product.id,
@@ -79,6 +81,8 @@ class ProductCardAddToCart extends React.Component {
       },
     });
 
+    this.props.withApp.setIsBlocking(false);
+
     if (!this._isMounted) return;
 
     this.setState({
@@ -87,6 +91,8 @@ class ProductCardAddToCart extends React.Component {
   };
 
   removeFromCart = deleteOrderedProduct => {
+    this.props.withApp.setIsBlocking(true);
+
     deleteOrderedProduct({
       variables: {
         productId: this.props.product.id,
@@ -105,6 +111,8 @@ class ProductCardAddToCart extends React.Component {
         countUserOrderedProducts: countUserOrderedProducts - 1,
       },
     });
+
+    this.props.withApp.setIsBlocking(false);
 
     if (!this._isMounted) return;
 
@@ -157,7 +165,7 @@ ProductCardAddToCart.propTypes = {
 };
 
 const enhance = compose(
-  withAuth,
+  withApp,
   withLoginModal
 );
 

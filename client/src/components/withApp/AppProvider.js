@@ -1,14 +1,15 @@
 import React from 'react';
-import { AuthContext } from './AuthContext';
+import { AppContext } from './AppContext';
 // utils
 import { auth } from '../../utils';
 
 const INITIAL_STATE = {
   isLoggedIn: false,
   user: null,
+  isBlocking: false,
 };
 
-class AuthProvider extends React.Component {
+class AppProvider extends React.Component {
   state = INITIAL_STATE;
 
   componentDidMount() {
@@ -33,19 +34,26 @@ class AuthProvider extends React.Component {
     this.setState(INITIAL_STATE);
   };
 
+  setIsBlocking = isBlocking => {
+    this.setState({
+      isBlocking,
+    });
+  };
+
   render() {
     const value = {
       ...this.state,
       login: this.login,
       logout: this.logout,
+      setIsBlocking: this.setIsBlocking,
     };
 
     return (
-      <AuthContext.Provider value={value}>
+      <AppContext.Provider value={value}>
         {this.props.children}
-      </AuthContext.Provider>
+      </AppContext.Provider>
     );
   }
 }
 
-export default AuthProvider;
+export default AppProvider;

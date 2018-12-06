@@ -34,6 +34,7 @@ const UPDATE_ORDERED_PRODUCT = gql`
     ) {
       orderedProduct {
         id
+        quantity
       }
       totalPrice
     }

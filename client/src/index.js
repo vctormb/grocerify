@@ -12,7 +12,7 @@ import { auth } from './utils';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles';
 // components
-import { AuthProvider } from './components';
+import { AppProvider } from './components';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -31,9 +31,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <ThemeProvider theme={theme}>
-      <AuthProvider>
+      <AppProvider>
         <App />
-      </AuthProvider>
+      </AppProvider>
     </ThemeProvider>
   </ApolloProvider>,
   document.getElementById('root')

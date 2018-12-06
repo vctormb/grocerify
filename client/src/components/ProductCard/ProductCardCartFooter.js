@@ -5,10 +5,14 @@ import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import { queries, mutations } from '../../graphql';
 // components
-import { Button, QuantityField } from '../../components';
+import Button from '../Button';
+import QuantityField from '../QuantityField';
+import withApp from '../withApp';
 
 class ProductCardCartFooter extends React.Component {
   deleteOrderedProduct = (deleteOrderedProduct, productId) => {
+    this.props.withApp.setIsBlocking(true);
+
     deleteOrderedProduct({
       variables: {
         productId,
@@ -16,7 +20,7 @@ class ProductCardCartFooter extends React.Component {
     });
   };
 
-  onCompletedDeletedProduct = (cache, { data: { deleteOrderedProduct } }) => {
+  onUpdateDeletedProduct = (cache, { data: { deleteOrderedProduct } }) => {
     const { userOrder } = cache.readQuery({
       query: queries.USER_ORDER,
     });
@@ -47,9 +51,13 @@ class ProductCardCartFooter extends React.Component {
         countUserOrderedProducts: countUserOrderedProducts - 1,
       },
     });
+
+    this.props.withApp.setIsBlocking(false);
   };
 
   updateOrderedProduct = (updateOrderedProduct, quantity) => {
+    this.props.withApp.setIsBlocking(true);
+
     updateOrderedProduct({
       variables: {
         orderedProductId: this.props.orderedProductId,
@@ -72,6 +80,8 @@ class ProductCardCartFooter extends React.Component {
         },
       },
     });
+
+    this.props.withApp.setIsBlocking(false);
   };
 
   render() {
@@ -79,7 +89,7 @@ class ProductCardCartFooter extends React.Component {
       <React.Fragment>
         <Mutation
           mutation={mutations.DELETE_ORDERED_PRODUCT}
-          update={this.onCompletedDeletedProduct}
+          update={this.onUpdateDeletedProduct}
         >
           {(deleteOrderedProduct, { loading }) => (
             <Button
@@ -121,4 +131,4 @@ ProductCardCartFooter.propTypes = {
   quantity: PropTypes.number.isRequired,
 };
 
-export default ProductCardCartFooter;
+export default withApp(ProductCardCartFooter);

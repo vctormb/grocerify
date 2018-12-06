@@ -21,7 +21,7 @@ import Portal from './Portal';
 import Modal from './Modal';
 import LoginModal, { withLoginModal } from './LoginModal';
 import Backdrop from './Backdrop';
-import withAuth, { AuthProvider } from './withAuth';
+import withApp, { AppProvider } from './withApp';
 
 export {
   Container,
@@ -46,7 +46,7 @@ export {
   LoginModal,
   Backdrop,
   withLoginModal,
-  withAuth,
-  AuthProvider,
+  withApp,
+  AppProvider,
   ProductCardCartFooter,
 };

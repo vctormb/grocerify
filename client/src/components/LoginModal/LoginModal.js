@@ -9,7 +9,7 @@ import { queries, mutations } from '../../graphql';
 import Modal from '../Modal';
 import Input from '../Input';
 import Button from '../Button';
-import withAuth from '../withAuth';
+import withApp from '../withApp';
 
 const Form = styled.form`
   flex: 0 1 200px;
@@ -45,7 +45,7 @@ class LoginModal extends React.Component {
   };
 
   onCompleted = data => {
-    this.props.withAuth.login(data.login.token);
+    this.props.withApp.login(data.login.token);
 
     this.props.showModal(false);
   };
@@ -141,4 +141,4 @@ class LoginModal extends React.Component {
   }
 }
 
-export default withAuth(LoginModal);
+export default withApp(LoginModal);
