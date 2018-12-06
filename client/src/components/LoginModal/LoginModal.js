@@ -59,8 +59,6 @@ class LoginModal extends React.Component {
       },
     });
 
-    console.log(products);
-
     const checkExistsProductId = productId => {
       return login.user.order.orderedProducts.some(
         item => item.product.id === productId

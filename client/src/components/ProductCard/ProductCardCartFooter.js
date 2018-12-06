@@ -21,6 +21,10 @@ class ProductCardCartFooter extends React.Component {
       query: queries.USER_ORDER,
     });
 
+    const { countUserOrderedProducts } = cache.readQuery({
+      query: queries.COUNT_USER_ORDERED_PRODUCTS,
+    });
+
     cache.writeQuery({
       query: queries.USER_ORDER,
       data: {
@@ -34,6 +38,13 @@ class ProductCardCartFooter extends React.Component {
           },
           totalPrice: deleteOrderedProduct.totalPrice,
         },
+      },
+    });
+
+    cache.writeQuery({
+      query: queries.COUNT_USER_ORDERED_PRODUCTS,
+      data: {
+        countUserOrderedProducts: countUserOrderedProducts - 1,
       },
     });
   };

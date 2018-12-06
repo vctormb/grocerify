@@ -7,7 +7,7 @@ import { withLoginModal } from '../LoginModal';
 import withAuth from '../withAuth';
 // graphql
 import { Mutation } from 'react-apollo';
-import { mutations } from '../../graphql';
+import { queries, mutations } from '../../graphql';
 
 /**
  * these two components were separated to avoid the blank svg bug
@@ -60,7 +60,18 @@ class ProductCardAddToCart extends React.Component {
     }
   };
 
-  onCompletedAddToCart = data => {
+  onUpdateAddToCart = cache => {
+    const { countUserOrderedProducts } = cache.readQuery({
+      query: queries.COUNT_USER_ORDERED_PRODUCTS,
+    });
+
+    cache.writeQuery({
+      query: queries.COUNT_USER_ORDERED_PRODUCTS,
+      data: {
+        countUserOrderedProducts: countUserOrderedProducts + 1,
+      },
+    });
+
     this.setState({
       currentButton: 'remove',
     });
@@ -74,7 +85,18 @@ class ProductCardAddToCart extends React.Component {
     });
   };
 
-  onCompletedremoveFromCart = data => {
+  onCompletedremoveFromCart = cache => {
+    const { countUserOrderedProducts } = cache.readQuery({
+      query: queries.COUNT_USER_ORDERED_PRODUCTS,
+    });
+
+    cache.writeQuery({
+      query: queries.COUNT_USER_ORDERED_PRODUCTS,
+      data: {
+        countUserOrderedProducts: countUserOrderedProducts - 1,
+      },
+    });
+
     this.setState({
       currentButton: 'add',
     });
@@ -85,7 +107,7 @@ class ProductCardAddToCart extends React.Component {
       return (
         <Mutation
           mutation={mutations.DELETE_ORDERED_PRODUCT}
-          onCompleted={this.onCompletedremoveFromCart}
+          update={this.onCompletedremoveFromCart}
         >
           {(deleteOrderedProduct, { loading }) => (
             <RemoveBtn
@@ -101,7 +123,7 @@ class ProductCardAddToCart extends React.Component {
     return (
       <Mutation
         mutation={mutations.CREATE_ORDERED_PRODUCT}
-        onCompleted={this.onCompletedAddToCart}
+        update={this.onUpdateAddToCart}
       >
         {(createOrderedProduct, { loading }) => (
           <AddToCartBtn
