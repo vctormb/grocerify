@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { Flex } from '@rebass/grid';
 import { withRouter } from 'react-router-dom';
 
+// graphql
+import { Query } from 'react-apollo';
+import { queries } from '../../graphql';
 // components
 import Container from '../Container';
 import Button from '../Button';
@@ -71,6 +74,27 @@ class Navbar extends React.Component {
     );
   }
 
+  renderBadge() {
+    const { withAuth } = this.props;
+
+    if (!withAuth.isLoggedIn) return null;
+
+    return (
+      <Query query={queries.COUNT_USER_ORDERED_PRODUCTS}>
+        {({ data }) => {
+          const hasData = data && Object.keys(data).length;
+
+          return (
+            <Badge
+              top="-5px"
+              count={hasData && data.countUserOrderedProducts}
+            />
+          );
+        }}
+      </Query>
+    );
+  }
+
   render() {
     const { isGreenTheme } = this.props;
 
@@ -87,7 +111,7 @@ class Navbar extends React.Component {
             color={!isGreenTheme ? 'v3' : null}
             onClick={this.goToCartScreen}
           >
-            <Badge top="-5px" count={0} />
+            {this.renderBadge()}
           </IconButton>
         </Container>
       </Wrapper>

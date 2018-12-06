@@ -1,8 +1,9 @@
-# import Product, ProductCreateInput, Order, OrderedProduct from "./prisma/generated/prisma-client/prisma.graphql"
+# import Product, ProductCreateInput, Order, OrderedProduct, OrderConnection from "./prisma/generated/prisma-client/prisma.graphql"
 
 type Query {
   products(skip: Int, first: Int): [Product!]!
   userOrder: OrderPayload
+  countUserOrderedProducts: Int!
 }
 
 type Mutation {
@@ -18,6 +19,7 @@ type User {
   id: ID!
   email: String!
   name: String!
+  order: Order!
 }
 
 type AuthPayload {

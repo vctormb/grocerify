@@ -37,6 +37,17 @@ class ProductCardAddToCart extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.product.userOrderedProduct !==
+      this.props.product.userOrderedProduct
+    ) {
+      this.setState({
+        currentButton: 'remove',
+      });
+    }
+  }
+
   addToCart = createOrderedProduct => {
     if (!this.props.withAuth.isLoggedIn) {
       this.props.withLoginModal.showModal(true);

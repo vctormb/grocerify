@@ -20,7 +20,7 @@ class App extends React.Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <PrivateRoute exact path="/cart" component={Cart} />
-            <Route exact path="/success" component={Success} />
+            <PrivateRoute exact path="/success" component={Success} />
             <Route component={() => 'Oops! 404!'} />
           </Switch>
         </Layout>

@@ -6,6 +6,13 @@ const LOGIN = gql`
       token
       user {
         name
+        order {
+          orderedProducts {
+            product {
+              id
+            }
+          }
+        }
       }
     }
   }

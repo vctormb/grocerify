@@ -35,7 +35,14 @@ const USER_ORDER = gql`
   }
 `;
 
+const COUNT_USER_ORDERED_PRODUCTS = gql`
+  query CountUserOrderedProducts {
+    countUserOrderedProducts
+  }
+`;
+
 export default {
   PRODUCTS,
   USER_ORDER,
+  COUNT_USER_ORDERED_PRODUCTS,
 };

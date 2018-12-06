@@ -1,4 +1,4 @@
-const { getUserId } = require('../utils');
+const { getUserId, calcTotalPrice } = require('../utils');
 
 const products = async (parent, args, context) => {
   return await context.prisma.products({
@@ -15,26 +15,7 @@ const userOrder = async (parent, args, context) => {
     })
     .order();
 
-  const orderFragment = `
-		{
-			id
-			orderedProducts {
-				quantity
-				product { price }
-			}
-		}
-  `;
-
-  const userOrderedProducts = await context.prisma
-    .user({ id: userId })
-    .order()
-    .$fragment(orderFragment);
-
-  const totalPrice = userOrderedProducts.orderedProducts.reduce((acc, curr) => {
-    // prettier-ignore
-    acc = acc + (curr.quantity * curr.product.price)
-    return acc;
-  }, 0);
+  const totalPrice = calcTotalPrice(context);
 
   return {
     order,
@@ -42,7 +23,24 @@ const userOrder = async (parent, args, context) => {
   };
 };
 
+/**
+ * This is a resolver workaround because prisma query connections - which has aggregate counting - are not working
+ */
+const countUserOrderedProducts = async (parent, args, context) => {
+  const userId = getUserId(context);
+
+  const orderedProducts = await context.prisma
+    .user({
+      id: userId,
+    })
+    .order()
+    .orderedProducts();
+
+  return orderedProducts.length;
+};
+
 module.exports = {
   products,
   userOrder,
+  countUserOrderedProducts,
 };

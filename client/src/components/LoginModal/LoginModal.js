@@ -4,7 +4,7 @@ import { Flex, Box } from '@rebass/grid';
 
 // graphql
 import { Mutation } from 'react-apollo';
-import { mutations } from '../../graphql';
+import { queries, mutations } from '../../graphql';
 // components
 import Modal from '../Modal';
 import Input from '../Input';
@@ -50,6 +50,52 @@ class LoginModal extends React.Component {
     this.props.showModal(false);
   };
 
+  onUpdate = (cache, { data: { login } }) => {
+    const { products } = cache.readQuery({
+      query: queries.PRODUCTS,
+      variables: {
+        first: 12,
+        skip: 0,
+      },
+    });
+
+    console.log(products);
+
+    const checkExistsProductId = productId => {
+      return login.user.order.orderedProducts.some(
+        item => item.product.id === productId
+      );
+    };
+
+    cache.writeQuery({
+      query: queries.PRODUCTS,
+      data: {
+        products: products.map(item => {
+          if (checkExistsProductId(item.id)) {
+            const x = {
+              ...item,
+              userOrderedProduct: {
+                ...item.userOrderedProduct,
+                id: item.id,
+              },
+            };
+            console.log(x);
+            return {
+              ...item,
+              userOrderedProduct: {
+                ...item.userOrderedProduct,
+                id: item.id,
+                __typename: 'OrderedProduct',
+              },
+            };
+          }
+
+          return item;
+        }),
+      },
+    });
+  };
+
   renderError(error) {
     return error.graphQLErrors.map(({ message }, i) => (
       <TitleWrapper key={i} mb={3}>
@@ -69,6 +115,7 @@ class LoginModal extends React.Component {
         <Mutation
           mutation={mutations.LOGIN}
           onCompleted={this.onCompleted}
+          update={this.onUpdate}
           errorPolicy="all"
         >
           {(login, { error, loading }) => (
@@ -93,7 +140,7 @@ class LoginModal extends React.Component {
                   />
                 </Box>
                 <Button size="lg" appearance="info" disabled={loading}>
-                  {loading ? '...' : 'Login'}
+                  {loading ? 'loading...' : 'Login'}
                 </Button>
               </Flex>
             </Form>
