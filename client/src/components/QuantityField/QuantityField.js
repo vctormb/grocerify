@@ -54,11 +54,11 @@ class QuantityField extends React.Component {
         <Button
           size="xs"
           appearance="textSuccess"
-          onClick={this.plusValue}
-          data-testid="quantity-increment"
+          onClick={this.minusValue}
+          data-testid="quantity-decrement"
           disabled={disabled}
         >
-          +
+          -
         </Button>
         <StyledInput
           p={`0 ${pxToRem(5)}`}
@@ -69,11 +69,11 @@ class QuantityField extends React.Component {
         <Button
           size="xs"
           appearance="textSuccess"
-          onClick={this.minusValue}
-          data-testid="quantity-decrement"
+          onClick={this.plusValue}
+          data-testid="quantity-increment"
           disabled={disabled}
         >
-          -
+          +
         </Button>
       </Flex>
     );

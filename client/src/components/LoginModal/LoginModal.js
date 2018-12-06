@@ -70,14 +70,6 @@ class LoginModal extends React.Component {
       data: {
         products: products.map(item => {
           if (checkExistsProductId(item.id)) {
-            const x = {
-              ...item,
-              userOrderedProduct: {
-                ...item.userOrderedProduct,
-                id: item.id,
-              },
-            };
-            console.log(x);
             return {
               ...item,
               userOrderedProduct: {

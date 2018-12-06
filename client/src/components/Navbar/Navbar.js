@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Flex } from '@rebass/grid';
 import { withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
 
 // graphql
 import { Query } from 'react-apollo';
@@ -38,6 +39,7 @@ const Wrapper = styled.div`
 const Brand = styled.span`
   flex: 1;
   font-weight: 700;
+  cursor: pointer;
 `;
 
 class Navbar extends React.Component {
@@ -101,7 +103,7 @@ class Navbar extends React.Component {
     return (
       <Wrapper isGreenTheme={isGreenTheme}>
         <Container as={Flex} alignItems="center" flex="1">
-          <Brand>Grocerify</Brand>
+          <Brand onClick={() => this.props.history.push('/')}>Grocerify</Brand>
 
           {this.renderLoginOrUser()}
 
@@ -119,4 +121,10 @@ class Navbar extends React.Component {
   }
 }
 
-export default withRouter(withAuth(withLoginModal(Navbar)));
+const enhance = compose(
+  withRouter,
+  withAuth,
+  withLoginModal
+);
+
+export default enhance(Navbar);

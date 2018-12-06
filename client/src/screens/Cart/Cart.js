@@ -64,6 +64,14 @@ class Cart extends React.Component {
                   );
                 }
 
+                if (!data.userOrder.order.orderedProducts.length) {
+                  return (
+                    <Flex justifyContent="center" flex="1">
+                      <strong>Your cart is empty!</strong>
+                    </Flex>
+                  );
+                }
+
                 return (
                   <React.Fragment>
                     <Col as={Flex} flex={[1, '0 1 50%']} flexDirection="column">

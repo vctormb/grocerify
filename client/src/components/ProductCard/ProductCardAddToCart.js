@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'recompose';
 
 // components
 import Button from '../Button';
@@ -30,6 +31,8 @@ class ProductCardAddToCart extends React.Component {
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     if (this.props.product.userOrderedProduct) {
       this.setState({
         currentButton: 'remove',
@@ -46,6 +49,10 @@ class ProductCardAddToCart extends React.Component {
         currentButton: 'remove',
       });
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   addToCart = createOrderedProduct => {
@@ -72,6 +79,8 @@ class ProductCardAddToCart extends React.Component {
       },
     });
 
+    if (!this._isMounted) return;
+
     this.setState({
       currentButton: 'remove',
     });
@@ -96,6 +105,8 @@ class ProductCardAddToCart extends React.Component {
         countUserOrderedProducts: countUserOrderedProducts - 1,
       },
     });
+
+    if (!this._isMounted) return;
 
     this.setState({
       currentButton: 'add',
@@ -145,4 +156,9 @@ ProductCardAddToCart.propTypes = {
   product: PropTypes.object.isRequired,
 };
 
-export default withAuth(withLoginModal(ProductCardAddToCart));
+const enhance = compose(
+  withAuth,
+  withLoginModal
+);
+
+export default enhance(ProductCardAddToCart);
