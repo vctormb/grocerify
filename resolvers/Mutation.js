@@ -144,6 +144,18 @@ const deleteOrderedProduct = async (parent, args, context) => {
   };
 };
 
+const resetOrder = async (parent, args, context) => {
+  const userId = getUserId(context);
+
+  return await context.prisma.deleteManyOrderedProducts({
+    order: {
+      whoOrdered: {
+        id: userId,
+      },
+    },
+  });
+};
+
 module.exports = {
   login,
   signup,
@@ -151,4 +163,5 @@ module.exports = {
   createOrderedProduct,
   updateOrderedProduct,
   deleteOrderedProduct,
+  resetOrder,
 };

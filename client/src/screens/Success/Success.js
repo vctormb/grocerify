@@ -4,9 +4,12 @@ import { Box, Flex } from '@rebass/grid';
 import { Transition } from 'react-transition-group';
 
 // components
+import { client } from '../../index';
 import { ScreenBox, Container, Icon, Card } from '../../components';
 // styles
 import { pxToRem, GlobalStyle } from '../../styles';
+// graphql
+import { queries, mutations } from '../../graphql';
 
 const duration = 500;
 const applyTransition = state => {
@@ -54,6 +57,29 @@ const IconWrapper = styled(Flex)`
 `;
 
 class Success extends React.Component {
+  async componentDidMount() {
+    this.resetOrder();
+  }
+
+  async resetOrder() {
+    try {
+      await client.mutate({
+        mutation: mutations.RESET_ORDER,
+        update: (cache, { data: { resetOrder } }) => {
+          cache.writeQuery({
+            query: queries.COUNT_USER_ORDERED_PRODUCTS,
+            data: {
+              countUserOrderedProducts: 0,
+            },
+          });
+        },
+      });
+    } catch (e) {
+      // handle error
+      console.log(e);
+    }
+  }
+
   render() {
     return (
       <ScreenBox>

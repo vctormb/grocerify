@@ -1,4 +1,4 @@
-# import Product, ProductCreateInput, Order, OrderedProduct, OrderConnection from "./prisma/generated/prisma-client/prisma.graphql"
+# import Product, ProductCreateInput, Order, OrderedProduct, OrderConnection, BatchPayload from "./prisma/generated/prisma-client/prisma.graphql"
 
 type Query {
   products(skip: Int, first: Int): [Product!]!
@@ -13,6 +13,7 @@ type Mutation {
   createOrderedProduct(productId: ID!, quantity: Int!): OrderedProduct!
   updateOrderedProduct(orderedProductId: ID!, quantity: Int!): OrderedProductPayload
   deleteOrderedProduct(productId: ID!): OrderedProductPayload
+  resetOrder: BatchPayload
 }
 
 type User {

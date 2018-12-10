@@ -52,9 +52,18 @@ const DELETE_ORDERED_PRODUCT = gql`
   }
 `;
 
+const RESET_ORDER = gql`
+  mutation ResetOrder {
+    resetOrder {
+      count
+    }
+  }
+`;
+
 export default {
   LOGIN,
   CREATE_ORDERED_PRODUCT,
   UPDATE_ORDERED_PRODUCT,
   DELETE_ORDERED_PRODUCT,
+  RESET_ORDER,
 };

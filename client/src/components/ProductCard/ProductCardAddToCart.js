@@ -43,6 +43,17 @@ class ProductCardAddToCart extends React.Component {
   componentDidUpdate(prevProps) {
     if (
       prevProps.product.userOrderedProduct !==
+        this.props.product.userOrderedProduct &&
+      !this.props.product.userOrderedProduct
+    ) {
+      this.setState({
+        currentButton: 'add',
+      });
+    }
+
+    if (
+      prevProps.product.userOrderedProduct !==
+        this.props.product.userOrderedProduct &&
       this.props.product.userOrderedProduct
     ) {
       this.setState({
@@ -100,7 +111,7 @@ class ProductCardAddToCart extends React.Component {
     });
   };
 
-  onCompletedremoveFromCart = cache => {
+  onUpdateRemoveFromCart = cache => {
     const { countUserOrderedProducts } = cache.readQuery({
       query: queries.COUNT_USER_ORDERED_PRODUCTS,
     });
@@ -126,7 +137,7 @@ class ProductCardAddToCart extends React.Component {
       return (
         <Mutation
           mutation={mutations.DELETE_ORDERED_PRODUCT}
-          update={this.onCompletedremoveFromCart}
+          update={this.onUpdateRemoveFromCart}
         >
           {(deleteOrderedProduct, { loading }) => (
             <RemoveBtn

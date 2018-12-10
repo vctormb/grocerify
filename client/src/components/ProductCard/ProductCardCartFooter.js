@@ -85,6 +85,8 @@ class ProductCardCartFooter extends React.Component {
   };
 
   render() {
+    const { withApp } = this.props;
+
     return (
       <React.Fragment>
         <Mutation
@@ -95,7 +97,7 @@ class ProductCardCartFooter extends React.Component {
             <Button
               size="xs"
               appearance="textSuccess"
-              disabled={loading}
+              disabled={loading || withApp.isBlocking}
               onClick={() =>
                 this.deleteOrderedProduct(
                   deleteOrderedProduct,
@@ -116,7 +118,7 @@ class ProductCardCartFooter extends React.Component {
             <QuantityField
               onChange={e => this.updateOrderedProduct(updateOrderedProduct, e)}
               count={this.props.quantity}
-              disabled={loading}
+              disabled={loading || withApp.isBlocking}
             />
           )}
         </Mutation>

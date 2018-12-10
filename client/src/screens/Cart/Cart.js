@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Flex } from '@rebass/grid';
+import { compose } from 'recompose';
+import { withRouter } from 'react-router-dom';
 
 // graphql
 import { Query } from 'react-apollo';
@@ -16,6 +18,7 @@ import {
   Button,
   ProductCardCartFooter,
   Icon,
+  withApp,
 } from '../../components';
 // styles
 import { media, colors } from '../../styles';
@@ -43,11 +46,13 @@ const ProductCardCart = styled(ProductCard)`
 
 class Cart extends React.Component {
   render() {
+    const { withApp } = this.props;
+
     return (
       <ScreenBox>
         <Container>
           <Row flexDirection={['column', 'column', 'row']}>
-            <Query query={queries.USER_ORDER}>
+            <Query query={queries.USER_ORDER} fetchPolicy="network-only">
               {({ loading, error, data }) => {
                 if (error) return `Error! ${error.message}`;
                 if (loading) {
@@ -127,7 +132,14 @@ class Cart extends React.Component {
                             {data.userOrder.totalPrice.toFixed(2)}
                           </Flex>
                           <Flex flexDirection="column" mt={4}>
-                            <Button size="lg" appearance="danger">
+                            <Button
+                              size="lg"
+                              appearance="danger"
+                              disabled={withApp.isBlocking}
+                              onClick={() =>
+                                this.props.history.push('/success')
+                              }
+                            >
                               Checkout
                             </Button>
                           </Flex>
@@ -146,4 +158,9 @@ class Cart extends React.Component {
   }
 }
 
-export default Cart;
+const enhance = compose(
+  withRouter,
+  withApp
+);
+
+export default enhance(Cart);

@@ -44,6 +44,7 @@ class Home extends React.Component {
             query={queries.PRODUCTS}
             variables={{ skip: 0, first: 12 }}
             notifyOnNetworkStatusChange
+            fetchPolicy="cache-and-network"
           >
             {({ loading, error, data, fetchMore }) => {
               if (error) return `Error! ${error.message}`;

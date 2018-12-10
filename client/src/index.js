@@ -14,7 +14,7 @@ import { theme } from './styles';
 // components
 import { AppProvider } from './components';
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
   request: operation => {
     const token = auth.getToken();
