@@ -1,5 +1,12 @@
 import React from 'react';
-import { render, cleanup, waitForElement, fireEvent, wait } from 'test-utils';
+import {
+  render,
+  cleanup,
+  waitForElement,
+  fireEvent,
+  wait,
+  gqlMock,
+} from 'test-utils';
 
 // graphql
 import { queries, mutations } from '../../../graphql';
@@ -32,7 +39,7 @@ const product3 = {
   userOrderedProduct: null,
 };
 
-const productsMock = products => ({
+const productsRequestMockFn = products => ({
   request: {
     query: queries.PRODUCTS,
     variables: {
@@ -47,43 +54,7 @@ const productsMock = products => ({
   },
 });
 
-const loginUser = {
-  name: 'User',
-  email: 'user@email.com',
-  password: '123123',
-};
-const jwtToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwibmFtZSI6IlVzZXIiLCJpYXQiOjE1NDQ0ODIyMDZ9.sQvtvyttI5iP2tyzYC1-YZyMDK2MGhtacs35OeagWI0';
-const loginMock = {
-  request: {
-    query: mutations.LOGIN,
-    variables: {
-      email: loginUser.email,
-      password: loginUser.password,
-    },
-  },
-  result: {
-    data: {
-      login: {
-        token: jwtToken,
-        user: {
-          name: loginUser.name,
-          order: {
-            orderedProducts: [
-              {
-                product: {
-                  id: product1.id,
-                },
-              },
-            ],
-          },
-        },
-      },
-    },
-  },
-};
-
-const countUserOrderedProductsMock = count => ({
+const countUserOrderedProductsRequestMockFn = count => ({
   request: {
     query: queries.COUNT_USER_ORDERED_PRODUCTS,
   },
@@ -94,7 +65,7 @@ const countUserOrderedProductsMock = count => ({
   },
 });
 
-const createOrderedProductMock = {
+const createOrderedProductRequestMock = {
   request: {
     query: mutations.CREATE_ORDERED_PRODUCT,
     variables: {
@@ -111,7 +82,7 @@ const createOrderedProductMock = {
   },
 };
 
-const deleteOrderedProductMock = {
+const deleteOrderedProductRequestMock = {
   request: {
     query: mutations.DELETE_ORDERED_PRODUCT,
     variables: {
@@ -131,13 +102,13 @@ const deleteOrderedProductMock = {
 };
 
 const LoginButtonMock = withApp(({ withApp }) => (
-  <button onClick={() => withApp.login(jwtToken)}>login mock</button>
+  <button onClick={() => withApp.login(gqlMock.jwtToken)}>login mock</button>
 ));
 
 describe('<Home />', () => {
   it('should render the list of products', async () => {
     const { getByText, queryAllByText } = render(<Home />, {
-      mocks: [productsMock([product1, product2, product3])],
+      mocks: [productsRequestMockFn([product1, product2, product3])],
     });
 
     await waitForElement(() => [
@@ -153,7 +124,7 @@ describe('<Home />', () => {
     const addToCartBtnText = /add to cart/i;
 
     const { getByText } = render(<Home />, {
-      mocks: [productsMock([product1])],
+      mocks: [productsRequestMockFn([product1])],
     });
 
     await waitForElement(() => getByText(product1.title));
@@ -174,6 +145,7 @@ describe('<Home />', () => {
       getByText,
       queryByText,
       getByPlaceholderText,
+      debug,
     } = render(
       <React.Fragment>
         <Navbar />
@@ -181,10 +153,10 @@ describe('<Home />', () => {
       </React.Fragment>,
       {
         mocks: [
-          productsMock([product1]),
-          loginMock,
-          countUserOrderedProductsMock(0),
-          createOrderedProductMock,
+          productsRequestMockFn([product1]),
+          gqlMock.loginRequestFn(),
+          countUserOrderedProductsRequestMockFn(0),
+          createOrderedProductRequestMock,
         ],
       }
     );
@@ -211,7 +183,7 @@ describe('<Home />', () => {
 
     await wait(() => expect(queryByText(modalTitle)).not.toBeInTheDocument());
 
-    expect(getByText(loginUser.name)).toBeInTheDocument();
+    expect(getByText(gqlMock.userData.name)).toBeInTheDocument();
 
     fireEvent.click(getByText(addToCartText));
     expect(getByText(addToCartText)).toBeDisabled();
@@ -228,7 +200,7 @@ describe('<Home />', () => {
   it('should remove from cart when user is logged in', async () => {
     const removeFromCartBtnText = /remove/i;
 
-    const { getByTestId, getByText } = render(
+    const { getByTestId, getByText, debug } = render(
       <React.Fragment>
         <Navbar />
         <Home />
@@ -236,10 +208,12 @@ describe('<Home />', () => {
       </React.Fragment>,
       {
         mocks: [
-          productsMock([{ ...product1, userOrderedProduct: { id: 1 } }]),
-          loginMock,
-          countUserOrderedProductsMock(1),
-          deleteOrderedProductMock,
+          productsRequestMockFn([
+            { ...product1, userOrderedProduct: { id: 1 } },
+          ]),
+          gqlMock.loginRequestFn(),
+          countUserOrderedProductsRequestMockFn(1),
+          deleteOrderedProductRequestMock,
         ],
       }
     );
