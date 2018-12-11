@@ -49,7 +49,7 @@ class Cart extends React.Component {
     const { withApp } = this.props;
 
     return (
-      <ScreenBox>
+      <ScreenBox data-testid="cart-screen">
         <Container>
           <Row flexDirection={['column', 'column', 'row']}>
             <Query query={queries.USER_ORDER} fetchPolicy="network-only">

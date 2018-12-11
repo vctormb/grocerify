@@ -108,6 +108,7 @@ class Navbar extends React.Component {
           {this.renderLoginOrUser()}
 
           <IconButton
+            data-testid="cart-btn"
             appearance="ghostSuccess"
             icon="shopping-cart"
             color={!isGreenTheme ? 'v3' : null}

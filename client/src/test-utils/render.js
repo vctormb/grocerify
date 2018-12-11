@@ -6,19 +6,28 @@ import { theme } from '../styles';
 // react-router
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+// graphql
+import { MockedProvider } from 'react-apollo/test-utils';
+// components
+import { AppProvider } from '../components';
 
 function render(
   ui,
   {
     route = '/',
     history = createMemoryHistory({ initialEntries: [route] }),
+    mocks = [],
     ...renderOptions
   } = {}
 ) {
   const rendered = rtlRender(
-    <ThemeProvider theme={theme}>
-      <Router history={history}>{ui}</Router>
-    </ThemeProvider>,
+    <MockedProvider mocks={mocks} addTypename={false}>
+      <ThemeProvider theme={theme}>
+        <AppProvider>
+          <Router history={history}>{ui}</Router>
+        </AppProvider>
+      </ThemeProvider>
+    </MockedProvider>,
     renderOptions
   );
 

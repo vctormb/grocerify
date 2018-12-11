@@ -129,7 +129,12 @@ class LoginModal extends React.Component {
                     }
                   />
                 </Box>
-                <Button size="lg" appearance="info" disabled={loading}>
+                <Button
+                  data-testid="login-btn"
+                  size="lg"
+                  appearance="info"
+                  disabled={loading}
+                >
                   {loading ? 'loading...' : 'Login'}
                 </Button>
               </Flex>
