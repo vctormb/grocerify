@@ -4,7 +4,7 @@ import { render, cleanup, waitForElement, fireEvent, wait } from 'test-utils';
 // graphql
 import { queries, mutations } from '../../../graphql';
 // components
-import { Navbar } from '../../../components';
+import { Navbar, withApp } from '../../../components';
 
 import Home from '../Home';
 
@@ -14,21 +14,21 @@ const product1 = {
   id: 1,
   title: 'Bananas',
   imageUrl: null,
-  price: 0.12,
+  price: 1,
   userOrderedProduct: null,
 };
 const product2 = {
   id: 2,
   title: 'Strawberries',
   imageUrl: null,
-  price: 2.97,
+  price: 2,
   userOrderedProduct: null,
 };
 const product3 = {
   id: 3,
   title: 'Grapes',
   imageUrl: null,
-  price: 1.88,
+  price: 3,
   userOrderedProduct: null,
 };
 
@@ -52,6 +52,8 @@ const loginUser = {
   email: 'user@email.com',
   password: '123123',
 };
+const jwtToken =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwibmFtZSI6IlVzZXIiLCJpYXQiOjE1NDQ0ODIyMDZ9.sQvtvyttI5iP2tyzYC1-YZyMDK2MGhtacs35OeagWI0';
 const loginMock = {
   request: {
     query: mutations.LOGIN,
@@ -63,8 +65,7 @@ const loginMock = {
   result: {
     data: {
       login: {
-        token:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwibmFtZSI6IlVzZXIiLCJpYXQiOjE1NDQ0ODIyMDZ9.sQvtvyttI5iP2tyzYC1-YZyMDK2MGhtacs35OeagWI0',
+        token: jwtToken,
         user: {
           name: loginUser.name,
           order: {
@@ -82,16 +83,16 @@ const loginMock = {
   },
 };
 
-const countUserOrderedProducts = {
+const countUserOrderedProductsMock = count => ({
   request: {
     query: queries.COUNT_USER_ORDERED_PRODUCTS,
   },
   result: {
     data: {
-      countUserOrderedProducts: 0,
+      countUserOrderedProducts: count,
     },
   },
-};
+});
 
 const createOrderedProductMock = {
   request: {
@@ -109,6 +110,29 @@ const createOrderedProductMock = {
     },
   },
 };
+
+const deleteOrderedProductMock = {
+  request: {
+    query: mutations.DELETE_ORDERED_PRODUCT,
+    variables: {
+      productId: product1.id,
+    },
+  },
+  result: {
+    data: {
+      deleteOrderedProduct: {
+        orderedProduct: {
+          id: 1,
+        },
+        totalPrice: 0,
+      },
+    },
+  },
+};
+
+const LoginButtonMock = withApp(({ withApp }) => (
+  <button onClick={() => withApp.login(jwtToken)}>login mock</button>
+));
 
 describe('<Home />', () => {
   it('should render the list of products', async () => {
@@ -140,7 +164,7 @@ describe('<Home />', () => {
     expect(getByText(/you need to login first!/i)).toBeInTheDocument();
   });
 
-  it.only('should add to cart when user is logged in', async () => {
+  it('should add to cart when user is logged in', async () => {
     const addToCartText = /add to cart/i;
     const modalTitle = /you need to login first!/i;
     const loginButtonId = 'login-btn';
@@ -159,7 +183,7 @@ describe('<Home />', () => {
         mocks: [
           productsMock([product1]),
           loginMock,
-          countUserOrderedProducts,
+          countUserOrderedProductsMock(0),
           createOrderedProductMock,
         ],
       }
@@ -199,5 +223,42 @@ describe('<Home />', () => {
 
     const cartButton = getByTestId('cart-btn');
     await wait(() => expect(cartButton).toHaveTextContent(1));
+  });
+
+  it('should remove from cart when user is logged in', async () => {
+    const removeFromCartBtnText = /remove/i;
+
+    const { getByTestId, getByText } = render(
+      <React.Fragment>
+        <Navbar />
+        <Home />
+        <LoginButtonMock />
+      </React.Fragment>,
+      {
+        mocks: [
+          productsMock([{ ...product1, userOrderedProduct: { id: 1 } }]),
+          loginMock,
+          countUserOrderedProductsMock(1),
+          deleteOrderedProductMock,
+        ],
+      }
+    );
+
+    fireEvent.click(getByText(/login mock/i));
+
+    const cartButton = getByTestId('cart-btn');
+    await wait(() => expect(cartButton).toHaveTextContent(1));
+
+    await waitForElement(() => getByText(product1.title));
+
+    fireEvent.click(getByText(removeFromCartBtnText));
+    expect(getByText(removeFromCartBtnText)).toBeDisabled();
+
+    const addToCartBtnText = /add to cart/i;
+    await waitForElement(() => getByText(addToCartBtnText));
+
+    expect(getByText(addToCartBtnText)).toBeInTheDocument();
+
+    await wait(() => expect(cartButton).not.toHaveTextContent());
   });
 });
