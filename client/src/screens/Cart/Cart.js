@@ -129,7 +129,7 @@ class Cart extends React.Component {
                         <Card.Body>
                           <Flex mt={3} justifyContent="space-between">
                             <strong>Total</strong> $
-                            {data.userOrder.totalPrice.toFixed(2)}
+                            {' ' + data.userOrder.totalPrice.toFixed(2)}
                           </Flex>
                           <Flex flexDirection="column" mt={4}>
                             <Button
