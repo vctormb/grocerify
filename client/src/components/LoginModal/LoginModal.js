@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Flex, Box } from '@rebass/grid';
+import { withRouter } from 'react-router-dom';
 
 // graphql
 import { Mutation } from 'react-apollo';
@@ -50,7 +51,18 @@ class LoginModal extends React.Component {
     this.props.showModal(false);
   };
 
-  onUpdate = (cache, { data: { login } }) => {
+  onUpdate = (...args) => {
+    if (this.props.location.pathname === '/') {
+      this.findProductsToUpdateOrderedProduct(...args);
+    }
+  };
+
+  findProductsToUpdateOrderedProduct(
+    cache,
+    {
+      data: { login },
+    }
+  ) {
     const { products } = cache.readQuery({
       query: queries.PRODUCTS,
       variables: {
@@ -84,7 +96,7 @@ class LoginModal extends React.Component {
         }),
       },
     });
-  };
+  }
 
   renderError(error) {
     return error.graphQLErrors.map(({ message }, i) => (
@@ -146,4 +158,4 @@ class LoginModal extends React.Component {
   }
 }
 
-export default withApp(LoginModal);
+export default withRouter(withApp(LoginModal));

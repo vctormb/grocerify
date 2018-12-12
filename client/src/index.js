@@ -1,38 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './screens/App';
 import * as serviceWorker from './serviceWorker';
 
 // graphql
-import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-// utils
-import { auth } from './utils';
+import { client } from './graphql';
 // styled-components
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles';
 // components
 import { AppProvider } from './components';
 
-export const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
-  request: operation => {
-    const token = auth.getToken();
-    if (token) {
-      operation.setContext({
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    }
-  },
-});
-
 ReactDOM.render(
   <ApolloProvider client={client}>
     <ThemeProvider theme={theme}>
       <AppProvider>
-        <App />
+        <Router>
+          <App />
+        </Router>
       </AppProvider>
     </ThemeProvider>
   </ApolloProvider>,

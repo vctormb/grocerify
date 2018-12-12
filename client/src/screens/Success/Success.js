@@ -4,7 +4,7 @@ import { Box, Flex } from '@rebass/grid';
 import { Transition } from 'react-transition-group';
 
 // components
-import { client } from '../../index';
+import { client } from '../../graphql';
 import { ScreenBox, Container, Icon, Card } from '../../components';
 // styles
 import { pxToRem, GlobalStyle } from '../../styles';

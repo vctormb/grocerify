@@ -38,7 +38,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <ScreenBox>
+      <ScreenBox data-testid="home-screen">
         <Container>
           <Query
             query={queries.PRODUCTS}
