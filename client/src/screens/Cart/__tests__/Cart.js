@@ -104,6 +104,19 @@ const deleteOrderedProductRequestMock = {
   },
 };
 
+const resetOrderRequestMock = {
+  request: {
+    query: mutations.RESET_ORDER,
+  },
+  result: {
+    data: {
+      resetOrder: {
+        count: 0,
+      },
+    },
+  },
+};
+
 const LoginButtonMock = withApp(({ withApp }) => (
   <button onClick={() => withApp.login(gqlMock.jwtToken)}>login mock</button>
 ));
@@ -182,7 +195,7 @@ describe('<Cart />', () => {
   });
 
   it('should remove the product from cart when clicked on remove btn', async () => {
-    const { getByTestId, getByText, queryByText, debug } = render(
+    const { getByTestId, getByText, queryByText, container, debug } = render(
       <React.Fragment>
         <Navbar />
         <Cart />
@@ -213,11 +226,15 @@ describe('<Cart />', () => {
       expect(queryByText(/your cart is empty!/i)).toBeInTheDocument()
     );
 
-    expect(cartButton).not.toHaveTextContent();
+    const cartBtnBadge = container
+      .querySelector('[data-testid="cart-btn"]')
+      .querySelector('[data-testid="badge"]');
+
+    expect(cartButton).not.toContainElement(cartBtnBadge);
   });
 
   it('should navigate to the success screen when clicked on checkout btn', async () => {
-    const { getByTestId, getByText, debug } = render(
+    const { getByTestId, getByText, container, debug } = render(
       <React.Fragment>
         <App />
         <LoginButtonMock />
@@ -227,19 +244,28 @@ describe('<Cart />', () => {
         mocks: [
           gqlMock.countUserOrderedProductsRequestMockFn(1),
           userOrderRequestMockFn([orderedProduct1], 2),
+          resetOrderRequestMock,
         ],
       }
     );
+    const cartButton = getByTestId('cart-btn');
 
     fireEvent.click(getByText(/login mock/i));
     await waitForElement(() => getByText(gqlMock.userData.name));
+    await wait(() => expect(cartButton).toHaveTextContent(1));
 
-    fireEvent.click(getByTestId('cart-btn'));
+    fireEvent.click(cartButton);
 
-    await waitForElement(() => [getByText(orderedProduct1.product.title)]);
+    await waitForElement(() => getByText(orderedProduct1.product.title));
 
     fireEvent.click(getByText(/checkout/i));
 
-    expect(getByTestId('success-screen')).toBeInTheDocument();
+    expect(getByText(/all done!/i)).toBeInTheDocument();
+
+    const cartBtnBadge = container
+      .querySelector('[data-testid="cart-btn"]')
+      .querySelector('[data-testid="badge"]');
+
+    await wait(() => expect(cartButton).not.toContainElement(cartBtnBadge));
   });
 });

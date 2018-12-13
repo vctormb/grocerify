@@ -189,7 +189,7 @@ describe('<Home />', () => {
   it('should remove from cart when user is logged in', async () => {
     const removeFromCartBtnText = /remove/i;
 
-    const { getByTestId, getByText, debug } = render(
+    const { getByTestId, getByText, container, debug } = render(
       <React.Fragment>
         <Navbar />
         <Home />
@@ -222,6 +222,10 @@ describe('<Home />', () => {
 
     expect(getByText(addToCartBtnText)).toBeInTheDocument();
 
-    await wait(() => expect(cartButton).not.toHaveTextContent());
+    const cartBtnBadge = container
+      .querySelector('[data-testid="cart-btn"]')
+      .querySelector('[data-testid="badge"]');
+
+    expect(cartButton).not.toContainElement(cartBtnBadge);
   });
 });
