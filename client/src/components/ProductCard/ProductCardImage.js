@@ -22,7 +22,7 @@ const Wrapper = styled(Flex)`
 `;
 
 const ImageContainer = styled.div`
-  opacity: 0;
+  opacity: ${p => p.imageOpacity};
   height: ${pxToRem(80)};
   width: ${pxToRem(80)};
   background-color: ${p => p.theme.colors.v3};
@@ -30,6 +30,7 @@ const ImageContainer = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 5;
+  background-image: ${p => `url(${p.imageUrl})`};
 
   transition-property: opacity;
   transition-duration: 1s;
@@ -53,9 +54,20 @@ class ProductCardImage extends React.Component {
     this.imageContainer = null;
   }
 
+  state = {
+    imageOpacity: 0,
+    imageUrl: 'none',
+  };
+
   componentDidMount() {
     if (this.props.imageUrl) {
       this.loadImage();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.imageUrl !== this.props.imageUrl) {
+      this.setImage();
     }
   }
 
@@ -66,12 +78,16 @@ class ProductCardImage extends React.Component {
 
     imageInstance.onload = () => {
       if (this.imageContainer) {
-        this.imageContainer.setAttribute(
-          'style',
-          `opacity: 1; background-image: url(${this.props.imageUrl});`
-        );
+        this.setImage();
       }
     };
+  }
+
+  setImage() {
+    this.setState({
+      imageOpacity: 1,
+      imageUrl: this.props.imageUrl,
+    });
   }
 
   render() {
@@ -86,6 +102,8 @@ class ProductCardImage extends React.Component {
       >
         <ImageContainer
           {...this.props}
+          imageOpacity={this.state.imageOpacity}
+          imageUrl={this.state.imageUrl}
           data-testid="image-container"
           ref={el => (this.imageContainer = el)}
         />
