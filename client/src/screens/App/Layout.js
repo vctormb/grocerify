@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { withRouter, Prompt } from 'react-router-dom';
 import { compose } from 'recompose';
 
-// styled-components
-import { GlobalStyle } from '../../styles';
-
 // components
 import { Navbar, withApp } from '../../components';
 
@@ -17,7 +14,6 @@ class Layout extends Component {
 
     return (
       <React.Fragment>
-        <GlobalStyle />
         <Prompt
           when={this.props.withApp.isBlocking}
           message={location => `Are you sure you want to leave this page?`}
