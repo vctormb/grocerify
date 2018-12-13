@@ -54,17 +54,6 @@ const productsRequestMockFn = products => ({
   },
 });
 
-const countUserOrderedProductsRequestMockFn = count => ({
-  request: {
-    query: queries.COUNT_USER_ORDERED_PRODUCTS,
-  },
-  result: {
-    data: {
-      countUserOrderedProducts: count,
-    },
-  },
-});
-
 const createOrderedProductRequestMock = {
   request: {
     query: mutations.CREATE_ORDERED_PRODUCT,
@@ -155,7 +144,7 @@ describe('<Home />', () => {
         mocks: [
           productsRequestMockFn([product1]),
           gqlMock.loginRequestFn(),
-          countUserOrderedProductsRequestMockFn(0),
+          gqlMock.countUserOrderedProductsRequestMockFn(0),
           createOrderedProductRequestMock,
         ],
       }
@@ -212,7 +201,7 @@ describe('<Home />', () => {
             { ...product1, userOrderedProduct: { id: 1 } },
           ]),
           gqlMock.loginRequestFn(),
-          countUserOrderedProductsRequestMockFn(1),
+          gqlMock.countUserOrderedProductsRequestMockFn(1),
           deleteOrderedProductRequestMock,
         ],
       }

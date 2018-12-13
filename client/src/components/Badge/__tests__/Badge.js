@@ -6,7 +6,7 @@ import Badge from '../Badge';
 afterEach(cleanup);
 
 describe('<Badge />', () => {
-  test.only('Rerenders the badge with count equals to zero, 99 and more than 99', () => {
+  test('Rerenders the badge with count equals to zero, 99 and more than 99', () => {
     const badgeId = 'badge';
     const { queryByTestId, rerender } = render(<Badge count={0} />);
 

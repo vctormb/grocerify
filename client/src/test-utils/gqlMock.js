@@ -1,6 +1,4 @@
-import React from 'react';
-import { mutations } from '../graphql';
-import { withApp } from '../components';
+import { queries, mutations } from '../graphql';
 
 const userData = {
   name: 'User',
@@ -35,8 +33,20 @@ const loginRequestFn = (orderedProducts = []) => ({
   },
 });
 
+const countUserOrderedProductsRequestMockFn = count => ({
+  request: {
+    query: queries.COUNT_USER_ORDERED_PRODUCTS,
+  },
+  result: {
+    data: {
+      countUserOrderedProducts: count,
+    },
+  },
+});
+
 export default {
   userData,
   jwtToken,
   loginRequestFn,
+  countUserOrderedProductsRequestMockFn,
 };

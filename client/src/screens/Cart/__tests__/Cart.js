@@ -10,9 +10,10 @@ import {
 
 // graphql
 import { queries, mutations } from '../../../graphql';
+// components
+import { Navbar, withApp } from '../../../components';
 
 import Cart from '../Cart';
-import { Navbar } from '../../../components';
 
 const orderedProduct1 = {
   id: '1',
@@ -83,6 +84,29 @@ const updateOrderedProductRequestMockFn = (quantity = 1, totalPrice = 0) => ({
   },
 });
 
+const deleteOrderedProductRequestMock = {
+  request: {
+    query: mutations.DELETE_ORDERED_PRODUCT,
+    variables: {
+      productId: orderedProduct1.product.id,
+    },
+  },
+  result: {
+    data: {
+      deleteOrderedProduct: {
+        orderedProduct: {
+          id: orderedProduct1.id,
+        },
+        totalPrice: 0,
+      },
+    },
+  },
+};
+
+const LoginButtonMock = withApp(({ withApp }) => (
+  <button onClick={() => withApp.login(gqlMock.jwtToken)}>login mock</button>
+));
+
 afterEach(cleanup);
 
 describe('<Cart />', () => {
@@ -92,7 +116,7 @@ describe('<Cart />', () => {
     });
 
     await wait(() => [
-      expect(getByText(/Your cart is empty!/i)).toBeInTheDocument(),
+      expect(getByText(/your cart is empty!/i)).toBeInTheDocument(),
     ]);
   });
 
@@ -135,7 +159,7 @@ describe('<Cart />', () => {
     expect(getByTestId(quantityInputId)).toHaveAttribute('value', '3');
   });
 
-  it.only('should decrement the order price when a product is decremented', async () => {
+  it('should decrement the order price when a product is decremented', async () => {
     const quantityInputId = 'quantity-input';
 
     const { getByTestId, getByText, debug } = render(<Cart />, {
@@ -154,5 +178,40 @@ describe('<Cart />', () => {
 
     await wait(() => expect(getByText('$ 1.00')).toBeInTheDocument());
     expect(getByTestId(quantityInputId)).toHaveAttribute('value', '1');
+  });
+
+  it('should remove the product from cart when clicked on remove btn', async () => {
+    const { getByTestId, getByText, queryByText, debug } = render(
+      <React.Fragment>
+        <Navbar />
+        <Cart />
+        <LoginButtonMock />
+      </React.Fragment>,
+      {
+        mocks: [
+          gqlMock.countUserOrderedProductsRequestMockFn(1),
+          userOrderRequestMockFn([orderedProduct1], 2),
+          deleteOrderedProductRequestMock,
+        ],
+      }
+    );
+
+    fireEvent.click(getByText(/login mock/i));
+
+    await waitForElement(() => [
+      getByText(orderedProduct1.product.title),
+      getByText(/user/i),
+    ]);
+
+    const cartButton = getByTestId('cart-btn');
+    await wait(() => expect(cartButton).toHaveTextContent(1));
+
+    fireEvent.click(getByText(/remove/i));
+
+    await wait(() =>
+      expect(queryByText(/your cart is empty!/i)).toBeInTheDocument()
+    );
+
+    expect(cartButton).not.toHaveTextContent();
   });
 });
