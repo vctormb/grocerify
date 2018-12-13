@@ -52,7 +52,7 @@ class Cart extends React.Component {
       <ScreenBox data-testid="cart-screen">
         <Container>
           <Row flexDirection={['column', 'column', 'row']}>
-            <Query query={queries.USER_ORDER} fetchPolicy="network-only">
+            <Query query={queries.USER_ORDER} fetchPolicy="cache-and-network">
               {({ loading, error, data }) => {
                 if (error) return `Error! ${error.message}`;
                 if (loading) {

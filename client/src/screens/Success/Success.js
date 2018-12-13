@@ -82,7 +82,7 @@ class Success extends React.Component {
 
   render() {
     return (
-      <ScreenBox>
+      <ScreenBox data-testid="success-screen">
         <GlobalStyle isGreenTheme />
         <Container>
           <Flex justifyContent="center">

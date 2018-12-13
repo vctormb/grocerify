@@ -16,7 +16,7 @@ const spin = keyframes`
 `;
 
 const Rotate = styled.span`
-  animation: ${spin} 1s linear infinite;
+  animation: ${spin} 0.3s linear infinite;
 `;
 
 const Icon = ({ icon, ...rest }) => (

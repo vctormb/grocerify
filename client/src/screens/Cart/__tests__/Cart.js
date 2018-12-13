@@ -14,6 +14,7 @@ import { queries, mutations } from '../../../graphql';
 import { Navbar, withApp } from '../../../components';
 
 import Cart from '../Cart';
+import App from '../../App';
 
 const orderedProduct1 = {
   id: '1',
@@ -213,5 +214,32 @@ describe('<Cart />', () => {
     );
 
     expect(cartButton).not.toHaveTextContent();
+  });
+
+  it('should navigate to the success screen when clicked on checkout btn', async () => {
+    const { getByTestId, getByText, debug } = render(
+      <React.Fragment>
+        <App />
+        <LoginButtonMock />
+      </React.Fragment>,
+      {
+        route: '/login',
+        mocks: [
+          gqlMock.countUserOrderedProductsRequestMockFn(1),
+          userOrderRequestMockFn([orderedProduct1], 2),
+        ],
+      }
+    );
+
+    fireEvent.click(getByText(/login mock/i));
+    await waitForElement(() => getByText(gqlMock.userData.name));
+
+    fireEvent.click(getByTestId('cart-btn'));
+
+    await waitForElement(() => [getByText(orderedProduct1.product.title)]);
+
+    fireEvent.click(getByText(/checkout/i));
+
+    expect(getByTestId('success-screen')).toBeInTheDocument();
   });
 });
