@@ -6,7 +6,7 @@ import ProductCardBody from '../ProductCardBody';
 afterEach(cleanup);
 
 describe('<ProductCardBody />', () => {
-  test('Renders the ProductCardBody with a title and price', () => {
+  it('should render the ProductCardBody with a title and price', () => {
     const title = 'Foo title';
     const price = 2.5;
 

@@ -6,7 +6,7 @@ import Button from '../Button';
 afterEach(cleanup);
 
 describe('<Button />', () => {
-  test('Renders button with children', () => {
+  it('should render button with children', () => {
     const btnText = 'Foo btn';
 
     const { getByText } = render(<Button>{btnText}</Button>);
@@ -14,7 +14,7 @@ describe('<Button />', () => {
     expect(getByText(btnText)).toBeInTheDocument();
   });
 
-  test('Renders button with icon and children', () => {
+  it('should render button with icon and children', () => {
     const btnText = 'Foo btn';
 
     const { container } = render(

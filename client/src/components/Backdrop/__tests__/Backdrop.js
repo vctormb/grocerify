@@ -6,7 +6,7 @@ import Backdrop from '../Backdrop';
 afterEach(cleanup);
 
 describe('<Backdrop />', () => {
-  test('Shows and hide Backdrop', async () => {
+  it('should show and hide Backdrop', async () => {
     const backdropId = 'backdrop';
     const { queryByTestId, rerender } = render(<Backdrop show={true} />);
 

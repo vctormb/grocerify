@@ -6,7 +6,7 @@ import Modal from '../index';
 afterEach(cleanup);
 
 describe('<Modal />', () => {
-  test('Opens the modal when clicked on button', () => {
+  it('should open the modal when clicked on button', () => {
     const modalText = 'This is a modal';
     const btnText = 'open modal';
 
@@ -30,7 +30,7 @@ describe('<Modal />', () => {
     expect(queryByText(modalText)).toBeInTheDocument();
   });
 
-  test('Closes the modal when clicked on modal`s close button', async () => {
+  it('should close the modal when clicked on modal`s close button', async () => {
     const modalText = 'This is a modal';
 
     const { queryByText, getByTestId, debug } = render(
@@ -50,7 +50,7 @@ describe('<Modal />', () => {
     await wait(() => expect(queryByText(modalText)).not.toBeInTheDocument());
   });
 
-  test('Closes the modal when clicked on modal`s backdrop', async () => {
+  it('should close the modal when clicked on modal`s backdrop', async () => {
     const modalText = 'This is a modal';
 
     const { queryByText, getByTestId, debug } = render(

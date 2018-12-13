@@ -6,7 +6,7 @@ import ProductCard from '../ProductCard';
 afterEach(cleanup);
 
 describe('<ProductCard />', () => {
-  test('Renders the ProductCard with render props', () => {
+  it('should renders the ProductCard with render props', () => {
     const { queryByText } = render(
       <ProductCard>{() => <div>foo</div>}</ProductCard>
     );
