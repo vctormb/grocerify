@@ -59,4 +59,15 @@ describe('<QuantityField />', () => {
     fireEvent.click(decrementBtn);
     expect(qntInput.value).toBe('2');
   });
+
+  it('should rerender the component with new value', () => {
+    const { getByTestId, rerender } = render(<QuantityField count={1} />);
+
+    const qntInput = getByTestId(qntInputId);
+
+    expect(qntInput.value).toBe('1');
+
+    rerender(<QuantityField count={2} />);
+    expect(qntInput.value).toBe('2');
+  });
 });

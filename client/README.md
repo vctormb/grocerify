@@ -1,1 +1,1 @@
-# grocerify
+# Grocerify - Client

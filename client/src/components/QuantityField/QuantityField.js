@@ -27,6 +27,14 @@ class QuantityField extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.count !== this.props.count) {
+      this.setState({
+        count: this.props.count,
+      });
+    }
+  }
+
   plusValue = () => {
     this.setState({ count: this.state.count + 1 }, () => {
       this.handleChange();
