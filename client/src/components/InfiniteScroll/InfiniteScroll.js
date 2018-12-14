@@ -23,7 +23,6 @@ class InfiniteScroll extends React.Component {
       (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500 &&
       !this.props.isLoading
     ) {
-      console.log('it worked');
       this.props.onFetchData();
     }
   };

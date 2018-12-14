@@ -38,7 +38,7 @@ prisma generate #5. generate the prisma client
 npm run start #6. start the project
 ```
 
-## Running the Front End:
+## Running the Front End
 ```
 yarn install #1. you can use NPM too
 ```
