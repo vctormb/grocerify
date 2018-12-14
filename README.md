@@ -1,4 +1,9 @@
-## Grocerify
+<p align="center">
+ <img src="https://github.com/vctormb/grocerify/blob/master/docs/grocerify-logo.svg" width="280" />
+</p>  
+<p align="center">Made with React, Styled Components, GraphQL Apollo and Prisma</p>
+
+<hr />
 
 Grocerify is a mobile-first web app that you can:  
 - see all the products; 
