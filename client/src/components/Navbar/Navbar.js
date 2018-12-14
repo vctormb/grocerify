@@ -58,7 +58,11 @@ class Navbar extends React.Component {
 
     if (withApp.isLoggedIn) {
       return (
-        <Button appearance="ghostSuccess" color={!isGreenTheme ? 'v3' : null}>
+        <Button
+          appearance="ghostSuccess"
+          color={!isGreenTheme ? 'v3' : null}
+          onClick={this.onLogout}
+        >
           {withApp.user.name}
         </Button>
       );
@@ -96,6 +100,11 @@ class Navbar extends React.Component {
       </Query>
     );
   }
+
+  onLogout = () => {
+    this.props.withApp.logout();
+    this.props.history.push('/login');
+  };
 
   render() {
     const { isGreenTheme } = this.props;

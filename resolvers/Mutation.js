@@ -23,6 +23,10 @@ const login = async (parent, { email, password }, context) => {
 };
 
 const signup = async (parent, args, context) => {
+  if (!args.name || !args.email || !args.password) {
+    throw new Error(`There are empty fields!`);
+  }
+
   const password = await bcrypt.hash(args.password, 10);
   const user = await context.prisma.createUser({ ...args, password });
 
@@ -35,7 +39,7 @@ const signup = async (parent, args, context) => {
   });
 
   return {
-    token: jwt.sign({ userId: user.id }, process.env.JWT_SECRET),
+    token: jwt.sign({ userId: user.id, name: user.name }, process.env.JWT_SECRET),
     user,
   };
 };

@@ -60,10 +60,19 @@ const RESET_ORDER = gql`
   }
 `;
 
+const SIGN_UP = gql`
+  mutation Signup($name: String!, $email: String!, $password: String!) {
+    signup(name: $name, email: $email, password: $password) {
+      token
+    }
+  }
+`;
+
 export default {
   LOGIN,
   CREATE_ORDERED_PRODUCT,
   UPDATE_ORDERED_PRODUCT,
   DELETE_ORDERED_PRODUCT,
   RESET_ORDER,
+  SIGN_UP,
 };
