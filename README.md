@@ -23,44 +23,44 @@ At first, I just wanted to consume a GraphQL API without building the back-end, 
 
 After the first step, run the following commands in the root folder of the project to start the back-end:  
 
-2. install prisma globally 
+2. Command to install prisma globally 
 ```
 npm install -g prisma
 ```
 
-3. you can choose the prisma demo server
+3. After running this third command, you can choose the prisma demo server
 ```
 prisma deploy  
 ```
 
-4. generate the prisma client
+4. Command to generate the prisma client
 ```
 prisma generate
 ```
 
-5. start the project
+5. Start the project
 ```
 npm run start
 ```
 
 ## Running the Front End
 
-1. go to the client's folder
+1. Go to the client's folder
 ```
 cd client
 ```
 
-2. you can use NPM too
+2. Install the dependencies. You can use NPM too
 ```
 yarn install
 ```
 
-3. start the project
+3. Start the project
 ```
 yarn run start
 ```
 
-if you want to run the tests
+If you want to run the tests
 ```
 yarn test
 ```
