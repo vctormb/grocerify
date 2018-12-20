@@ -1,0 +1,19 @@
+{
+  "operation": "Login",
+  "response": {
+    "data": {
+      "login": {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwibmFtZSI6IlVzZXIiLCJpYXQiOjE1NDQ0ODIyMDZ9.sQvtvyttI5iP2tyzYC1-YZyMDK2MGhtacs35OeagWI0",
+        "user": {
+          "name": "User",
+          "order": {
+            "orderedProducts": [],
+            "__typename": "Order"
+          },
+          "__typename": "User"
+        },
+        "__typename": "AuthPayload"
+      }
+    }
+  }
+}

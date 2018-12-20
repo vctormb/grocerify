@@ -126,6 +126,7 @@ class LoginModal extends React.Component {
               <Flex flexDirection="column">
                 <Box mb={3}>
                   <Input
+                    name="email"
                     placeholder="email"
                     p="1rem"
                     onChange={e => this.setInputValue('email', e.target.value)}
@@ -133,6 +134,7 @@ class LoginModal extends React.Component {
                 </Box>
                 <Box mb={4}>
                   <Input
+                    name="password"
                     placeholder="password"
                     type="password"
                     p="1rem"

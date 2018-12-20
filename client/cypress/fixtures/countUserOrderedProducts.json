@@ -1,0 +1,8 @@
+{
+  "operation": "CountUserOrderedProducts",
+  "response": {
+    "data": {
+      "countUserOrderedProducts": 0
+    }
+  }
+}

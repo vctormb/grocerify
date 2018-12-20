@@ -141,6 +141,7 @@ class ProductCardAddToCart extends React.Component {
         >
           {(deleteOrderedProduct, { loading }) => (
             <RemoveBtn
+              data-testid="remove-from-cart-btn"
               onClick={() => this.removeFromCart(deleteOrderedProduct)}
               isLoading={loading}
               disabled={loading}

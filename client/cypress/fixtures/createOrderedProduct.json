@@ -1,0 +1,11 @@
+{
+  "operation": "CreateOrderedProduct",
+  "response": {
+    "data": {
+      "createOrderedProduct": {
+        "id": 1,
+        "__typename": "OrderedProduct"
+      }
+    }
+  }
+}
