@@ -157,6 +157,7 @@ class ProductCardAddToCart extends React.Component {
       >
         {(createOrderedProduct, { loading }) => (
           <AddToCartBtn
+            data-testid="add-to-cart-btn"
             onClick={() => this.addToCart(createOrderedProduct)}
             isLoading={loading}
             disabled={loading}

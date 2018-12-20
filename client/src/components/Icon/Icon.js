@@ -20,7 +20,7 @@ const Rotate = styled.span`
 `;
 
 const Icon = ({ icon, ...rest }) => (
-  <svg {...rest} data-testid="svg-icon">
+  <svg data-testid="svg-icon" {...rest}>
     <use xlinkHref={`${icons}#icon-${icon}`} />
   </svg>
 );

@@ -103,6 +103,7 @@ class Home extends React.Component {
                         width="16"
                         height="16"
                         fill={colors.v4}
+                        data-testid="loading-products-icon"
                       />
                     </Flex>
                   )}

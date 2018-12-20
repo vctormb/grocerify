@@ -16,7 +16,8 @@
     "react-transition-group": "^2.5.0",
     "recompose": "^0.30.0",
     "styled-components": "^4.1.2",
-    "universal-cookie": "^3.0.7"
+    "universal-cookie": "^3.0.7",
+    "whatwg-fetch": "^3.0.0"
   },
   "husky": {
     "hooks": {
@@ -33,11 +34,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "cypress:open": "cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
       "plugin:prettier/recommended",
+      "plugin:cypress/recommended",
       "react-app"
     ]
   },
@@ -48,7 +51,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "cypress": "^3.1.3",
     "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-cypress": "^2.1.3",
     "eslint-plugin-prettier": "^3.0.0",
     "husky": "^1.2.0",
     "jest-dom": "^3.0.0",

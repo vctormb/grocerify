@@ -1,0 +1,30 @@
+{
+  "data": {
+    "products": [
+      {
+        "id": 1,
+        "title": "Bananas",
+        "imageUrl": "http://i5.walmartimages.com/asr/209bb8a0-30ab-46be-b38d-58c2feb93e4a_1.1a15fb5bcbecbadd4a45822a11bf6257.jpeg?odnHeight=150&odnWidth=150&odnBg=ffffff",
+        "price": 1,
+        "userOrderedProduct": null,
+        "__typename": "Product"
+      },
+      {
+        "id": 2,
+        "title": "Strawberries",
+        "imageUrl": "http://i5.walmartimages.com/asr/d848296e-0770-439e-8437-aa945df49859_1.77691e3b66c66fc357d69ed2bef7db42.jpeg?odnHeight=150&odnWidth=150&odnBg=ffffff",
+        "price": 2,
+        "userOrderedProduct": null,
+        "__typename": "Product"
+      },
+      {
+        "id": 3,
+        "title": "Grapes",
+        "imageUrl": "http://i5.walmartimages.com/asr/0a051cac-7566-4a38-a65d-1b1293cf0288_1.9f4661a6a0e78e1981608c78abd1b74a.jpeg?odnHeight=150&odnWidth=150&odnBg=ffffff",
+        "price": 3,
+        "userOrderedProduct": null,
+        "__typename": "Product"
+      }
+    ]
+  }
+}
