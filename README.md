@@ -73,9 +73,9 @@ yarn test
 - [React Testing Library](https://github.com/kentcdodds/react-testing-library) for integration testing;
 
 ## Roadmap
-- Rewrite the UI to use TypeScript;
-- Add form validation;
 - E2E testing with Cypress;
+- Add form validation;
 - Aprimorate the UI to handle better with caching;
 - Aprimorate the back-end;
-- loading...
+- Rewrite the UI to use TypeScript;
+- more...
