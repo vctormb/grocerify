@@ -102,13 +102,17 @@ class ProductCardAddToCart extends React.Component {
   };
 
   removeFromCart = deleteOrderedProduct => {
-    this.props.withApp.setIsBlocking(true);
+    if (!this.props.withApp.isLoggedIn) {
+      this.props.withLoginModal.showModal(true);
+    } else {
+      this.props.withApp.setIsBlocking(true);
 
-    deleteOrderedProduct({
-      variables: {
-        productId: this.props.product.id,
-      },
-    });
+      deleteOrderedProduct({
+        variables: {
+          productId: this.props.product.id,
+        },
+      });
+    }
   };
 
   onUpdateRemoveFromCart = cache => {

@@ -1,0 +1,20 @@
+{
+  "operation": "Products",
+  "response": {
+    "data": {
+      "products": [
+        {
+          "id": 1,
+          "title": "Bananas",
+          "imageUrl": "http://i5.walmartimages.com/asr/209bb8a0-30ab-46be-b38d-58c2feb93e4a_1.1a15fb5bcbecbadd4a45822a11bf6257.jpeg?odnHeight=150&odnWidth=150&odnBg=ffffff",
+          "price": 1,
+          "userOrderedProduct": {
+            "id": 1,
+            "__typename": "Product"
+          },
+          "__typename": "Product"
+        }
+      ]
+    }
+  }
+}

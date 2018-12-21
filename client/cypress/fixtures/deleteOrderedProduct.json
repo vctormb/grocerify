@@ -1,0 +1,15 @@
+{
+  "operation": "DeleteOrderedProduct",
+  "response": {
+    "data": {
+      "deleteOrderedProduct": {
+        "orderedProduct": {
+          "id": 1,
+          "__typename": "OrderedProduct"
+        },
+        "totalPrice": 0,
+        "__typename": "OrderedProductPayload"
+      }
+    }
+  }
+}

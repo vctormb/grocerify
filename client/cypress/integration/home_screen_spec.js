@@ -1,9 +1,11 @@
+import gqlMock from '../../src/test-utils/gqlMock';
+
 describe('<Home /> list of products', () => {
   beforeEach(() => {
     cy.fixture('products').as('products');
   });
 
-  it.only('should render the list of products', function() {
+  it('should render the list of products', function() {
     cy.mockGraphQL([this.products]);
 
     cy.visit('/');
@@ -73,8 +75,53 @@ describe('<Home /> add to cart', () => {
     cy.get(addToCartBtn).click();
 
     cy.get('button[data-testid="remove-from-cart-btn"]').should('be.visible');
+
     cy.get('button[data-testid="cart-btn"]>div')
       .children('div[data-testid="badge"]')
       .contains('1');
+  });
+});
+
+describe('<Home /> remove from cart', () => {
+  beforeEach(() => {
+    cy.fixture('loginWithOrderedProduct').as('login');
+    cy.fixture('productsOneItemToRemove').as('productsOneItem');
+    cy.fixture('countUserOrderedProductsOneItem').as(
+      'countUserOrderedProducts'
+    );
+    cy.fixture('deleteOrderedProduct').as('deleteOrderedProduct');
+  });
+
+  it('should remove from cart when user is logged in', function() {
+    const removeFromCartBtn = 'button[data-testid="remove-from-cart-btn"]';
+
+    cy.mockGraphQL([
+      this.login,
+      this.productsOneItem,
+      this.countUserOrderedProducts,
+      this.deleteOrderedProduct,
+    ]);
+
+    cy.login();
+
+    cy.get('div').contains(/bananas/i);
+
+    cy.get('button[data-testid="remove-from-cart-btn"]').should('be.visible');
+
+    cy.get('button[data-testid="cart-btn"]>div')
+      .children('div[data-testid="badge"]')
+      .contains('1');
+
+    cy.get(removeFromCartBtn).click();
+
+    cy.get('button[data-testid="remove-from-cart-btn"]').should(
+      'not.be.visible'
+    );
+
+    cy.get('button[data-testid="add-to-cart-btn"]').should('be.visible');
+
+    cy.get('button[data-testid="cart-btn"]>div')
+      .children('div[data-testid="badge"]')
+      .should('not.be.visible');
   });
 });

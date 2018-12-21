@@ -130,6 +130,7 @@ class LoginForm extends React.Component {
                 {this.state.form.type === signupForm.type && (
                   <Box mb={3}>
                     <Input
+                      name="name"
                       placeholder="name"
                       p="1rem"
                       onChange={e => this.setInputValue('name', e.target.value)}
@@ -139,6 +140,7 @@ class LoginForm extends React.Component {
                 )}
                 <Box mb={3}>
                   <Input
+                    name="email"
                     placeholder="email"
                     p="1rem"
                     onChange={e => this.setInputValue('email', e.target.value)}
@@ -147,6 +149,7 @@ class LoginForm extends React.Component {
                 </Box>
                 <Box mb={4}>
                   <Input
+                    name="password"
                     placeholder="password"
                     type="password"
                     p="1rem"
@@ -156,7 +159,7 @@ class LoginForm extends React.Component {
                     value={this.state.inputs.password}
                   />
                 </Box>
-                <Button size="lg" disabled={loading}>
+                <Button size="lg" disabled={loading} data-testid="login-btn">
                   {loading ? 'loading...' : this.state.form.submitText}
                 </Button>
                 <Flex>
