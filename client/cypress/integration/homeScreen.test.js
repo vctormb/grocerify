@@ -1,5 +1,3 @@
-import gqlMock from '../../src/test-utils/gqlMock';
-
 describe('<Home /> list of products', () => {
   beforeEach(() => {
     cy.fixture('products').as('products');

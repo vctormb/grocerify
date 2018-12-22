@@ -1,0 +1,16 @@
+{
+  "operation": "UserOrder",
+  "response": {
+    "data": {
+      "userOrder": {
+        "order": {
+          "id": 1,
+          "orderedProducts": [],
+          "__typename": "Order"
+        },
+        "totalPrice": 0,
+        "__typename": "OrderPayload"
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "operation": "UpdateOrderedProduct",
+  "response": {
+    "data": {
+      "updateOrderedProduct": {
+        "orderedProduct": {
+          "id": "1",
+          "quantity": 3,
+          "__typename": "OrderedProduct"
+        },
+        "totalPrice": 3,
+        "__typename": "OrderedProductPayload"
+      }
+    }
+  }
+}

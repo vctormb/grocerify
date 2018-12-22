@@ -95,6 +95,7 @@ class ProductCardCartFooter extends React.Component {
         >
           {(deleteOrderedProduct, { loading }) => (
             <Button
+              data-testid="remove-from-cart-btn"
               size="xs"
               appearance="textSuccess"
               disabled={loading || withApp.isBlocking}

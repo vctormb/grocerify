@@ -1,0 +1,53 @@
+{
+  "operation": "UserOrder",
+  "response": {
+    "data": {
+      "userOrder": {
+        "order": {
+          "id": 1,
+          "orderedProducts": [
+            {
+              "id": "1",
+              "quantity": 2,
+              "product": {
+                "id": "1",
+                "title": "Bananas",
+                "imageUrl": "http://i5.walmartimages.com/asr/209bb8a0-30ab-46be-b38d-58c2feb93e4a_1.1a15fb5bcbecbadd4a45822a11bf6257.jpeg?odnHeight=150&odnWidth=150&odnBg=ffffff",
+                "price": 1,
+                "__typename": "Product"
+              },
+              "__typename": "OrderedProduct"
+            },
+            {
+              "id": "2",
+              "quantity": 1,
+              "product": {
+                "id": "2",
+                "title": "Oranges",
+                "imageUrl": "http://i5.walmartimages.com/asr/720bb11c-7f38-410f-a773-6530c81a46af_1.06388963ccdbc1be55d36961ccf3d16c.jpeg?odnHeight=150&odnWidth=150&odnBg=ffffff",
+                "price": 2,
+                "__typename": "Product"
+              },
+              "__typename": "OrderedProduct"
+            },
+            {
+              "id": "3",
+              "quantity": 1,
+              "product": {
+                "id": "3",
+                "title": "Apples",
+                "imageUrl": "http://i5.walmartimages.com/asr/2b4a8c7c-941f-4575-b1fe-2479c8024077_1.b3c876a51211d14cbdd5fc631995809c.jpeg?odnHeight=150&odnWidth=150&odnBg=ffffff",
+                "price": 3,
+                "__typename": "Product"
+              },
+              "__typename": "OrderedProduct"
+            }
+          ],
+          "__typename": "Order"
+        },
+        "totalPrice": 7,
+        "__typename": "OrderPayload"
+      }
+    }
+  }
+}
