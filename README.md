@@ -89,6 +89,7 @@ yarn cypress:open
 - [GraphQL Apollo](https://www.apollographql.com/) Client and Server;
 - [Prisma](https://www.prisma.io/);
 - [React Testing Library](https://github.com/kentcdodds/react-testing-library) for integration testing;
+- [Cypress](https://www.cypress.io/) for end-to-end testing;
 
 ## Roadmap
 
