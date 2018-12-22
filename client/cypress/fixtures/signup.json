@@ -1,0 +1,11 @@
+{
+  "operation": "Signup",
+  "response": {
+    "data": {
+      "signup": {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwibmFtZSI6IlVzZXIiLCJpYXQiOjE1NDQ0ODIyMDZ9.sQvtvyttI5iP2tyzYC1-YZyMDK2MGhtacs35OeagWI0",
+        "__typename": "AuthPayload"
+      }
+    }
+  }
+}

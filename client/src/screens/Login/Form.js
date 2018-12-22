@@ -167,6 +167,7 @@ class LoginForm extends React.Component {
                     type="button"
                     onClick={this.handleLoginOrSignup}
                     disabled={loading}
+                    data-testid="create-acc-btn"
                   >
                     {this.state.form.footerButtonText}
                   </CreateAccountBtn>
