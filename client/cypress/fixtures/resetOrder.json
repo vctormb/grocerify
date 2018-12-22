@@ -1,0 +1,11 @@
+{
+  "operation": "ResetOrder",
+  "response": {
+    "data": {
+      "resetOrder": {
+        "count": 0,
+        "__typename": "BatchPayload"
+      }
+    }
+  }
+}

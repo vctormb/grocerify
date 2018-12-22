@@ -2,11 +2,17 @@ describe('<Cart /> redirect to cart screen with empty cart message', () => {
   beforeEach(() => {
     cy.fixture('loginWithOrderedProduct').as('login');
     cy.fixture('products').as('products');
+    cy.fixture('countUserOrderedProducts').as('countUserOrderedProducts');
     cy.fixture('userOrderEmpty').as('userOrder');
   });
 
   it('should show the empty cart message if there`s no products in the cart', function() {
-    cy.mockGraphQL([this.login, this.products, this.userOrder]);
+    cy.mockGraphQL([
+      this.login,
+      this.products,
+      this.countUserOrderedProducts,
+      this.userOrder,
+    ]);
 
     cy.login();
 
@@ -100,9 +106,7 @@ describe('<Cart /> remove product', () => {
     cy.fixture('deleteOrderedProduct').as('deleteOrderedProduct');
   });
 
-  it.only('should remove the product from cart when clicked on remove btn', function() {
-    const quantityInput = 'input[data-testid="quantity-input"]';
-
+  it('should remove the product from cart when clicked on remove btn', function() {
     cy.mockGraphQL([
       this.login,
       this.productsOneItem,
@@ -121,7 +125,45 @@ describe('<Cart /> remove product', () => {
 
     cy.get('button[data-testid="remove-from-cart-btn"]').click();
 
-    cy.get('div').contains(/your cart is empty/i);
+    cy.contains(/your cart is empty/i);
+
+    cy.get('button[data-testid="cart-btn"]>div')
+      .children('div[data-testid="badge"]')
+      .should('not.be.visible');
+  });
+});
+
+describe('<Cart /> do the checkout', () => {
+  beforeEach(() => {
+    cy.fixture('loginWithOrderedProduct').as('login');
+    cy.fixture('countUserOrderedProductsOneItem').as(
+      'countUserOrderedProducts'
+    );
+    cy.fixture('productsOneItem').as('productsOneItem');
+    cy.fixture('userOrderOneItem').as('userOrder');
+    cy.fixture('resetOrder').as('resetOrder');
+  });
+
+  it('should navigate to the success screen when clicked on checkout btn', function() {
+    cy.mockGraphQL([
+      this.login,
+      this.productsOneItem,
+      this.countUserOrderedProducts,
+      this.userOrder,
+      this.resetOrder,
+    ]);
+
+    cy.login();
+
+    cy.visit('/cart');
+
+    cy.get('button[data-testid="cart-btn"]>div')
+      .children('div[data-testid="badge"]')
+      .contains('1');
+
+    cy.get('button[data-testid="checkout-btn"]').click();
+
+    cy.contains(/all done/i);
 
     cy.get('button[data-testid="cart-btn"]>div')
       .children('div[data-testid="badge"]')

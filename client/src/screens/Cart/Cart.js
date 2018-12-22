@@ -134,6 +134,7 @@ class Cart extends React.Component {
                           </Flex>
                           <Flex flexDirection="column" mt={4}>
                             <Button
+                              data-testid="checkout-btn"
                               size="lg"
                               appearance="danger"
                               disabled={withApp.isBlocking}

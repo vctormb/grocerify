@@ -29,7 +29,7 @@ describe('<Home /> showing login modal', () => {
 
     cy.get('button[data-testid="add-to-cart-btn"]').click();
 
-    cy.get('h3').contains(/you need to login first/i);
+    cy.contains(/you need to login first/i);
   });
 });
 
@@ -53,7 +53,7 @@ describe('<Home /> add to cart', () => {
 
     cy.visit('/');
 
-    cy.get('div').contains(/bananas/i);
+    cy.contains(/bananas/i);
 
     cy.get(addToCartBtn).click();
 
@@ -102,7 +102,7 @@ describe('<Home /> remove from cart', () => {
 
     cy.login();
 
-    cy.get('div').contains(/bananas/i);
+    cy.contains(/bananas/i);
 
     cy.get('button[data-testid="remove-from-cart-btn"]').should('be.visible');
 
