@@ -63,7 +63,7 @@ describe('<Cart /> decrement product', () => {
     cy.fixture('decrementOrderedProduct').as('decrementOrderedProduct');
   });
 
-  it.only('should increment the order price when a product is incremented', function() {
+  it('should increment the order price when a product is incremented', function() {
     const quantityInput = 'input[data-testid="quantity-input"]';
 
     cy.mockGraphQL([
@@ -86,5 +86,45 @@ describe('<Cart /> decrement product', () => {
 
     cy.contains('$ 1.00');
     cy.get(quantityInput).should('have.value', '1');
+  });
+});
+
+describe('<Cart /> remove product', () => {
+  beforeEach(() => {
+    cy.fixture('loginWithOrderedProduct').as('login');
+    cy.fixture('countUserOrderedProductsOneItem').as(
+      'countUserOrderedProducts'
+    );
+    cy.fixture('productsOneItem').as('productsOneItem');
+    cy.fixture('userOrderOneItem').as('userOrder');
+    cy.fixture('deleteOrderedProduct').as('deleteOrderedProduct');
+  });
+
+  it.only('should remove the product from cart when clicked on remove btn', function() {
+    const quantityInput = 'input[data-testid="quantity-input"]';
+
+    cy.mockGraphQL([
+      this.login,
+      this.productsOneItem,
+      this.countUserOrderedProducts,
+      this.userOrder,
+      this.deleteOrderedProduct,
+    ]);
+
+    cy.login();
+
+    cy.visit('/cart');
+
+    cy.get('button[data-testid="cart-btn"]>div')
+      .children('div[data-testid="badge"]')
+      .contains('1');
+
+    cy.get('button[data-testid="remove-from-cart-btn"]').click();
+
+    cy.get('div').contains(/your cart is empty/i);
+
+    cy.get('button[data-testid="cart-btn"]>div')
+      .children('div[data-testid="badge"]')
+      .should('not.be.visible');
   });
 });
