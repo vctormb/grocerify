@@ -4,16 +4,16 @@
   "private": true,
   "dependencies": {
     "@rebass/grid": "^6.0.0-7",
-    "apollo-boost": "^0.1.22",
+    "apollo-boost": "^0.1.23",
     "graphql": "^14.0.2",
     "jwt-decode": "^2.2.0",
     "lodash.throttle": "^4.1.1",
-    "react": "^16.6.3",
+    "react": "^16.7.0",
     "react-apollo": "^2.3.2",
-    "react-dom": "^16.6.3",
+    "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
-    "react-transition-group": "^2.5.0",
+    "react-transition-group": "^2.5.2",
     "recompose": "^0.30.0",
     "styled-components": "^4.1.2",
     "universal-cookie": "^3.0.7",
@@ -60,6 +60,6 @@
     "jest-styled-components": "^6.3.1",
     "lint-staged": "^8.1.0",
     "prettier": "^1.15.3",
-    "react-testing-library": "^5.3.2"
+    "react-testing-library": "^5.4.2"
   }
 }
