@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, fireEvent } from 'test-utils';
+import { render, cleanup, fireEvent, wait } from 'test-utils';
 
 import QuantityField from '../QuantityField';
 
@@ -47,11 +47,13 @@ describe('<QuantityField />', () => {
     expect(qntInput.value).toBe('1');
   });
 
-  it('Decrements QuantityField value', () => {
-    const { getByTestId } = render(<QuantityField count={4} />);
+  it('Decrements QuantityField value', async () => {
+    const { getByTestId, debug } = render(<QuantityField count={4} />);
 
     const decrementBtn = getByTestId(decrementBtnId);
     const qntInput = getByTestId(qntInputId);
+
+    await wait(() => expect(qntInput.value).toBe('4'));
 
     fireEvent.click(decrementBtn);
     expect(qntInput.value).toBe('3');
@@ -60,14 +62,14 @@ describe('<QuantityField />', () => {
     expect(qntInput.value).toBe('2');
   });
 
-  it('should rerender the component with new value', () => {
-    const { getByTestId, rerender } = render(<QuantityField count={1} />);
+  it('should rerender the component with new value', async () => {
+    const { getByTestId, rerender } = render(<QuantityField />);
 
     const qntInput = getByTestId(qntInputId);
 
     expect(qntInput.value).toBe('1');
 
     rerender(<QuantityField count={2} />);
-    expect(qntInput.value).toBe('2');
+    await wait(() => expect(qntInput.value).toBe('2'));
   });
 });

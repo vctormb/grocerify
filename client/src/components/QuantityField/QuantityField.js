@@ -14,78 +14,84 @@ const StyledInput = styled(Input)`
   margin: 0 2px;
 `;
 
-class QuantityField extends React.Component {
-  state = {
-    count: 1,
-  };
+function useMounted(callback, inputs) {
+  const mounted = React.useRef(false);
 
-  componentDidMount() {
-    if (this.props.count) {
-      this.setState({
-        count: this.props.count,
-      });
+  React.useEffect(() => {
+    if (mounted.current) {
+      callback();
     }
-  }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.count !== this.props.count) {
-      this.setState({
-        count: this.props.count,
-      });
+    mounted.current = true;
+  }, inputs);
+}
+
+function QuantityField(props) {
+  const [count, setCount] = React.useState(1);
+
+  React.useEffect(() => {
+    if (props.count) {
+      setCount(props.count);
     }
+  }, []);
+
+  useMounted(
+    () => {
+      setCount(props.count);
+    },
+    [props.count]
+  );
+
+  function incrementValue() {
+    const value = count + 1;
+
+    setCount(value);
+    handleChange(value);
   }
 
-  plusValue = () => {
-    this.setState({ count: this.state.count + 1 }, () => {
-      this.handleChange();
-    });
-  };
+  function decrementValue() {
+    if (count === 1) return;
 
-  minusValue = () => {
-    if (this.state.count === 1) return;
+    const value = count - 1;
 
-    this.setState({ count: this.state.count - 1 }, () => {
-      this.handleChange();
-    });
-  };
-
-  handleChange() {
-    const { onChange } = this.props;
-
-    if (onChange) onChange(this.state.count);
+    setCount(value);
+    handleChange(value);
   }
 
-  render() {
-    const { disabled } = this.props;
-    return (
-      <Flex>
-        <Button
-          size="xs"
-          appearance="textSuccess"
-          onClick={this.minusValue}
-          data-testid="quantity-decrement"
-          disabled={disabled}
-        >
-          -
-        </Button>
-        <StyledInput
-          p={`0 ${pxToRem(5)}`}
-          value={this.state.count}
-          readOnly={true}
-          data-testid="quantity-input"
-        />
-        <Button
-          size="xs"
-          appearance="textSuccess"
-          onClick={this.plusValue}
-          data-testid="quantity-increment"
-          disabled={disabled}
-        >
-          +
-        </Button>
-      </Flex>
-    );
+  function handleChange(value) {
+    const { onChange } = props;
+
+    if (onChange) onChange(value);
   }
+
+  return (
+    <Flex>
+      <Button
+        size="xs"
+        appearance="textSuccess"
+        onClick={decrementValue}
+        data-testid="quantity-decrement"
+        disabled={props.disabled}
+      >
+        -
+      </Button>
+      <StyledInput
+        p={`0 ${pxToRem(5)}`}
+        value={count}
+        readOnly={true}
+        data-testid="quantity-input"
+      />
+      <Button
+        size="xs"
+        appearance="textSuccess"
+        onClick={incrementValue}
+        data-testid="quantity-increment"
+        disabled={props.disabled}
+      >
+        +
+      </Button>
+    </Flex>
+  );
 }
 
 QuantityField.propTypes = {
